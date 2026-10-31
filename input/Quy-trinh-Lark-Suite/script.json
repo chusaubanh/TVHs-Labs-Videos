@@ -1,0 +1,112 @@
+{
+  "version": "3.0",
+  "documentName": "Quy-trinh-Lark-Suite",
+  "title": "Quy Chuẩn Làm Việc Trên Lark Suite Tại TVHs",
+  "voice": {
+    "id": "hn-thanh-mai",
+    "tone": "tu_nhien",
+    "speed": 1.0
+  },
+  "targetAudience": "Toàn thể cán bộ nhân viên Thành Vinh Holdings",
+  "totalDurationSec": 60,
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "section": "Mở đầu",
+      "contentType": "tinh-huong",
+      "sceneType": "hook",
+      "narration": "Chào mừng các bạn đến với khóa đào tạo nội bộ của Thành Vinh Holdings. Hôm nay chúng ta cùng chuẩn hóa cách làm việc trên hệ thống Lark Suite.",
+      "display": {
+        "title": "Chuẩn Hóa Làm Việc Trên Lark Suite",
+        "badge": "ĐÀO TẠO NỘI BỘ • TVHS",
+        "subtitle": "Nắm vững ba nguyên tắc giao tiếp và giao việc chuẩn xác, không trôi tin nhắn."
+      },
+      "visual": "Logo TVHS phát sáng, tiêu đề bài học pop-in bằng lò xo spring.",
+      "durationSec": 10,
+      "durationInFrames": 300
+    },
+    {
+      "id": "scene-02-concept",
+      "section": "1. Nguyên tắc giao tiếp",
+      "contentType": "khai-niem",
+      "sceneType": "concept",
+      "narration": "Nguyên tắc đầu tiên là phản hồi trong chuỗi hội thoại. Tuyệt đối không chat rời rạc khiến đồng nghiệp mất ngữ cảnh công việc.",
+      "display": {
+        "title": "Reply In Thread (Trả lời chuỗi)",
+        "subtitle": "Mọi trao đổi cho một đầu việc phải nằm trọn vẹn trong một chuỗi tin nhắn duy nhất.",
+        "bullets": [
+          "Giữ sạch hộp thư chung, dễ dàng truy vết lịch sử quyết định."
+        ]
+      },
+      "visual": "Satori typographic card làm nổi bật định nghĩa và nguyên tắc TVHs.",
+      "durationSec": 10,
+      "durationInFrames": 300
+    },
+    {
+      "id": "scene-03-process",
+      "section": "2. Quy trình giao việc",
+      "contentType": "quy-trinh",
+      "sceneType": "process",
+      "narration": "Khi giao việc, chúng ta tuân thủ đúng ba bước: Tạo Lark Task, gắn đúng người phụ trách, và chốt thời hạn hoàn thành.",
+      "display": {
+        "title": "Ba Bước Giao Việc Chuẩn Mực",
+        "steps": [
+          {
+            "step": 1,
+            "title": "Tạo Lark Task",
+            "desc": "Không giao việc bằng miệng hoặc chat riêng lẻ"
+          },
+          {
+            "step": 2,
+            "title": "Gắn Assignee & Follower",
+            "desc": "Đúng người chịu trách nhiệm chính (DRI)"
+          },
+          {
+            "step": 3,
+            "title": "Chốt Due Date",
+            "desc": "Thời hạn rõ ràng, có nhắc nhở tự động"
+          }
+        ]
+      },
+      "visual": "Anime.js vẽ nét stroke kết nối ba bước công việc mạch lạc.",
+      "durationSec": 12,
+      "durationInFrames": 360
+    },
+    {
+      "id": "scene-04-comparison",
+      "section": "3. Thói quen Đúng vs Sai",
+      "contentType": "so-sanh",
+      "sceneType": "comparison",
+      "narration": "Thay vì chỉ nhắn alo rồi chờ phản hồi, hãy trình bày ngắn gọn vấn đề, mục đích và giải pháp đề xuất ngay trong tin nhắn đầu tiên.",
+      "display": {
+        "title": "Văn Hóa Nhắn Tin Tại TVHs",
+        "comparison": {
+          "incorrect": "Nhắn 'Alo anh ơi' rồi chờ mười lăm phút không nói việc gì, làm ngắt quãng mạch làm việc.",
+          "correct": "Đi thẳng vào vấn đề: Nêu bối cảnh, câu hỏi và đề xuất cụ thể để đồng nghiệp duyệt ngay."
+        }
+      },
+      "visual": "Bảng so sánh Đỏ (Sai) vs Xanh (Đúng chuẩn mực) xuất hiện với spring animation.",
+      "durationSec": 14,
+      "durationInFrames": 420
+    },
+    {
+      "id": "scene-05-summary",
+      "section": "Tổng kết & Cam kết",
+      "contentType": "ket-luan",
+      "sceneType": "summary",
+      "narration": "Ghi nhớ ba nguyên tắc: trả lời đúng chuỗi, giao việc bằng Lark Task, và giao tiếp chủ động. Hãy áp dụng ngay từ hôm nay!",
+      "display": {
+        "title": "Ba Quy Tắc Vàng Cần Nhớ",
+        "bullets": [
+          "Luôn trả lời trong chuỗi (Thread) để không trôi tin",
+          "Mọi nhiệm vụ đều phải có Lark Task và Deadline",
+          "Giao tiếp thẳng thắn, rõ ràng, tôn trọng thời gian đồng nghiệp"
+        ],
+        "subtitle": "Hành động ngay hôm nay để xây dựng môi trường làm việc tốc độ và chuyên nghiệp!"
+      },
+      "visual": "Kinetic typography GSAP đúc kết ba điểm và hiển thị CTA outro của TVHs.",
+      "durationSec": 14,
+      "durationInFrames": 420
+    }
+  ]
+}

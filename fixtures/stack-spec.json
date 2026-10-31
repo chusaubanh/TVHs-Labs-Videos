@@ -1,0 +1,1 @@
+{"frames":90,"fps":30,"bodies":[{"name":"a","position":[0,1,0],"halfExtents":[0.5,0.5,0.5]},{"name":"b","position":[0.2,3,0],"halfExtents":[0.5,0.5,0.5],"rotationZ":0.4},{"name":"c","position":[-0.2,5,0],"halfExtents":[0.5,0.5,0.5],"rotationZ":-0.3}]}

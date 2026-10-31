@@ -1,0 +1,15 @@
+node_modules/
+.research/
+output/*.mp4
+output/*.mp3
+.cache/
+.remotion/
+dist/
+tmp/
+.env
+.env.local
+.venv*/
+.venv-install.log
+public/jobs/
+output/
+graphify-out/cache/
