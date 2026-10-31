@@ -1,10 +1,4 @@
 {
-  "package.json": {
-    "mtime": 1793423501.78376,
-    "seen": 1793424137.2704296,
-    "ast_hash": "55dbbc837cd05601d7059285e8fe89f8",
-    "semantic_hash": "55dbbc837cd05601d7059285e8fe89f8"
-  },
   "remotion.config.ts": {
     "mtime": 1793409911.5736036,
     "seen": 1793424137.2704377,
@@ -42,10 +36,10 @@
     "semantic_hash": "9d27403667a7849cce0d53866523860c"
   },
   "scripts/pipeline-runner.ts": {
-    "mtime": 1793423689.2499132,
-    "seen": 1793424137.270449,
-    "ast_hash": "32c0c8e27e6a44c9d66118b7e32d71a2",
-    "semantic_hash": "32c0c8e27e6a44c9d66118b7e32d71a2"
+    "mtime": 1793424363.697148,
+    "seen": 1793424491.0989969,
+    "ast_hash": "6ba24c19a620947a37658bf3d0a7e9e9",
+    "semantic_hash": ""
   },
   "scripts/qc-ffmpeg.ts": {
     "mtime": 1793422137.207718,
@@ -180,10 +174,10 @@
     "semantic_hash": "2559663cadf6ceeb03d0124627431683"
   },
   "src/training/script-checks.ts": {
-    "mtime": 1793422120.6231503,
-    "seen": 1793424137.2704818,
-    "ast_hash": "8a44bb0daf1f3fb4797241daae7e6033",
-    "semantic_hash": "8a44bb0daf1f3fb4797241daae7e6033"
+    "mtime": 1793424400.8832812,
+    "seen": 1793424491.0990417,
+    "ast_hash": "1024abef13e5f06f0fd13a680f128cdd",
+    "semantic_hash": ""
   },
   "src/training/script-validate-cli.ts": {
     "mtime": 1793422122.7226858,
@@ -210,10 +204,10 @@
     "semantic_hash": "3a41e67ef5f0d798fcc73798a6a11772"
   },
   "tests/gates.test.ts": {
-    "mtime": 1793422272.08771,
-    "seen": 1793424137.270489,
-    "ast_hash": "ce02983e8410564ec7359e6b8ffd8d73",
-    "semantic_hash": "ce02983e8410564ec7359e6b8ffd8d73"
+    "mtime": 1793424362.0214643,
+    "seen": 1793424491.0990505,
+    "ast_hash": "10919ebbef63df266ecea592b0d51c63",
+    "semantic_hash": ""
   },
   "tests/job.test.ts": {
     "mtime": 1793422272.9194715,
@@ -222,16 +216,10 @@
     "semantic_hash": "c3d2311daa18cde8996781359e136c70"
   },
   "tests/script-checks.test.ts": {
-    "mtime": 1793422271.2424066,
-    "seen": 1793424137.2704918,
-    "ast_hash": "4e71b0643b6893d7cc0be98be69a5010",
-    "semantic_hash": "4e71b0643b6893d7cc0be98be69a5010"
-  },
-  "tsconfig.json": {
-    "mtime": 1793410126.0752714,
-    "seen": 1793424137.2704933,
-    "ast_hash": "6719178c3916b682f1d94f99513c5962",
-    "semantic_hash": "6719178c3916b682f1d94f99513c5962"
+    "mtime": 1793424367.803967,
+    "seen": 1793424491.099054,
+    "ast_hash": "708f5f7f03215a6e3e6a1950da6b1439",
+    "semantic_hash": ""
   },
   "vitest.config.ts": {
     "mtime": 1793420349.0278678,
@@ -264,10 +252,10 @@
     "semantic_hash": "9cd8f6ca91d30046a9fe4e8d12b95392"
   },
   ".claude/agents/s5a-motion-2d.md": {
-    "mtime": 1793421315.8804889,
-    "seen": 1793424137.2705026,
-    "ast_hash": "91bbe4695aa33f9c154b7965709f6f8e",
-    "semantic_hash": "91bbe4695aa33f9c154b7965709f6f8e"
+    "mtime": 1793424370.2563016,
+    "seen": 1793424491.0990648,
+    "ast_hash": "c7a7e038361e50664f773360e7272dab",
+    "semantic_hash": ""
   },
   ".claude/agents/s5b-stage-3d.md": {
     "mtime": 1793421316.6906536,
@@ -288,10 +276,10 @@
     "semantic_hash": "17226ff1c292b35334a565b3687fb903"
   },
   "CLAUDE.md": {
-    "mtime": 1793423777.6587858,
-    "seen": 1793424137.2705085,
-    "ast_hash": "02812bd5c920a948b429ba075ae15151",
-    "semantic_hash": "02812bd5c920a948b429ba075ae15151"
+    "mtime": 1793424371.0900059,
+    "seen": 1793424491.0990722,
+    "ast_hash": "e7e91145bf25653cca9742d38f4f16cc",
+    "semantic_hash": ""
   },
   "README.md": {
     "mtime": 1793423799.0123653,
@@ -324,9 +312,15 @@
     "semantic_hash": "51f54885f508551ecca46c0c292f2e49"
   },
   "docs/QUY-TRINH.md": {
-    "mtime": 1793423775.9703946,
-    "seen": 1793424137.270517,
-    "ast_hash": "0047b3503809c029550c770695e16708",
-    "semantic_hash": "0047b3503809c029550c770695e16708"
+    "mtime": 1793424369.4408517,
+    "seen": 1793424491.099083,
+    "ast_hash": "026066f155e24865d298ca68fe40a957",
+    "semantic_hash": ""
+  },
+  "src/gates/raw-text.ts": {
+    "mtime": 1793424360.3340206,
+    "seen": 1793424491.0990164,
+    "ast_hash": "6785da4d246e869f507b49a8c97472bf",
+    "semantic_hash": ""
   }
 }

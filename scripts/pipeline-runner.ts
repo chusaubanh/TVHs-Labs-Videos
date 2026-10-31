@@ -35,7 +35,7 @@ const silentMix = join(job.outputDir, "_render.mp4");
 const finalPath = join(job.outputDir, "video.mp4");
 
 console.log("[1/3] Render");
-execFileSync("npx", ["remotion", "render", "src/remotion/index.ts", "TrainingVideo", `"${silentMix}"`, `--props="${job.propsPath}"`, "--gl=angle", "--log=error"], { stdio: "inherit", shell: true });
+execFileSync("npx", ["remotion", "render", "src/remotion/index.ts", "TrainingVideo", `"${silentMix}"`, `--props="${job.propsPath}"`, "--gl=angle", "--hardware-acceleration=required", "--log=error"], { stdio: "inherit", shell: true });
 
 console.log("[2/3] Chuẩn hoá độ to");
 normalizeLoudness(silentMix, finalPath);

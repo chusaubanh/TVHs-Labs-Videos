@@ -9,8 +9,8 @@ export interface ScriptIssue {
 
 const MAX_WORDS_PER_LABEL = 8;
 const MAX_REPEATED_WORDS = 5;
-/** Tốc độ đọc dùng để ước lượng trước khi có giọng thật. */
-export const ESTIMATE_WORDS_PER_SEC = 215 / 60;
+/** Tốc độ đọc ở speed 1, hiệu chỉnh theo giọng đo thật của bài Mở đầu (31/10/2026). */
+export const ESTIMATE_WORDS_PER_SEC = 250 / 60;
 
 const normalize = (text: string): string =>
   text.normalize("NFC").toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ").trim();
@@ -25,7 +25,7 @@ export function estimateSentenceSec(text: string): number {
 export function estimateTotalSec(script: TrainingScript): number {
   return script.scenes
     .flatMap((scene) => scene.voiceSegments)
-    .reduce((sum, text) => sum + estimateSentenceSec(text) + script.voice.sentenceGapSec, 0);
+    .reduce((sum, text) => sum + estimateSentenceSec(text) / script.voice.speed + script.voice.sentenceGapSec, script.scenes.length * script.voice.sceneGapSec);
 }
 
 /** Máy chỉ bắt được từ và số lạ. Tính đúng nghĩa vẫn do S6 đọc đối chiếu. */
@@ -141,7 +141,8 @@ export function checkLength(script: TrainingScript): ScriptIssue[] {
     issues.push({ level: "error", where: "lengthDecision", message: "Đang chờ người dùng chốt phương án thời lượng." });
   }
   const estimate = estimateTotalSec(script);
-  if (estimate > MAX_SINGLE_VIDEO_SEC && script.lengthDecision.status !== "split") {
+  const accepted = script.lengthDecision.status === "split" || (script.lengthDecision.status === "single" && script.lengthDecision.overLimitAccepted === true);
+  if (estimate > MAX_SINGLE_VIDEO_SEC && !accepted) {
     issues.push({
       level: "error",
       where: "thời lượng",
@@ -191,10 +192,10 @@ export function renderScriptReview(script: TrainingScript): string {
     "| :---: | :--- | :--- | :--- | :---: |",
   ];
   let index = 1;
-  let total = 0;
+  let total = script.scenes.length * script.voice.sceneGapSec;
   for (const scene of script.scenes) {
     scene.voiceSegments.forEach((text, i) => {
-      const sec = estimateSentenceSec(text);
+      const sec = estimateSentenceSec(text) / script.voice.speed;
       total += sec + script.voice.sentenceGapSec;
       lines.push(`| ${index++} | ${cell(scene.section)} | ${cell(text)} | ${cell(scene.visual[i] ?? "")} | ${sec.toFixed(1)} giây |`);
     });

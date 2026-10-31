@@ -42,6 +42,8 @@ export const LengthDecisionSchema = z.discriminatedUnion("status", [
   z.object({
     status: z.enum(["single", "split"]),
     confirmedBy: z.string().min(1),
+    /** Người dùng đã chấp nhận một video vượt mức, thay vì tách hoặc cắt nội dung. */
+    overLimitAccepted: z.boolean().optional(),
   }),
 ]);
 
@@ -50,6 +52,17 @@ export const SfxCueSchema = z.object({
   sentence: z.number().int().min(0),
   fraction: z.number().min(0).max(1).default(0),
   volume: z.number().min(0).max(1).default(0.6),
+  /** Giây trong file mà tiếng đập rõ nhất, để điểm đó trùng đúng nhịp hình. */
+  hitSec: z.number().min(0).default(0),
+});
+
+export const MusicSchema = z.object({
+  src: z.string().min(1),
+  /** Mức nhạc khi có lời đọc và khi nghỉ giữa các cảnh. */
+  underVoice: z.number().min(0).max(1),
+  inGap: z.number().min(0).max(1),
+  fadeInSec: z.number().min(0).default(1),
+  fadeOutSec: z.number().min(0).default(2),
 });
 
 export const TrainingSceneSchema = z
@@ -94,10 +107,13 @@ export const TrainingScriptSchema = z
       tone: z.enum(["tu_nhien", "tin_tuc", "doc_truyen"]),
       speed: z.number().min(0.5).max(2).default(1),
       sentenceGapSec: z.number().min(0).max(2).default(0.12),
+      /** Khoảng lặng cuối mỗi cảnh, cho người nghe kịp tiếp thu. */
+      sceneGapSec: z.number().min(0).max(3).default(0.4),
     }),
     targetAudience: z.string().min(1),
     analysis: AnalysisSchema,
     lengthDecision: LengthDecisionSchema,
+    music: MusicSchema.optional(),
     scenes: z.array(TrainingSceneSchema).min(1),
   })
   .superRefine((script, ctx) => {
@@ -144,7 +160,6 @@ export function buildTimeline(
   measuredSec: (sceneId: string, sentence: number) => number,
 ): Timeline {
   const gap = script.voice.sentenceGapSec;
-  const tailSec = 0.4;
   let cursor = 0;
   const scenes = script.scenes.map((scene) => {
     let inner = 0;
@@ -159,7 +174,7 @@ export function buildTimeline(
       inner += durationSec + gap;
       return timing;
     });
-    const durationSec = round(inner - gap + tailSec);
+    const durationSec = round(inner - gap + script.voice.sceneGapSec);
     const result = { id: scene.id, startSec: round(cursor), durationSec, sentences };
     cursor += durationSec;
     return result;

@@ -81,6 +81,11 @@ describe("cổng thời lượng", () => {
     const script = base({}, { voiceSegments: long, visual: long });
     expect(checkLength(script).some((issue) => issue.message.includes("tách"))).toBe(true);
   });
+  it("người dùng chấp nhận vượt mức thì không chặn", () => {
+    const long = Array.from({ length: 80 }, () => "Một câu đủ dài để cộng dồn thời lượng của toàn bộ video này lên.");
+    const script = base({ lengthDecision: { status: "single", confirmedBy: "u", overLimitAccepted: true } }, { voiceSegments: long, visual: long });
+    expect(checkLength(script)).toHaveLength(0);
+  });
   it("video ngắn hơn 3 phút vẫn hợp lệ", () => {
     expect(checkScript(base(), SOURCE).filter((issue) => issue.level === "error")).toHaveLength(0);
   });

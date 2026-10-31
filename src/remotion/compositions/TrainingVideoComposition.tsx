@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, staticFile, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Img, interpolate, Sequence, staticFile, useVideoConfig } from "remotion";
 import type { CalculateMetadataFunction } from "remotion";
 import { SceneProvider } from "../../kit/scene-context";
 import {
@@ -33,6 +33,24 @@ export const calculateTrainingMetadata: CalculateMetadataFunction<TrainingVideoP
   };
 };
 
+/** Nhạc nền theo khung: hạ dưới lời đọc, nhích lên ở khoảng nghỉ giữa các cảnh, vào và ra êm. */
+export function musicVolume(frame: number, script: TrainingScript, timeline: Timeline): number {
+  const music = script.music;
+  if (!music) return 0;
+  const sec = frame / FPS;
+  const ramp = 0.35;
+  const speaking = Math.max(
+    0,
+    ...timeline.scenes.map((scene) => {
+      const end = scene.startSec + scene.durationSec - script.voice.sceneGapSec;
+      return Math.min(1, Math.max(0, (sec - scene.startSec + ramp) / ramp), Math.max(0, (end + ramp - sec) / ramp));
+    }),
+  );
+  const level = music.inGap + (music.underVoice - music.inGap) * speaking;
+  const fade = interpolate(sec, [0, music.fadeInSec, timeline.totalSec - music.fadeOutSec, timeline.totalSec], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return level * fade;
+}
+
 export const TrainingVideoComposition: React.FC<TrainingVideoProps> = ({ script, timeline, hideText }) => {
   const { fps } = useVideoConfig();
   if (!script || !timeline) throw new Error("Thiếu kịch bản.");
@@ -40,6 +58,7 @@ export const TrainingVideoComposition: React.FC<TrainingVideoProps> = ({ script,
   return (
     <AbsoluteFill style={{ backgroundColor: "#0C0C0C", color: "#EDEDED", fontFamily: "'Be Vietnam Pro', sans-serif" }}>
       <GlobalFonts />
+      {script.music && <Audio src={staticFile(script.music.src)} volume={(frame) => musicVolume(frame, script, timeline)} />}
       {script.scenes.map((scene) => {
         const timing = timeline.scenes.find((item) => item.id === scene.id);
         if (!timing) throw new Error(`Timeline thiếu cảnh ${scene.id}. Chạy lại npm run voice.`);
@@ -58,7 +77,7 @@ export const TrainingVideoComposition: React.FC<TrainingVideoProps> = ({ script,
             {scene.sfx.map((cue, i) => {
               const sentence = timing.sentences[cue.sentence];
               if (!sentence) throw new Error(`SFX của cảnh ${scene.id} trỏ sai câu.`);
-              const from = Math.round((sentence.startSec + sentence.durationSec * cue.fraction) * fps);
+              const from = Math.max(0, Math.round((sentence.startSec + sentence.durationSec * cue.fraction - cue.hitSec) * fps));
               return (
                 <Sequence key={`${cue.src}-${i}`} from={from} layout="none">
                   <Audio src={staticFile(cue.src)} volume={cue.volume} />
@@ -68,6 +87,8 @@ export const TrainingVideoComposition: React.FC<TrainingVideoProps> = ({ script,
           </Sequence>
         );
       })}
+      {/* Watermark thương hiệu nằm trên mọi cảnh của mọi video. */}
+      <Img src={staticFile("brand/watermark.png")} style={{ position: "absolute", top: 44, right: 44, width: 84, opacity: 0.4 }} />
     </AbsoluteFill>
   );
 };

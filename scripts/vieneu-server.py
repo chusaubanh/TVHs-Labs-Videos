@@ -27,8 +27,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="VieNeu-TTS preset-voice server")
     parser.add_argument("--host", default=os.getenv("VIENEU_HOST", "127.0.0.1"))
     parser.add_argument("--port", type=int, default=int(os.getenv("VIENEU_PORT", "8124")))
-    # auto = GPU (PyTorch CUDA) khi có, không thì ONNX/CPU. Người dùng chốt 16/10/2026: audio chạy GPU.
-    parser.add_argument("--device", choices=("auto", "cuda", "cpu"), default=os.getenv("VIENEU_DEVICE", "auto"))
+    # Mặc định chạy GPU (PyTorch CUDA); CPU chỉ khi cố ý truyền --device cpu. Người dùng chốt 31/10/2026.
+    parser.add_argument("--device", choices=("auto", "cuda", "cpu"), default=os.getenv("VIENEU_DEVICE", "cuda"))
     parser.add_argument("--precision", choices=("int8", "fp32"), default="int8")  # chỉ áp cho ONNX/CPU
     parser.add_argument("--threads", type=int, default=0)
     return parser.parse_args()

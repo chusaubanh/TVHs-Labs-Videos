@@ -14,6 +14,8 @@ describe("chữ trên hình", () => {
   it("bắt chữ viết thẳng trong JSX, bỏ qua Label và biểu thức", () => {
     expect(findRawJsxText('<div style={{a: 1}}>Campaign Tết</div>')).toEqual(["Campaign Tết"]);
     expect(findRawJsxText("<div><Label i={0} />{value}</div>")).toEqual([]);
+    expect(findRawJsxText('<div>{"Campaign"}</div>')).toEqual(["Campaign"]);
+    expect(findRawJsxText("const A: React.FC<{ a: number }> = () => { const b = x >= 1 && y < 2; return <g />; };")).toEqual([]);
   });
   it("cảnh của các video không có chữ viết thẳng", () => {
     expect(scanVideoScenes()).toEqual([]);

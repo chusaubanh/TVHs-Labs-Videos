@@ -47,7 +47,9 @@ async function main(): Promise<void> {
 
   const health = await fetch(`${ENDPOINT}/health`).catch(() => null);
   if (!health?.ok) throw new Error(`VieNeu chưa chạy ở ${ENDPOINT}. Chạy: npm run tts:server`);
-  const engine = String(((await health.json()) as { engineVersion?: string }).engineVersion ?? "unknown");
+  const info = (await health.json()) as { engineVersion?: string; backend?: string };
+  if (info.backend !== "pytorch") throw new Error(`VieNeu đang chạy backend "${info.backend}", không phải GPU. Khởi động lại bằng npm run tts:server.`);
+  const engine = String(info.engineVersion ?? "unknown");
 
   const voiceDir = join(job.publicDir, "voice");
   mkdirSync(voiceDir, { recursive: true });

@@ -1,4 +1,17 @@
 {
+  "1": "ref_remotion",
+  "2": "pipeline-runner.ts",
+  "3": "job.ts",
   "4": "gates.test.ts",
-  "8": "ref_remotion_cli"
+  "8": "ref_remotion_cli",
+  "9": "art.tsx",
+  "11": "qc.ts",
+  "13": "ref_node_fs",
+  "19": "TrainingVideoComposition.tsx",
+  "20": "training-contract.ts",
+  "21": "scene-context.tsx",
+  "22": "qc-ffmpeg.ts",
+  "23": "optimize-svg.mjs",
+  "24": "document-workspace.ts",
+  "25": "Quy chuẩn lời đọc chuỗi Bài viết về AI (Chế độ B)"
 }
