@@ -3,6 +3,8 @@ import { SmokeScene } from "../fixtures/SmokeScene";
 import * as B1 from "./bai-1/part1";
 import * as B2 from "./bai-1/part2";
 import * as B3 from "./bai-1/part3";
+import * as C1 from "./bai-2/part1";
+import * as C2 from "./bai-2/part2";
 import { BucTranhDoi, DaoNguoc, Hook, LoiHua, VongLapCu } from "./mo-dau/part1";
 import { Cach1, Cach2, ThanhPham } from "./mo-dau/part2";
 import { ChanChamDat, ChotVongLap, Ket, Viec1, Viec2, Viec3 } from "./mo-dau/part3";
@@ -41,4 +43,18 @@ export const SCENES: Record<string, React.FC> = {
   "bai-1/viec-hom-nay": B3.ViecHomNay,
   "bai-1/go-thu": B3.GoThu,
   "bai-1/ket": B3.Ket,
+  "bai-2/hook": C1.Hook,
+  "bai-2/tinh-huong": C1.TinhHuong,
+  "bai-2/tin-nhan": C1.TinNhan,
+  "bai-2/thu-pham": C1.ThuPham,
+  "bai-2/ban-do": C1.BanDo,
+  "bai-2/hai-vung": C1.HaiVung,
+  "bai-2/ba-moc": C1.BaMoc,
+  "bai-2/ky-thuat-1": C2.KyThuat1,
+  "bai-2/danh-sach-mu": C2.DanhSachMu,
+  "bai-2/ky-thuat-2": C2.KyThuat2,
+  "bai-2/ky-thuat-3": C2.KyThuat3,
+  "bai-2/viec-hom-nay": C2.ViecHomNay,
+  "bai-2/huong-dan": C2.HuongDan,
+  "bai-2/ket": C2.Ket,
 };
