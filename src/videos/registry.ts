@@ -1,5 +1,6 @@
 import type React from "react";
 import { SmokeScene } from "../fixtures/SmokeScene";
+import { CacBuoc } from "./mau/cac-buoc";
 import * as B1 from "./bai-1/part1";
 import * as B2 from "./bai-1/part2";
 import * as B3 from "./bai-1/part3";
@@ -24,6 +25,7 @@ import * as PC3 from "./tro-ly-phap-che/scenes-part3";
  */
 export const SCENES: Record<string, React.FC> = {
   "fixture/smoke": SmokeScene,
+  "mau/cac-buoc": CacBuoc,
   "mo-dau/hook": Hook,
   "mo-dau/vong-lap-cu": VongLapCu,
   "mo-dau/dao-nguoc": DaoNguoc,

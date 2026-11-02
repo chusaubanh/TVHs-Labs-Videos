@@ -34,6 +34,32 @@ scripts/        Render, QC, bài thử tất định, ảnh duyệt
 .research/      Mã nguồn công cụ để đối chiếu, chỉ đọc
 ```
 
+## Cài đặt
+
+```powershell
+npm run setup
+npm run doctor
+```
+
+Chế độ C cài thêm: `npm run th:setup`. Máy anh em không có NVIDIA vẫn làm được video từ tài liệu bằng CPU, chậm hơn nhiều; phiên âm Chế độ C cần NVIDIA.
+
+**Giấy phép Remotion:** đơn vị vì lợi nhuận có trên 3 nhân viên phải mua Company License. Xem https://www.remotion.dev/license.
+
+## Làm thử video mẫu
+
+```powershell
+mkdir "outputPha-tra"; copy "samplesPha-trascript.json" "outputPha-tra\"
+npm run script:validate -- "Pha-tra"
+npm run approve -- "Pha-tra" script --by "tên bạn"
+# Mở cửa sổ khác và chạy: npm run tts:server
+npm run voice -- "Pha-tra"
+npm run stills -- "Pha-tra"
+npm run approve -- "Pha-tra" visual --by "tên bạn"
+npm run render -- "Pha-tra"
+```
+
+Tài liệu đào tạo và video đã làm không nằm trong git; chép riêng vào `input/` khi cần. Nhạc nền chỉ dùng nội bộ, xem `public/audio/NGUON.md`.
+
 ## Kiểm tra hệ thống
 
 ```bash

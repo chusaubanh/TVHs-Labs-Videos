@@ -20,7 +20,7 @@ if (existsSync(join(dest, ".git"))) {
 const ALLOW = [
   "package.json", "package-lock.json", "tsconfig.json", "vitest.config.ts", "remotion.config.ts", "render.bat", "open-studio.bat",
   "requirements-vieneu.lock.txt", "requirements-asr.lock.txt",
-  "tests", "src/training", "src/audio", "src/remotion", "src/kit", "src/gates", "src/fixtures", "src/engine", "src/studio", "src/talking-head",
+  "samples", "input/Pha-tra", "src/videos/mau", "tests", "src/training", "src/audio", "src/remotion", "src/kit", "src/gates", "src/fixtures", "src/engine", "src/studio", "src/talking-head",
   "scripts/asr", "scripts/editor", "scripts/screencast", "scripts/th-presets",
   "scripts/doctor.ps1", "scripts/setup-windows.ps1", "scripts/setup-asr.ps1", "scripts/open-studio.ps1", "scripts/music-analyze.py", "scripts/vieneu-server.py",
   "scripts/stills.ts", "scripts/render-tools.ts", "scripts/pipeline-runner.ts", "scripts/finish-audio.ts", "scripts/capcut-export.ts", "scripts/gate-determinism.ts", "scripts/qc-ffmpeg.ts",
