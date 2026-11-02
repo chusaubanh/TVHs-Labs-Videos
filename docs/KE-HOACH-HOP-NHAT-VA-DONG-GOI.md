@@ -158,3 +158,9 @@ Cổng để phát hành: cả 5 mục đạt hoặc được ghi rõ là chưa 
 5. Nhạc nền (605 MB) của bản nội bộ: đề xuất để ngoài git, phát hành kèm bằng file zip riêng.
 6. Truyện ma: đề xuất tạo môi trường riêng 8 GB trong thư mục của nó, thay vì trỏ sang Labs.
 7. Nơi đẩy: tên repo GitHub riêng tư và công khai.
+
+## Kết quả đến 02/11/2026
+
+- Đã xong: giai đoạn 1 đến 4 và 6, phần sinh hai bản của giai đoạn 7, chạy thử clone sạch của giai đoạn 8, xoá draft `CDKH Phan 3`.
+- Đã quyết: bỏ `templates/` và `scene-kit`; nhạc nền nằm trong git bản nội bộ; không xử lý Truyện ma; tên repo `TVHs-Labs-Videos` và `S6xEditer`.
+- Còn chờ: xoá thư mục `_CHO-XOA-TVHs-Lab-Video-AI` sau khi chốt job `02-khung-hinh-vang`; đẩy GitHub; giấy phép Remotion; cập nhật trang web.
