@@ -7,7 +7,7 @@ export const CacBuoc: React.FC = () => {
   const { starts } = useBeats();
   const scope = useGsapTimeline<HTMLDivElement>(({ timeline, selector }) => {
     selector(".beat").forEach((element: Element, i: number) => {
-      timeline.fromTo(element, { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.4, ease: "power2.out" }, starts[i] ?? 0);
+      timeline.fromTo(element, { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.4, ease: "power2.out" }, (starts[i] ?? 0) / 30);
     });
   });
   return (
