@@ -23,12 +23,19 @@ except Exception:  # pragma: no cover
     ENGINE_VERSION = "unknown"
 
 
+def default_device() -> str:
+    if os.getenv("TVHS_FORCE_CPU") == "1":
+        return "cpu"
+    import torch
+    return "cuda" if torch.cuda.is_available() else "cpu"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="VieNeu-TTS preset-voice server")
     parser.add_argument("--host", default=os.getenv("VIENEU_HOST", "127.0.0.1"))
     parser.add_argument("--port", type=int, default=int(os.getenv("VIENEU_PORT", "8124")))
-    # Mặc định chạy GPU (PyTorch CUDA); CPU chỉ khi cố ý truyền --device cpu. Người dùng chốt 31/10/2026.
-    parser.add_argument("--device", choices=("auto", "cuda", "cpu"), default=os.getenv("VIENEU_DEVICE", "cuda"))
+    # Có CUDA thì luôn chạy GPU; chỉ máy không có CUDA mới tự về CPU.
+    parser.add_argument("--device", choices=("auto", "cuda", "cpu"), default=os.getenv("VIENEU_DEVICE") or default_device())
     parser.add_argument("--precision", choices=("int8", "fp32"), default="int8")  # chỉ áp cho ONNX/CPU
     parser.add_argument("--threads", type=int, default=0)
     return parser.parse_args()

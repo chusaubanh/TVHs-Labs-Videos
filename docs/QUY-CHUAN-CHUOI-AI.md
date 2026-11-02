@@ -1,6 +1,6 @@
 # Quy chuẩn lời đọc chuỗi Bài viết về AI (Chế độ B)
 
-> Chép nguyên văn từ `TVHs-Lab-Video-AI/SKILL.md` (dòng 559-620) ngày 31/10/2026. Áp cho `input/Bài viết về AI/`; thư mục khác dùng `QUY-CHUAN-KICH-BAN.md`. Bỏ qua tên lệnh và file của repo cũ (`scene-kit`, `audit_frame.py`, `beatTimes`, `_cdkh1b_w2.mjs`, `sync:check`).
+> Chép nguyên văn từ `docs/tham-khao-repo-cu/SKILL.md` (dòng 559-620) ngày 31/10/2026. Áp cho `input/Bài viết về AI/`; thư mục khác dùng `QUY-CHUAN-KICH-BAN.md`. Bỏ qua tên lệnh và file của repo cũ (`scene-kit`, `audit_frame.py`, `beatTimes`, `_cdkh1b_w2.mjs`, `sync:check`).
 
 ### Chế độ B — Chuỗi bài AI (`input/Bài viết về AI/`)
 

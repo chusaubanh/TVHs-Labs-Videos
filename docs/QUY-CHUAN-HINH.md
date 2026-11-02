@@ -1,6 +1,6 @@
 # Quy chuẩn hình và hợp đồng câu–hình
 
-> Chép nguyên văn từ `TVHs-Lab-Video-AI/SKILL.md` (dòng 160-317) ngày 31/10/2026. Hai repo độc lập; bản này là bản dùng cho Labs.
+> Chép nguyên văn từ `docs/tham-khao-repo-cu/SKILL.md` (dòng 160-317) ngày 31/10/2026. Hai repo độc lập; bản này là bản dùng cho Labs.
 >
 > **Labs khác ở:** khổ hình do người dùng chọn (16:9, 9:16, 4:5, 1:1), không cố định 1080×1350. Ngưỡng theo pixel của khổ cũ phải đo lại theo từng khổ. Công cụ dựng là Remotion, không phải scene-kit hay HyperFrames: bỏ qua mọi chỉ dẫn về `renderer: "hyperframes"`, `scripts/scene-kit/`, `motion.mjs`, và câu cấm GSAP, vì Labs dùng GSAP qua `useGsapTimeline()`. Giữ nguyên các nguyên tắc về hình, chữ và chuyển động. Xem thêm `NANG-CAP-NHAN-SU.md` mục 10.
 

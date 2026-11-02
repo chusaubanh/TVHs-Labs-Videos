@@ -8,6 +8,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
 import { musicVolume } from "../src/remotion/compositions/TrainingVideoComposition";
+import { GL, H264_ARGS } from "../src/training/hardware";
 import { assertApproved, loadScript, resolveJob } from "../src/training/job";
 import { musicKeyTimes, planClips, planSfx, planVoice } from "../src/training/placement";
 import { FPS, type Timeline } from "../src/training/training-contract";
@@ -51,7 +52,7 @@ mkdirSync(media, { recursive: true });
 // CapCut không chuẩn hoá giúp, nên bản trộn đo trước rồi cộng cùng một mức vào mọi file âm thanh.
 console.log("[1/4] Đo độ to của bản trộn");
 const mix = join(job.outputDir, "capcut", "_mix.wav");
-execFileSync("npx", ["remotion", "render", "src/remotion/index.ts", "TrainingVideo", `"${mix}"`, `--props="${job.propsPath}"`, "--codec=wav", "--gl=angle", "--log=error"], { stdio: "inherit", shell: true });
+execFileSync("npx", ["remotion", "render", "src/remotion/index.ts", "TrainingVideo", `"${mix}"`, `--props="${job.propsPath}"`, "--codec=wav", `--gl=${GL}`, "--log=error"], { stdio: "inherit", shell: true });
 const measure = (path: string, filter = "") => {
   const log = spawnSync("ffmpeg", ["-hide_banner", "-nostats", "-i", path, "-af", `${filter}ebur128=peak=true`, "-f", "null", "-"], { encoding: "utf8" }).stderr;
   const summary = log.slice(log.lastIndexOf("Summary:"));
@@ -70,7 +71,7 @@ const bake = (src: string, out: string) => ffmpeg(["-i", join("public", src), "-
 console.log("[2/4] Cắt cảnh và tách âm thanh");
 const clips = planClips(timeline).map((clip, i) => {
   const path = join(media, `${String(i + 1).padStart(2, "0")}-${clip.id}.mp4`);
-  ffmpeg(["-i", video, "-vf", `trim=start_frame=${clip.fromFrame}:end_frame=${clip.toFrame},setpts=PTS-STARTPTS`, "-an", "-r", String(FPS), "-c:v", "h264_nvenc", "-preset", "p5", "-cq", "18", path]);
+  ffmpeg(["-i", video, "-vf", `trim=start_frame=${clip.fromFrame}:end_frame=${clip.toFrame},setpts=PTS-STARTPTS`, "-an", "-r", String(FPS), ...H264_ARGS, path]);
   return { ...clip, path };
 });
 const framesOut = clips.reduce((sum, clip) => sum + clip.toFrame - clip.fromFrame, 0);

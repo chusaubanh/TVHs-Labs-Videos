@@ -74,7 +74,7 @@ Bộ đang cài hợp nhau, nhưng nâng một gói 3D lên bản mới là kéo
 
 ## 6. Sức mạnh mới của từng Specialist
 
-Vai trò lấy từ `TVHs-Lab-Video-AI/docs/MULTI_AGENT_MODEL.md`.
+Vai trò lấy từ `docs/tham-khao-repo-cu/MULTI_AGENT_MODEL.md`.
 
 | Specialist | Thứ được thêm | Khả năng có được |
 | :--- | :--- | :--- |

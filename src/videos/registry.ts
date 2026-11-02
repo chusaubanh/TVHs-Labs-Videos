@@ -14,6 +14,9 @@ import * as F3 from "./fb-ads/phan-3";
 import { BucTranhDoi, DaoNguoc, Hook, LoiHua, VongLapCu } from "./mo-dau/part1";
 import { Cach1, Cach2, ThanhPham } from "./mo-dau/part2";
 import { ChanChamDat, ChotVongLap, Ket, Viec1, Viec2, Viec3 } from "./mo-dau/part3";
+import * as PC1 from "./tro-ly-phap-che/scenes-part1";
+import * as PC2 from "./tro-ly-phap-che/scenes-part2";
+import * as PC3 from "./tro-ly-phap-che/scenes-part3";
 
 /**
  * Cảnh riêng của từng video, khoá theo `component` trong kịch bản, dạng "<video>/<cảnh>".
@@ -117,4 +120,17 @@ export const SCENES: Record<string, React.FC> = {
   "cdkh-3/google": K3.Google,
   "cdkh-3/diem-can-nho": K3.DiemCanNho,
   "cdkh-3/ket": K3.Ket,
+  "tro-ly-phap-che/gioi-thieu": PC1.GioiThieu,
+  "tro-ly-phap-che/chuan-bi": PC1.ChuanBi,
+  "tro-ly-phap-che/khoi-tao-project": PC1.KhoiTaoProject,
+  "tro-ly-phap-che/kiem-tra-dieu-kien": PC1.KiemTraDieuKien,
+  "tro-ly-phap-che/giao-yeu-cau": PC2.GiaoYeuCau,
+  "tro-ly-phap-che/tram-dung-1": PC2.TramDung1,
+  "tro-ly-phap-che/huong-dan-tai": PC2.HuongDanTai,
+  "tro-ly-phap-che/luu-tay-van-ban": PC2.LuuTayVanBan,
+  "tro-ly-phap-che/xuat-excel-kiem-tra": PC3.XuatExcelKiemTra,
+  "tro-ly-phap-che/tram-dung-2": PC3.TramDung2,
+  "tro-ly-phap-che/nguyen-tac-3d": PC3.NguyenTac3D,
+  "tro-ly-phap-che/dong-bo-va-tra-kho": PC3.DongBoVaTraKho,
+  "tro-ly-phap-che/xu-ly-su-co-va-ket": PC3.XuLySuCoVaKet,
 };

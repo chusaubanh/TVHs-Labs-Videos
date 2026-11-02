@@ -19,3 +19,8 @@ input/**/*.mov
 input/**/*.mkv
 input/**/*.wav
 /*.mp3
+input/*
+!input/Quy-trinh-Lark-Suite/
+.venv-asr/
+__pycache__/
+public/raw-recordings/

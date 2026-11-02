@@ -1,0 +1,110 @@
+Netflix engineers posted 20 GitHub repos that turn your Opus 5.5 into a f*cking motion empire:
+
+built for Opus 5.5
+
+1. claude-motion: taste, checks its own frames, sound written in code. the author built it for Opus 5.5  
+http://github.com/whaleyxbt/clau
+de-motion
+
+
+2. claude-motion-design: HTML, Playwright and ffmpeg, no Remotion. the demo was made on Opus 5.5  
+http://github.com/howseen-ai/cla
+ude-motion-design
+
+
+3. motion-graphics-skills: 13 skills for launch videos. the README tells you to run it on Opus 5.5  
+http://github.com/charlie947/mot
+ion-graphics-skills
+
+
+4. claude-remotion-skill: a Remotion editor from one prompt. captions, B-roll, sound  
+http://github.com/haidrrrry/clau
+de-remotion-skill
+
+
+5. klik-anim-skill-creation: the laws of animation and camera, built on Opus  
+http://github.com/t3knobox/klik-
+anim-skill-creation
+
+
+6. hyperframes-motion-reel-skill: a showreel cut to the beat at 120 BPM, on HyperFrames  
+http://github.com/Sunwood-ai-lab
+s/hyperframes-motion-reel-skill
+
+
+7. product-launch-motion: a full launch film. voice-over, camera, color grade  
+http://github.com/AbubakrChan/pr
+oduct-launch-motion
+
+
+8. animate: a short clip in one canvas file, storyboarded as it goes  
+http://github.com/cth9191/animate
+
+
+9. motion-design-skills: timing, color, typography, logos, Remotion  
+http://github.com/iart-ai/motion
+-design-skills
+
+
+10. hyperframes-student-kit: 14 skills and 406 motion graphics cards  
+http://github.com/nateherkai/hyp
+erframes-student-kit
+
+
+the engines these skills render with
+
+11. hyperframes: HTML to MP4. the one almost everyone installs  
+http://github.com/heygen-com/hyp
+erframes
+
+
+12. remotion: video written in React  
+http://github.com/remotion-dev/r
+emotion
+
+
+13. remotion skills: the official Remotion skills for your agent  
+http://github.com/remotion-dev/s
+kills
+
+
+14. GSAP: the timelines HyperFrames runs on. skills: npx skills add greensock/gsap-skills  
+http://github.com/greensock/GSAP
+
+
+taste and everything around it
+
+15. motion-design-skill: motion principles that work with any engine  
+http://github.com/LottieFiles/mo
+tion-design-skill
+
+
+16. awesome-motion-design-agent-skills: a map of GSAP, Remotion, Lottie and Rive skills  
+http://github.com/frankxai/aweso
+me-motion-design-agent-skills
+
+
+17. motion-graphics: B-roll built straight from your transcript  
+http://github.com/Barty-Bart/mot
+ion-graphics
+
+
+18. motion-dev-animations-skill: web animation on http://Motion.dev
+, not video  
+http://github.com/199-biotechnol
+ogies/motion-dev-animations-skill
+
+
+19. motion: Motion itself, formerly Framer Motion  
+http://github.com/motiondivision
+/motion
+
+
+20. lottie-web: when you need Lottie, not MP4  
+http://github.com/airbnb/lottie-
+web
+
+
+the stack in one line: Opus 5.5 writes the code, a skill sets the timing and the camera, an engine renders the MP4.
+
+check each repo before you install. save this.

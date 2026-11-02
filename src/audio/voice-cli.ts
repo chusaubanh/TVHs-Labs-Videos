@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { GPU } from "../training/hardware";
 import { assertApproved, loadScript, resolveJob } from "../training/job";
 import { buildTimeline } from "../training/training-contract";
 
@@ -48,7 +49,7 @@ async function main(): Promise<void> {
   const health = await fetch(`${ENDPOINT}/health`).catch(() => null);
   if (!health?.ok) throw new Error(`VieNeu chưa chạy ở ${ENDPOINT}. Chạy: npm run tts:server`);
   const info = (await health.json()) as { engineVersion?: string; backend?: string };
-  if (info.backend !== "pytorch") throw new Error(`VieNeu đang chạy backend "${info.backend}", không phải GPU. Khởi động lại bằng npm run tts:server.`);
+  if (GPU && info.backend !== "pytorch") throw new Error(`VieNeu đang chạy backend "${info.backend}", không phải GPU. Khởi động lại bằng npm run tts:server.`);
   const engine = String(info.engineVersion ?? "unknown");
 
   const voiceDir = join(job.publicDir, "voice");

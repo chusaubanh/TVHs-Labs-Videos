@@ -1,6 +1,6 @@
 # Quy chuẩn kịch bản học liệu
 
-> Chép nguyên văn từ `TVHs-Lab-Video-AI/SKILL.md` (Chế độ A, dòng 432-551) ngày 31/10/2026. Hai repo độc lập; bản này là bản dùng cho Labs. Lệnh và đường dẫn trong bài là của repo cũ; Labs chưa có lệnh nào thì coi là việc còn phải làm.
+> Chép nguyên văn từ `docs/tham-khao-repo-cu/SKILL.md` (Chế độ A, dòng 432-551) ngày 31/10/2026. Hai repo độc lập; bản này là bản dùng cho Labs. Lệnh và đường dẫn trong bài là của repo cũ; Labs chưa có lệnh nào thì coi là việc còn phải làm.
 
 ### Chế độ A — Học liệu đào tạo (mọi thư mục trong `input/` ngoài `Bài viết về AI/`)
 

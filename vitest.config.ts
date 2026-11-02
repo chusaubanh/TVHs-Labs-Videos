@@ -2,6 +2,6 @@ import { configDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    exclude: [...configDefaults.exclude, ".research/**"],
+    exclude: [...configDefaults.exclude, ".research/**", "scripts/editor/test/**"],
   },
 });

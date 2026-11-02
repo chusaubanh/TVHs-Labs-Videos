@@ -1,3 +1,4 @@
+import { GL } from "../src/training/hardware";
 import { bundle } from "@remotion/bundler";
 import { ensureBrowser, openBrowser, renderStill, selectComposition } from "@remotion/renderer";
 import { createHash } from "node:crypto";
@@ -13,16 +14,16 @@ export interface StillSession {
 export async function openStillSession(): Promise<StillSession> {
   await ensureBrowser();
   const serveUrl = await bundle({ entryPoint: resolve("src/remotion/index.ts") });
-  const browser = await openBrowser("chrome", { chromiumOptions: { gl: "angle" } });
+  const browser = await openBrowser("chrome", { chromiumOptions: { gl: GL } });
   const tempDir = resolve("output", "_tmp-stills");
   mkdirSync(tempDir, { recursive: true });
   let counter = 0;
 
   return {
     async shoot(compositionId, frame, props = {}, output) {
-      const composition = await selectComposition({ serveUrl, id: compositionId, inputProps: props, puppeteerInstance: browser, chromiumOptions: { gl: "angle" } });
+      const composition = await selectComposition({ serveUrl, id: compositionId, inputProps: props, puppeteerInstance: browser, chromiumOptions: { gl: GL } });
       const target = output ?? join(tempDir, `${counter++}.png`);
-      await renderStill({ composition, serveUrl, frame, output: target, inputProps: props, imageFormat: "png", puppeteerInstance: browser, chromiumOptions: { gl: "angle" } });
+      await renderStill({ composition, serveUrl, frame, output: target, inputProps: props, imageFormat: "png", puppeteerInstance: browser, chromiumOptions: { gl: GL } });
       return target;
     },
     async close() {

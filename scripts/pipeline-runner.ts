@@ -7,6 +7,7 @@ import { readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { evaluateQc, findFrozenIntervals, probeMedia } from "../src/gates/qc";
 import { scanVideoScenes } from "../src/gates/raw-text";
+import { REMOTION_FLAGS } from "../src/training/hardware";
 import { assertApproved, loadScript, resolveJob } from "../src/training/job";
 import { type Timeline } from "../src/training/training-contract";
 import { normalizeLoudness } from "./finish-audio";
@@ -35,7 +36,7 @@ const silentMix = join(job.outputDir, "_render.mp4");
 const finalPath = join(job.outputDir, "video.mp4");
 
 console.log("[1/3] Render");
-execFileSync("npx", ["remotion", "render", "src/remotion/index.ts", "TrainingVideo", `"${silentMix}"`, `--props="${job.propsPath}"`, "--gl=angle", "--hardware-acceleration=required", "--log=error"], { stdio: "inherit", shell: true });
+execFileSync("npx", ["remotion", "render", "src/remotion/index.ts", "TrainingVideo", `"${silentMix}"`, `--props="${job.propsPath}"`, ...REMOTION_FLAGS, "--log=error"], { stdio: "inherit", shell: true });
 
 console.log("[2/3] Chuẩn hoá độ to");
 normalizeLoudness(silentMix, finalPath);

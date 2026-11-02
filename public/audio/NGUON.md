@@ -1,8 +1,8 @@
 # Nguồn âm thanh
 
-Chép từ `TVHs-Lab-Video-AI/assets/` ngày 31/10/2026.
+Chép từ repo cũ ngày 31/10/2026.
 
-**Nhạc nền chỉ dùng cho video đào tạo nội bộ, không đăng mạng xã hội** (quy định trong `assets/music-th/SOURCES.md` của repo cũ).
+**Nhạc nền chỉ dùng cho video đào tạo nội bộ, không đăng mạng xã hội** (quy định trong `assets/music-th/SOURCES.md`).
 
 Bắt buộc ghi nguồn ở nơi đăng video:
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Audio, Img, interpolate, Sequence, staticFile, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useVideoConfig } from "remotion";
 import type { CalculateMetadataFunction } from "remotion";
 import { SceneProvider } from "../../kit/scene-context";
 import {
@@ -89,7 +89,7 @@ export const TrainingVideoComposition: React.FC<TrainingVideoProps> = ({ script,
         );
       })}
       {/* Watermark thương hiệu nằm trên mọi cảnh của mọi video. */}
-      <Img src={staticFile("brand/watermark.png")} style={{ position: "absolute", top: 44, right: 44, width: 84, opacity: 0.4 }} />
+      <img src={staticFile("brand/watermark.png")} alt="" style={{ position: "absolute", top: 44, right: 44, width: 84, opacity: 0.4 }} />
     </AbsoluteFill>
   );
 };

@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bản Brief Đọc & Phân Đoạn 2 Bài Học Media — Thành Vinh Holdings</title>
+  <link rel="icon" type="image/png" href="../assets/brand/watermark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0E12;
+      --card-bg: #14171F;
+      --card-border: rgba(197, 160, 89, 0.18);
+      --card-hover: rgba(197, 160, 89, 0.35);
+      --gold: #C5A059;
+      --gold-light: #DFBA73;
+      --gold-glow: rgba(197, 160, 89, 0.25);
+      --text-main: #EDEDED;
+      --text-sub: #9E9EA7;
+      --text-muted: #676974;
+      --table-stripe: #181C26;
+      --badge-bg: rgba(197, 160, 89, 0.12);
+      --accent-blue: #38BDF8;
+      --accent-green: #34D399;
+      --accent-red: #F87171;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 0;
+      margin: 0;
+    }
+
+    header {
+      background: linear-gradient(180deg, #161A24 0%, #0C0E12 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 36px 32px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      background: var(--gold);
+      color: #0C0E12;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #FFF;
+      letter-spacing: -0.3px;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--text-sub);
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .meta-tag strong {
+      color: var(--gold-light);
+    }
+
+    /* Tabs */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-top: 8px;
+      scrollbar-width: thin;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-sub);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(197, 160, 89, 0.1);
+      color: #FFF;
+      border-color: var(--gold);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(197, 160, 89, 0.22) 0%, rgba(197, 160, 89, 0.08) 100%);
+      color: var(--gold-light);
+      border-color: var(--gold);
+      box-shadow: 0 0 16px var(--gold-glow);
+    }
+
+    .tab-btn .badge {
+      background: rgba(0,0,0,0.3);
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Video Overview Card */
+    .video-hero {
+      background: linear-gradient(135deg, #181D28 0%, #11141C 100%);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+
+    @media (max-width: 860px) {
+      .video-hero { grid-template-columns: 1fr; }
+    }
+
+    .hero-title h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+
+    .hero-title p {
+      color: var(--text-sub);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px 18px;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .stat-pill .val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFF;
+      display: block;
+    }
+
+    .stat-pill .label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Scene Container */
+    .scene-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .scene-card:hover {
+      border-color: rgba(197, 160, 89, 0.3);
+    }
+
+    .scene-header {
+      background: rgba(255, 255, 255, 0.025);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .scene-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scene-num {
+      background: var(--gold);
+      color: #0C0E12;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .scene-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #FFF;
+    }
+
+    .scene-meta-badges {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .scene-goal {
+      padding: 12px 24px;
+      background: rgba(197, 160, 89, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 13px;
+      color: #D1D5DB;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .scene-goal strong {
+      color: var(--gold-light);
+    }
+
+    /* Beat Table */
+    .beat-table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--text-sub);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .col-stt {
+      width: 50px;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .col-voice {
+      width: 44%;
+      color: #F3F4F6;
+      line-height: 1.65;
+    }
+
+    .col-visual {
+      width: 34%;
+      color: #9CA3AF;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+
+    .col-text {
+      width: 20%;
+    }
+
+    .badge-screentext {
+      display: inline-block;
+      background: rgba(197, 160, 89, 0.12);
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      color: var(--gold-light);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .print-bar {
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn-action {
+      background: var(--gold);
+      color: #0C0E12;
+      border: none;
+      padding: 10px 22px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-action:hover {
+      background: var(--gold-light);
+    }
+
+    /* Print styling */
+    @media print {
+      header { position: static; background: none; color: #000; border: none; padding: 0 0 20px; }
+      body { background: #fff; color: #000; }
+      .tabs-nav, .print-bar { display: none; }
+      .tab-pane { display: block !important; margin-bottom: 60px; page-break-after: always; }
+      .scene-card { border: 1px solid #ccc; break-inside: avoid; }
+      th { background: #f0f0f0; color: #000; }
+      td { color: #000; }
+      .badge-screentext { border: 1px solid #333; color: #000; background: #eee; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand-title">
+          <span class="brand-badge">TVHS</span>
+          <h1>Kịch Bản Phân Đoạn & Brief Đọc 2 Bài Học Media</h1>
+        </div>
+        <div class="header-meta">
+          <span class="meta-tag">🎯 Chế độ: <strong>Chế độ A (Học liệu chuẩn)</strong></span>
+          <span class="meta-tag">🗣 Giọng đọc: <strong>VieNeu Trúc Ly (1.1x)</strong></span>
+          <span class="meta-tag">📐 Khung hình: <strong>4:5 / 9:16</strong></span>
+        </div>
+      </div>
+
+      <nav class="tabs-nav">
+        <button class="tab-btn active" onclick="showTab('tab-bai-3')">
+          <span>3. Đọc chỉ số quảng cáo — Góc nhìn MB & MC</span>
+          <span class="badge">1 Video · 175s (Phổ quát)</span>
+        </button>
+        <button class="tab-btn" onclick="showTab('tab-bai-2')">
+          <span>2.2. Đánh giá Video/Content góc nhìn MB</span>
+          <span class="badge">1 Video · 175s (Phổ quát)</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- TAB 1: 3. ĐỌC CHỈ SỐ QUẢNG CÁO -->
+    <section id="tab-bai-3" class="tab-pane active">
+      <div class="video-hero">
+        <div class="hero-title">
+          <h2>3. Đọc Chỉ Số Quảng Cáo — Góc Nhìn MB & Góc Nhìn MC</h2>
+          <p>Thuộc tài liệu: <code>2. Chung MB MC / 3. Đọc chỉ số quảng cáo — Góc nhìn MB & Góc nhìn MC</code></p>
+          <div style="font-size: 13px; color: var(--gold-light);">
+            ⚡ Phiên bản phổ quát: Bỏ toàn bộ ngưỡng số liệu cứng, tập trung vào bản chất chỉ số, tương quan phễu và quy tắc phân định lỗi áp dụng cho mọi nền tảng và thị trường.
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-pill">
+            <span class="val">175s</span>
+            <span class="label">Thời lượng</span>
+          </div>
+          <div class="stat-pill">
+            <span class="val">7 Cảnh</span>
+            <span class="label">Phân cảnh</span>
+          </div>
+          <div class="stat-pill">
+            <span class="val">27 Câu</span>
+            <span class="label">Nhịp câu</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cảnh 1 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 1</span>
+            <span class="scene-title">Cùng Một Bảng Số — Hai Lăng Kính Khác Biệt</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~24 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Xác lập vai trò và câu hỏi cốt lõi của hai bộ phận khi cùng nhìn vào dữ liệu.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">1</td>
+                <td class="col-voice">Cùng nhìn vào một bảng số liệu quảng cáo, Media Buyer và Media Content sẽ đặt ra hai nhóm câu hỏi hoàn toàn khác nhau.</td>
+                <td class="col-visual">Bảng Dashboard ở giữa, hai nhân vật MB và MC đứng hai bên với bong bóng suy nghĩ khác nhau.</td>
+                <td><span class="badge-screentext">CÙNG BẢNG SỐ · HAI GÓC NHÌN</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">2</td>
+                <td class="col-voice">Media Buyer quan tâm chiến dịch có mở rộng quy mô được không, chi phí vận hành có tối ưu và dòng tiền có sinh lời hay không.</td>
+                <td class="col-visual">Cột ngân sách scale, biểu tượng dòng tiền và nút tăng ngân sách sáng lên.</td>
+                <td><span class="badge-screentext">MB: Chi phí · Scale · Dòng tiền</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">3</td>
+                <td class="col-voice">Trong khi đó, Media Content lại chăm chú tìm kiếm xem mẫu video nào đang hút mắt, đoạn mở đầu có hiệu quả và kịch bản nào cần cải tiến.</td>
+                <td class="col-visual">Khung video sáng đèn, cây bút viết kịch bản và con mắt xem Hook.</td>
+                <td><span class="badge-screentext">MC: Sức hút · Hook · Kịch bản</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">4</td>
+                <td class="col-voice">Hiểu được góc nhìn của nhau là chìa khóa then chốt để hai bộ phận phối hợp nhịp nhàng và thúc đẩy tăng trưởng doanh số.</td>
+                <td class="col-visual">Hai mảnh ghép MB và MC khớp lại với nhau phát sáng viền vàng.</td>
+                <td><span class="badge-screentext">Phối hợp đa chiều</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 2 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 2</span>
+            <span class="scene-title">Bản Đồ Chỉ Số Dọc Theo Ba Tầng Phễu</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~26 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Cấu trúc toàn bộ hệ thống chỉ số theo 3 tầng hành trình khách hàng phổ quát.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">5</td>
+                <td class="col-voice">Dù hoạt động trên bất kỳ nền tảng hay thị trường nào, hệ thống chỉ số quảng cáo luôn vận hành theo ba tầng phễu chuyển đổi.</td>
+                <td class="col-visual">Mô hình phễu 3 tầng xuất hiện từ trên xuống dưới, bao quát mọi nền tảng.</td>
+                <td><span class="badge-screentext">BẢN ĐỒ 3 TẦNG PHỄU<br>Mọi nền tảng & thị trường</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">6</td>
+                <td class="col-voice">Tầng một là nhận biết với chi phí hiển thị và lượt tiếp cận, phản ánh mức độ cạnh tranh phân phối của thuật toán.</td>
+                <td class="col-visual">Tầng 1 sáng lên với biểu tượng đám đông người xem và sóng phân phối thuật toán.</td>
+                <td><span class="badge-screentext">Tầng 1: Nhận biết<br>CPM & Lượt tiếp cận</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">7</td>
+                <td class="col-voice">Tầng hai là dừng chân và cân nhắc với tỷ lệ nhấp chuột, đo lường trực tiếp sức hấp dẫn và chất lượng của nội dung.</td>
+                <td class="col-visual">Tầng 2 sáng lên với biểu tượng người dùng dừng lại xem và tương tác.</td>
+                <td><span class="badge-screentext">Tầng 2: Cân nhắc<br>CTR & Sức hút nội dung</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">8</td>
+                <td class="col-voice">Tầng ba là hành động với chi phí chuyển đổi và tỷ suất hoàn vốn, thể hiện hiệu quả kinh doanh của toàn bộ chiến dịch.</td>
+                <td class="col-visual">Tầng 3 sáng lên viền vàng với giỏ hàng đơn hàng và đồng tiền doanh thu.</td>
+                <td><span class="badge-screentext">Tầng 3: Hành động<br>CPA & Tỷ suất hoàn vốn</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 3 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 3</span>
+            <span class="scene-title">Bản Chất Chỉ Số Đầu Phễu — CPM Và Phân Phối</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~25 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Giải thích bản chất chỉ số CPM, ý nghĩa phân phối và tín hiệu cảnh báo.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">9</td>
+                <td class="col-voice">Xê pê em là chi phí bạn phải chi trả cho mỗi một nghìn lượt hiển thị quảng cáo đến người dùng.</td>
+                <td class="col-visual">Thước đo CPM hiện công thức: Chi phí chia số lượt hiển thị nhân một nghìn.</td>
+                <td><span class="badge-screentext">CPM<br>Chi phí / 1.000 lượt hiển thị</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">10</td>
+                <td class="col-voice">Chỉ số này là thước đo mức độ cạnh tranh đối tượng và điểm đánh giá trải nghiệm mà nền tảng dành cho video của bạn.</td>
+                <td class="col-visual">Cán cân: Một bên là độ cạnh tranh tệp khách, một bên là điểm chất lượng nền tảng.</td>
+                <td><span class="badge-screentext">Độ cạnh tranh & Chất lượng</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">11</td>
+                <td class="col-voice">Khi xê pê em tăng cao nhưng tỷ lệ nhấp chuột vẫn giữ vững, nội dung của bạn vẫn rất tốt và vấn đề nằm ở việc tệp người xem bị thu hẹp hoặc bão hòa.</td>
+                <td class="col-visual">Biểu đồ đường CPM tăng nhưng CTR đi ngang vững vàng.</td>
+                <td><span class="badge-screentext">Nội dung tốt · Tệp bão hòa</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">12</td>
+                <td class="col-voice">Nhưng nếu xê pê em tăng cao đi cùng tỷ lệ nhấp chuột tụt dốc, video đang mất dần sức hút và bạn cần làm mới ngay đoạn mở đầu.</td>
+                <td class="col-visual">Đèn báo động đỏ nhấp nháy, bàn tay thao tác gỡ bỏ đoạn mở đầu cũ.</td>
+                <td><span class="badge-screentext">Cảnh báo: Thay Hook gấp</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 4 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 4</span>
+            <span class="scene-title">Đòn Bẩy Sức Hút — Tỷ Lệ Nhấp CTR Và Chi Phí CPC</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~27 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Làm rõ mối quan hệ tương hỗ giữa CTR và CPC (tăng CTR tự động hạ CPC).
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">13</td>
+                <td class="col-voice">Tỷ lệ nhấp chuột xê tê rờ là chỉ số trực diện nhất phản ánh sức hút của ba giây đầu tiên và độ tò mò của thông điệp.</td>
+                <td class="col-visual">Nút chuột click vào khung video phát sáng.</td>
+                <td><span class="badge-screentext">CTR: Tỷ lệ nhấp chuột</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">14</td>
+                <td class="col-voice">Tỷ lệ nhấp chuột càng cao chứng minh video càng kích thích người xem mong muốn tìm hiểu sâu hơn về sản phẩm.</td>
+                <td class="col-visual">Vạch đo CTR tăng trưởng vọt lên vùng màu vàng thu hút.</td>
+                <td><span class="badge-screentext">Kích thích tò mò tìm hiểu</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">15</td>
+                <td class="col-voice">Đi liền với đó là xê pê xê, tức chi phí thực tế mà doanh nghiệp phải trả cho mỗi lượt bấm vào đường link.</td>
+                <td class="col-visual">Hộp chi phí CPC tính bằng Tổng chi phí chia Tổng số lượt nhấp chuột.</td>
+                <td><span class="badge-screentext">CPC: Chi phí mỗi lượt nhấp</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">16</td>
+                <td class="col-voice">Một nguyên lý phổ quát bạn cần nhớ: khi cải thiện được nội dung giúp xê tê rờ tăng lên, chi phí cho mỗi lượt nhấp sẽ tự động hạ nhiệt mà không cần điều chỉnh giá thầu.</td>
+                <td class="col-visual">Đòn bẩy kinh tế: Đẩy CTR tăng lên thì chi phí CPC tự động trượt dốc hạ giá.</td>
+                <td><span class="badge-screentext">Tăng CTR ➔ Tự hạ CPC</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 5 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 5</span>
+            <span class="scene-title">Bộ Đôi Sống Còn — Chi Phí Chuyển Đổi CPA Và Hoàn Vốn ROAS</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~27 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Giải thích bản chất CPA, ROAS và sự liên hệ chặt chẽ với biên lợi nhuận kinh doanh.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">17</td>
+                <td class="col-voice">Chi phí trên mỗi chuyển đổi xê pê a và tỷ suất hoàn vốn râu át là hai chỉ số quyết định sự sống còn của mọi chiến dịch.</td>
+                <td class="col-visual">Cặp đôi biểu tượng CPA và ROAS sáng viền vàng trang trọng.</td>
+                <td><span class="badge-screentext">CẶP ĐÔI SỐNG CÒN</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">18</td>
+                <td class="col-voice">Xê pê a đo lường chi phí để có một đơn hàng, và con số này bắt buộc phải nằm trong giới hạn biên lợi nhuận cho phép của doanh nghiệp.</td>
+                <td class="col-visual">Biểu đồ vòng cung biên lợi nhuận: CPA nằm an toàn trong vùng biên lợi nhuận cho phép.</td>
+                <td><span class="badge-screentext">CPA trong biên lợi nhuận</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">19</td>
+                <td class="col-voice">Còn râu át thể hiện một đồng ngân sách quảng cáo bỏ ra sẽ mang về được bao nhiêu đồng doanh thu bán hàng.</td>
+                <td class="col-visual">Máy gặt doanh thu: Bỏ ngân sách quảng cáo ➔ Thu về dòng doanh thu tương ứng.</td>
+                <td><span class="badge-screentext">ROAS: Tỷ suất hoàn vốn</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">20</td>
+                <td class="col-voice">Tỷ suất này phải đảm bảo vượt qua điểm hòa vốn sau khi đã trừ toàn bộ chi phí sản phẩm và vận hành thì chiến dịch mới thực sự có lãi.</td>
+                <td class="col-visual">Vạch mốc điểm hòa vốn được chinh phục, mở ra vùng lợi nhuận ròng.</td>
+                <td><span class="badge-screentext">Vượt điểm hòa vốn ➔ Sinh lời</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 6 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 6</span>
+            <span class="scene-title">Nguyên Tắc Phân Định Lỗi Chuẩn Xác</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~26 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Cung cấp quy tắc vàng để phân định lỗi giữa Video và Trang đích/Offer mà không đổ lỗi cho nhau.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">21</td>
+                <td class="col-voice">Nắm vững mối quan hệ giữa các tầng chỉ số giúp bạn phân định ranh giới lỗi chuẩn xác mà không bao giờ đổ thừa cảm tính.</td>
+                <td class="col-visual">Lưới phân định ranh giới lỗi hiện rõ hai nhánh chẩn đoán.</td>
+                <td><span class="badge-screentext">RANH GIỚI LỖI CHUẨN XÁC</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">22</td>
+                <td class="col-voice">Khi tỷ lệ nhấp chuột rất cao nhưng tỷ suất hoàn vốn lại thấp, video đã hoàn thành xuất sắc nhiệm vụ thu hút và lỗi hoàn toàn nằm ở khâu chốt đơn phía sau.</td>
+                <td class="col-visual">Video nhận dấu tích xanh xuất sắc; mũi tên trỏ cảnh báo sang Landing Page và Offer.</td>
+                <td><span class="badge-screentext">CTR cao nhưng ROAS thấp<br>Lỗi ở Offer / Trang đích</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">23</td>
+                <td class="col-voice">Lúc này, hãy tập trung tối ưu trang đích, biểu mẫu mua hàng và chính sách ưu đãi, tuyệt đối không vội vàng thay đổi video đang chạy.</td>
+                <td class="col-visual">Nút "Giữ nguyên video" sáng đèn, cờ lê tập trung sửa biểu mẫu đặt hàng và tốc độ trang.</td>
+                <td><span class="badge-screentext">Giữ nguyên video<br>Tối ưu trang đích & ưu đãi</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">24</td>
+                <td class="col-voice">Nhưng khi cả tỷ lệ nhấp lẫn tỷ suất hoàn vốn đều thấp, bạn cần dứt khoát tắt quảng cáo và thay đổi góc tiếp cận kịch bản hoàn toàn mới.</td>
+                <td class="col-visual">Đèn cảnh báo đỏ bật sáng, công tắc tắt nhóm yếu dứt khoát, biểu tượng viết lại kịch bản.</td>
+                <td><span class="badge-screentext">Cả hai đều thấp<br>Tắt quảng cáo · Đổi kịch bản</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 7 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 7</span>
+            <span class="scene-title">Đóng Gói Bài Học & Khung Kết</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~15 giây</span> • <span>💬 3 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Khắc sâu thông điệp cốt lõi và outro chuẩn nhận diện thương hiệu TVHs.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">25</td>
+                <td class="col-voice">Số liệu không cho sẵn câu trả lời, nhưng số liệu giúp bạn đặt ra câu hỏi đúng để đưa ra quyết định hành động chuẩn xác trên mọi nền tảng.</td>
+                <td class="col-visual">Bảng tổng kết thông điệp cốt lõi hiện lên sáng rõ viền vàng.</td>
+                <td><span class="badge-screentext">Số liệu chỉ lối hành động đúng</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">26</td>
+                <td class="col-voice">Chúc các bạn làm chủ tư duy đọc số và vận hành những chiến dịch quảng cáo bứt phá doanh thu.</td>
+                <td class="col-visual">Logo Thành Vinh Holdings xuất hiện trang trọng trên nền Obsidian vàng kim.</td>
+                <td><span class="badge-screentext">Thành Vinh Holdings<br>tvhs.asia</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">27</td>
+                <td class="col-voice">Thành Vinh Holdings.</td>
+                <td class="col-visual">Khung kết chuẩn nhận diện thương hiệu.</td>
+                <td><span class="badge-screentext">Thành Vinh Holdings.</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: 2.2 ĐÁNH GIÁ VIDEO GÓC NHÌN MB -->
+    <section id="tab-bai-2" class="tab-pane">
+      <div class="video-hero">
+        <div class="hero-title">
+          <h2>2.2. Đánh Giá Video/Content Từ Góc Nhìn Media Buyer</h2>
+          <p>Thuộc tài liệu: <code>3. Nhánh MB / 2. Đọc Chỉ Số, Xử Lý Camp & Kỹ Năng Thực Chiến / 2.2. Đánh giá Video - Content từ góc nhìn MB</code></p>
+          <div style="font-size: 13px; color: var(--gold-light);">
+            ⚡ Phiên bản phổ quát: Bỏ toàn bộ ngưỡng số liệu cứng, tập trung vào bản chất bộ ba thước đo, ma trận bắt bệnh và quy trình tư duy ngược áp dụng cho mọi ngành hàng.
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-pill">
+            <span class="val">175s</span>
+            <span class="label">Thời lượng</span>
+          </div>
+          <div class="stat-pill">
+            <span class="val">7 Cảnh</span>
+            <span class="label">Phân cảnh</span>
+          </div>
+          <div class="stat-pill">
+            <span class="val">27 Câu</span>
+            <span class="label">Nhịp câu</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cảnh 1 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 1</span>
+            <span class="scene-title">Triết Lý Đánh Giá Dựa Trên Dữ Liệu</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~24 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Bẻ gãy tư duy khen chê cảm tính, xác lập nguyên tắc đánh giá bằng dữ liệu thực tế.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">1</td>
+                <td class="col-voice">Một video quảng cáo tốt không được đánh giá bằng việc trông có vẻ hay, mà phải được chứng minh bằng dữ liệu thực tế.</td>
+                <td class="col-visual">Cán cân so sánh: Một bên là mắt nhìn cảm tính, một bên là bảng biểu số liệu đè nặng cán cân.</td>
+                <td><span class="badge-screentext">DỮ LIỆU THỰC TẾ<br>Thay vì cảm tính</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">2</td>
+                <td class="col-voice">Số liệu sẽ trả lời chính xác người dùng có xem, có quan tâm và có tạo ra đơn hàng hay không.</td>
+                <td class="col-visual">3 biểu tượng mọc ra lần lượt: Con mắt xem video ➔ Bàn tay bấm chuột ➔ Giỏ hàng đơn hàng.</td>
+                <td><span class="badge-screentext">Xem ➔ Quan tâm ➔ Mua</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">3</td>
+                <td class="col-voice">Việc đánh giá bằng dữ liệu giúp bạn loại bỏ hoàn toàn cảm tính khi khen chê một sản phẩm video.</td>
+                <td class="col-visual">Dấu gạch chéo đỏ gạt bỏ từ "Khen chê cảm tính", mở ra thước đo chuẩn.</td>
+                <td><span class="badge-screentext">Triệt tiêu cảm tính</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">4</td>
+                <td class="col-voice">Quan trọng nhất, bạn sẽ biết chính xác khi nào cần tắt quảng cáo, khi nào cần tối ưu và khi nào nên tăng ngân sách.</td>
+                <td class="col-visual">3 nút công tắc đèn sáng viền vàng: Nút Tắt đỏ ➔ Nút Tối ưu cam ➔ Nút Tăng ngân sách vàng.</td>
+                <td><span class="badge-screentext">Tắt · Tối ưu · Tăng ngân sách</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 2 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 2</span>
+            <span class="scene-title">Ba Tầng Câu Hỏi Đo Lường Chuẩn MB</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~26 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Giới thiệu 3 tầng câu hỏi ứng với 3 tầng phễu đánh giá từ trên xuống dưới.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">5</td>
+                <td class="col-voice">Để thẩm định một video, Media Buyer luôn đặt ra ba nhóm câu hỏi tương ứng với ba tầng chỉ số.</td>
+                <td class="col-visual">Tháp 3 tầng kiến trúc mọc lên từ dưới lên trên.</td>
+                <td><span class="badge-screentext">3 TẦNG ĐÁNH GIÁ</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">6</td>
+                <td class="col-voice">Tầng thứ nhất đo lường sức hút và khả năng giữ chân, kiểm tra người dùng có dừng lại và tiếp tục xem hay không.</td>
+                <td class="col-visual">Tầng 1 sáng lên: Biểu tượng ngón tay lướt dừng lại trước video.</td>
+                <td><span class="badge-screentext">Tầng 1: Thu hút & Giữ chân<br>Hook Rate & Hold Rate</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">7</td>
+                <td class="col-voice">Tầng thứ hai đánh giá mức độ quan tâm thông qua tỷ lệ nhấp chuột, xem thông điệp có thôi thúc họ tìm hiểu thêm không.</td>
+                <td class="col-visual">Tầng 2 sáng lên: Con trỏ chuột click vào đường link tìm hiểu sản phẩm.</td>
+                <td><span class="badge-screentext">Tầng 2: Mức độ quan tâm<br>Tỷ lệ nhấp CTR</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">8</td>
+                <td class="col-voice">Tầng thứ ba là hiệu quả kinh doanh, đo lường chi phí trên mỗi đơn hàng và khả năng hoàn vốn quảng cáo thực tế.</td>
+                <td class="col-visual">Tầng 3 sáng lên viền vàng: Hộp quà đơn hàng kèm đồng tiền doanh thu hoàn vốn.</td>
+                <td><span class="badge-screentext">Tầng 3: Hiệu quả kinh doanh<br>CPA & ROAS</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 3 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 3</span>
+            <span class="scene-title">Bộ Ba Thước Đo Đánh Giá Cốt Lõi</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~28 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Định nghĩa rõ bản chất và vai trò của bộ 3 chỉ số cốt lõi đánh giá video (Hook Rate, Hold Rate, CTR) mang tính phổ quát, không gán số liệu cứng.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">9</td>
+                <td class="col-voice">Hiệu suất nội dung của một video được thẩm định chính xác thông qua bộ ba thước đo cốt lõi.</td>
+                <td class="col-visual">Bảng 3 thước đo chỉ số hiện lên với 3 cột mốc: Mở đầu, Thân bài và Lời kêu gọi.</td>
+                <td><span class="badge-screentext">BỘ BA THƯỚC ĐO CỐT LÕI</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">10</td>
+                <td class="col-voice">Tỷ lệ xem ba giây đầu gọi là húc rết, phản ánh sức giật thị giác để chặn đứng ngón tay lướt màn hình của người xem.</td>
+                <td class="col-visual">Thước đo Hook Rate mô tả ngón tay lướt dừng lại trước 3 giây đầu cuốn hút.</td>
+                <td><span class="badge-screentext">Hook Rate: Sức hút 3s đầu<br>Chặn đứng ngón tay lướt</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">11</td>
+                <td class="col-voice">Tỷ lệ giữ chân người xem ở thân bài gọi là hôn rết, phản ánh độ hấp dẫn của kịch bản và nhịp điệu nội dung xuyên suốt.</td>
+                <td class="col-visual">Thước đo Hold Rate thể hiện biểu đồ giữ chân người xem không bị rơi rụng.</td>
+                <td><span class="badge-screentext">Hold Rate: Giữ chân thân bài<br>Độ cuốn hút của kịch bản</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">12</td>
+                <td class="col-voice">Và tỷ lệ nhấp chuột xê tê rờ là thước đo mức độ thuyết phục của thông điệp, thôi thúc người xem bấm vào để tìm hiểu sản phẩm.</td>
+                <td class="col-visual">Thước đo CTR với con trỏ chuột click vào đường link tìm hiểu sản phẩm.</td>
+                <td><span class="badge-screentext">CTR: Tỷ lệ nhấp chuột<br>Thôi thúc tìm hiểu thêm</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 4 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 4</span>
+            <span class="scene-title">Ma Trận Bắt Bệnh Video — Thất Bại & Đầu Voi Đuôi Chuột</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~25 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Hướng dẫn kết hợp Hook Rate, Hold Rate và CTR để chẩn đoán đúng bệnh.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">13</td>
+                <td class="col-voice">Khi kết hợp bộ ba chỉ số này, bạn sẽ lập tức chẩn đoán chính xác căn bệnh của từng video.</td>
+                <td class="col-visual">Biểu đồ bảng ma trận chẩn đoán xuất hiện với các dòng trạng thái.</td>
+                <td><span class="badge-screentext">MA TRẬN CHẨN ĐOÁN</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">14</td>
+                <td class="col-voice">Nếu cả húc rết, hôn rết và xê tê rờ đều thấp, đây là thất bại toàn diện vì video chưa đánh trúng nỗi đau khách hàng.</td>
+                <td class="col-visual">Dòng 1 nhấp nháy đỏ với 3 mũi tên chỉ xuống; biểu tượng thùng rác tắt camp.</td>
+                <td><span class="badge-screentext">Thất bại toàn diện<br>Tắt ngay · Đổi góc tiếp cận</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">15</td>
+                <td class="col-voice">Với trường hợp này, bạn phải tắt quảng cáo ngay lập tức và đổi góc tiếp cận kịch bản hoàn toàn mới.</td>
+                <td class="col-visual">Hộp hành động hiện nhãn cảnh báo dứt khoát.</td>
+                <td><span class="badge-screentext">Viết lại kịch bản mới</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">16</td>
+                <td class="col-voice">Nếu húc rết cao nhưng hôn rết và xê tê rờ lại thấp, video đang mắc bệnh đầu voi đuôi chuột.</td>
+                <td class="col-visual">Dòng 2 sáng lên: Hình minh họa đầu voi lớn nối với đuôi chuột nhỏ.</td>
+                <td><span class="badge-screentext">Bệnh: Đầu voi đuôi chuột<br>Hook tốt nhưng thân bài nhạt</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 5 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 5</span>
+            <span class="scene-title">Ma Trận Bắt Bệnh Video — Dài Dòng, Thiếu CTA & Winning</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~28 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Phân tích các trường hợp còn lại và hướng xử lý bóc tách từng bộ phận.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">17</td>
+                <td class="col-voice">Video đầu voi đuôi chuột có đoạn mở đầu rất hay, bạn chỉ cần giữ lại phần đầu và viết lại toàn bộ thân bài.</td>
+                <td class="col-visual">Thao tác cắt gọt: Giữ lại khối 3 giây đầu, bóc tách thay mới khối thân bài.</td>
+                <td><span class="badge-screentext">Giữ Hook · Viết lại thân bài</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">18</td>
+                <td class="col-voice">Khi húc rết và hôn rết đều cao nhưng xê tê rờ lại thấp, nguyên nhân là phần kêu gọi hành động ở cuối video quá mờ nhạt.</td>
+                <td class="col-visual">Dòng 3 sáng lên: Thân bài dài đẹp nhưng đoạn cuối mờ nhạt, thiếu nút bấm.</td>
+                <td><span class="badge-screentext">Thiếu động lực hành động<br>Tối ưu 5 giây cuối</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">19</td>
+                <td class="col-voice">Giải pháp lúc này là giữ nguyên video, chỉ cần làm lại năm giây cuối với lời kêu gọi mua hàng dứt khoát và ưu đãi gấp rút.</td>
+                <td class="col-visual">Nút CTA phóng to lên kèm đồng hồ đếm ngược ưu đãi.</td>
+                <td><span class="badge-screentext">CTA dứt khoát · Ưu đãi gấp</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">20</td>
+                <td class="col-voice">Cuối cùng, khi cả ba chỉ số đều đạt mức cao, bạn đang sở hữu một video chiến thắng và hãy chuẩn bị tăng ngân sách.</td>
+                <td class="col-visual">Dòng cuối phát sáng viền vàng rực rỡ với vương miện chiến thắng.</td>
+                <td><span class="badge-screentext">Winning Creative<br>Chuẩn bị Scale ngân sách</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 6 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 6</span>
+            <span class="scene-title">Quy Trình Đánh Giá Ngược Chuẩn Tư Duy Media Buyer</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~26 giây</span> • <span>💬 4 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Khắc sâu quy trình tư duy ngược từ kết quả kinh doanh về đầu phễu.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">21</td>
+                <td class="col-voice">Điểm khác biệt lớn nhất của Media Buyer là luôn đọc chỉ số theo hướng ngược lại, từ kết quả kinh doanh về đầu phễu.</td>
+                <td class="col-visual">Mũi tên uốn lượn chạy ngược từ đáy phễu lên đỉnh phễu.</td>
+                <td><span class="badge-screentext">ĐỌC NGƯỢC TỪ KẾT QUẢ</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">22</td>
+                <td class="col-voice">Bước một là nhìn ngay vào chi phí trên đơn và tỷ suất hoàn vốn, nếu đã có lãi thì tính phương án tăng tiền.</td>
+                <td class="col-visual">Hộp kiểm tra Bước 1: Chỉ số CPA và ROAS sáng đèn xanh.</td>
+                <td><span class="badge-screentext">Bước 1: CPA & ROAS<br>Có lãi ➔ Tăng ngân sách</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">23</td>
+                <td class="col-voice">Nếu chưa đạt, bước hai sẽ kiểm tra xê tê rờ để xem khách có bấm vào trang đích hay không.</td>
+                <td class="col-visual">Hộp kiểm tra Bước 2: Tách nhánh nếu CTR cao mà không có đơn ➔ Lỗi ở Web/Offer.</td>
+                <td><span class="badge-screentext">Bước 2: Kiểm tra CTR<br>Soi Landing Page & Giá bán</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">24</td>
+                <td class="col-voice">Và bước ba mới đi sâu vào húc rết cùng hôn rết để chẩn đoán chính xác đoạn nào của video cần đội sản xuất sửa lại.</td>
+                <td class="col-visual">Hộp kiểm tra Bước 3: Soi kính lúp vào từng đoạn video.</td>
+                <td><span class="badge-screentext">Bước 3: Soi Hook & Hold<br>Sửa đúng đoạn bị hỏng</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cảnh 7 -->
+      <div class="scene-card">
+        <div class="scene-header">
+          <div class="scene-title-wrap">
+            <span class="scene-num">CẢNH 7</span>
+            <span class="scene-title">Tổng Kết & Khung Kết Thương Hiệu</span>
+          </div>
+          <div class="scene-meta-badges">
+            <span>⏱ ~15 giây</span> • <span>💬 3 câu thoại</span>
+          </div>
+        </div>
+        <div class="scene-goal">
+          🎯 <strong>Mục tiêu:</strong> Đóng gói bài học và outro thương hiệu chuẩn mực TVHs.
+        </div>
+        <div class="beat-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-stt">#</th>
+                <th class="col-voice">Lời đọc thuyết minh (voiceText)</th>
+                <th class="col-visual">Trực quan trên màn hình (visual)</th>
+                <th class="col-text">Chữ từ khóa hiển thị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-stt">25</td>
+                <td class="col-voice">Nắm vững ma trận và quy trình đánh giá ngược sẽ giúp bạn tối ưu chi phí quảng cáo chính xác trên từng đồng bỏ ra.</td>
+                <td class="col-visual">Bảng checklist 3 điểm mấu chốt được tích xanh hoàn thành.</td>
+                <td><span class="badge-screentext">Tối ưu chính xác từng đồng</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">26</td>
+                <td class="col-voice">Chúc các bạn làm chủ số liệu và vận hành những chiến dịch quảng cáo hiệu quả vượt trội.</td>
+                <td class="col-visual">Logo Thành Vinh Holdings xuất hiện trang trọng trên nền Obsidian vàng kim.</td>
+                <td><span class="badge-screentext">Thành Vinh Holdings<br>tvhs.asia</span></td>
+              </tr>
+              <tr>
+                <td class="col-stt">27</td>
+                <td class="col-voice">Thành Vinh Holdings.</td>
+                <td class="col-visual">Khung kết cố định chuẩn thương hiệu.</td>
+                <td><span class="badge-screentext">Thành Vinh Holdings.</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Print & Summary Footer -->
+    <div class="print-bar">
+      <div>
+        <h4 style="color: #FFF; font-family: 'Outfit', sans-serif;">Duyệt & Ký Nghiệm Thu Brief Kịch Bản</h4>
+        <p style="color: var(--text-sub); font-size: 13px;">Bản Brief tuân thủ 100% Chế độ A (Học liệu chuẩn TVHs), số đếm đọc bằng chữ, mỗi câu một nhịp visual.</p>
+      </div>
+      <button class="btn-action" onclick="window.print()">In hoặc Xuất PDF</button>
+    </div>
+  </main>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) targetPane.classList.add('active');
+
+      const clickedBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (clickedBtn) clickedBtn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # TVHs-Labs-Video
 
-Xưởng video đào tạo của Thành Vinh Holdings: kể bằng hình, dựng bằng Remotion, xuất thẳng ra MP4. Khổ hình chọn cho từng video: 16:9, 9:16, 4:5, 1:1. Dự án độc lập với `TVHs-Lab-Video-AI`.
+Xưởng video đào tạo của Thành Vinh Holdings: kể bằng hình, dựng bằng Remotion, xuất thẳng ra MP4. Khổ hình chọn cho từng video: 16:9, 9:16, 4:5, 1:1. Có hai luồng: từ tài liệu (Remotion) và từ clip quay thật (Chế độ C, Editor).
 
 ## Đọc gì trước
 
@@ -8,6 +8,7 @@ Xưởng video đào tạo của Thành Vinh Holdings: kể bằng hình, dựng
 | :--- | :--- |
 | Các bước và lệnh làm một video | [docs/QUY-TRINH.md](docs/QUY-TRINH.md) |
 | 18 nhân sự theo tổ Specialist, ai giữ file nào | [docs/18-NHAN-SU.md](docs/18-NHAN-SU.md) |
+| Dựng từ clip quay thật, Editor, Premiere | [docs/CHE-DO-C.md](docs/CHE-DO-C.md) |
 | Quy chuẩn viết kịch bản | [docs/QUY-CHUAN-KICH-BAN.md](docs/QUY-CHUAN-KICH-BAN.md) |
 | Quy chuẩn hình | [docs/QUY-CHUAN-HINH.md](docs/QUY-CHUAN-HINH.md) |
 | Nghiên cứu, bằng chứng, quyết định | [docs/NANG-CAP-NHAN-SU.md](docs/NANG-CAP-NHAN-SU.md) |

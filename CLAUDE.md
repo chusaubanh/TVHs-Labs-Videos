@@ -1,6 +1,6 @@
 # TVHs-Labs-Video
 
-- Purpose: turn Vietnamese training documents into picture-led videos, rendered straight to MP4 with Remotion. Separate project from TVHs-Lab-Video-AI: copy what is needed, never link to it.
+- Purpose: turn Vietnamese training documents into picture-led videos, rendered straight to MP4 with Remotion. Also edits real footage (Chế độ C): `docs/CHE-DO-C.md`.
 - Language: all user-facing output in Vietnamese.
 
 ## Read first
@@ -9,9 +9,11 @@
 - Picture rules: `docs/QUY-CHUAN-HINH.md`
 - Steps and commands: `docs/QUY-TRINH.md`
 - Decisions, evidence, roadmap: `docs/NANG-CAP-NHAN-SU.md`
+- Footage mode: `docs/CHE-DO-C.md`; the old repo's docs are frozen in `docs/tham-khao-repo-cu/`
 - Code map: `graphify-out/GRAPH_REPORT.md`; refresh after changes with `/graphify . --update`
 
 ## Hard rules
+Rules 2 and 3 apply to the document flow. Chế độ C follows `docs/CHE-DO-C.md` and its spec.
 1. Only information in the source document, in narration and on screen. No invented examples, figures or benefits.
 2. Every sentence is an action of the picture; with labels hidden the picture still conveys the sentence. No fixed scene templates.
 3. A frame is a pure function of `useCurrentFrame()`. No `useFrame` driven by time, no timers, no unseeded randomness. A new tool enters only after the determinism test (same frame, twice and out of order, same hash).
