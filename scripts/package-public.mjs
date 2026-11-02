@@ -35,7 +35,7 @@ const REPLACE = [
   ["TVHs-Labs-Video", "S6xEditer"], ["TVHs-Lab-Video-AI", "repo cũ"], ["tvhs-guideline", "brand-guideline"], ["tvhs-logo-icon", "logo-icon"], ["tvhs-logo", "logo"], ["tvhs-sample", "brand-sample"],
   ["Thành Vinh Holdings", "Công ty Mẫu"], ["Thanh Vinh Holdings", "Cong ty Mau"], ["ThanhVinhStudio", "S6xEditer"], ["thanhvinh", "s6x"], ["Thành Vinh", "Công ty Mẫu"],
   ["tvhs.asia", "example.com"], ["TVHS", "S6X"], ["TVHs", "S6x"], ["tvhs", "s6x"],
-  ["anh Phương", "người dùng"], ["Anh Phương", "Người dùng"],
+  ["anh Phương", "người dùng"], ["Anh Phương", "Người dùng"], ["Hướng dẫn sử dụng Trợ lý Pháp chế", "Hướng dẫn sử dụng phần mềm"],
 ];
 const FORBIDDEN = /Thành Vinh|Thanh Vinh|TVH|tvhs|Total_AI|anh Phương|Anh Phương|D:[\\/]|C:[\\/]Users|gmail\.com|sk-ant-|AKIA|ghp_/;
 const TEXT = new Set([".ts", ".tsx", ".mjs", ".js", ".cjs", ".json", ".md", ".txt", ".py", ".ps1", ".bat", ".html", ".css", ".svg", ".yml", ".yaml"]);
