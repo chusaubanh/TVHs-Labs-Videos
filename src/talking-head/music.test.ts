@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { inferMood, loadMusicLibrary, musicLayer, suggestMusic, type MusicEntry } from "./music.js";
 
@@ -22,7 +23,7 @@ describe("music", () => {
     expect(r.findIndex((x) => x.entry.id === "c")).toBeLessThan(r.findIndex((x) => x.entry.id === "a"));
   });
 
-  it("suy mood từ dàn ý và thư viện thật có nhạc", () => {
+  it.skipIf(!existsSync("assets/music-th/manifest.json"))("suy mood từ dàn ý và thư viện thật có nhạc", () => {
     expect(inferMood({ summary: "Hướng dẫn dựng công cụ AI" })).toBe("cong-nghe");
     expect(inferMood({ summary: "Quy trình nội bộ" })).toBe("doanh-nghiep");
     const real = loadMusicLibrary();

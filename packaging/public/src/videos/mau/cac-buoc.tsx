@@ -13,7 +13,7 @@ export const CacBuoc: React.FC = () => {
   return (
     <div ref={scope} style={{ position: "absolute", inset: "11% 8%", display: "flex", flexDirection: "column", gap: "3%" }}>
       {starts.map((_, i) => (
-        <div key={i} className="beat" style={{ flex: 1, background: "#C5A059", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "center", color: "#111", fontSize: 64, fontWeight: 800, transformOrigin: "left center" }}>
+        <div key={i} className="beat" style={{ flex: 1, background: "linear-gradient(90deg, #C5A059, #7A6233)", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "center", color: "#111", fontSize: 64, fontWeight: 800, transformOrigin: "left center" }}>
           <Label i={i} />
         </div>
       ))}
