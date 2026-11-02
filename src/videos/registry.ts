@@ -5,6 +5,12 @@ import * as B2 from "./bai-1/part2";
 import * as B3 from "./bai-1/part3";
 import * as C1 from "./bai-2/part1";
 import * as C2 from "./bai-2/part2";
+import * as K1 from "./cdkh/phan-1";
+import * as K2 from "./cdkh/phan-2";
+import * as K3 from "./cdkh/phan-3";
+import * as F1 from "./fb-ads/phan-1";
+import * as F2 from "./fb-ads/phan-2";
+import * as F3 from "./fb-ads/phan-3";
 import { BucTranhDoi, DaoNguoc, Hook, LoiHua, VongLapCu } from "./mo-dau/part1";
 import { Cach1, Cach2, ThanhPham } from "./mo-dau/part2";
 import { ChanChamDat, ChotVongLap, Ket, Viec1, Viec2, Viec3 } from "./mo-dau/part3";
@@ -57,4 +63,58 @@ export const SCENES: Record<string, React.FC> = {
   "bai-2/viec-hom-nay": C2.ViecHomNay,
   "bai-2/huong-dan": C2.HuongDan,
   "bai-2/ket": C2.Ket,
+  "fb-1/hook": F1.Hook,
+  "fb-1/ba-tang": F1.BaTang,
+  "fb-1/vi-sao": F1.ViSao,
+  "fb-1/campaign": F1.Campaign,
+  "fb-1/sau-muc-tieu": F1.SauMucTieu,
+  "fb-1/khoa": F1.Khoa,
+  "fb-1/tom-lai": F1.TomLai,
+  "fb-1/ket": F1.Ket,
+  "fb-2/hook": F2.Hook,
+  "fb-2/ad-set": F2.AdSet,
+  "fb-2/ad": F2.AdScene,
+  "fb-2/creator": F2.Creator,
+  "fb-2/pixel": F2.Pixel,
+  "fb-2/vi-sao-pixel": F2.ViSaoPixel,
+  "fb-2/tom-lai": F2.TomLai,
+  "fb-2/ket": F2.Ket,
+  "fb-3/hook": F3.Hook,
+  "fb-3/ba-manager": F3.BaManager,
+  "fb-3/nam-khu-vuc": F3.NamKhuVuc,
+  "fb-3/cot-chi-so": F3.CotChiSo,
+  "fb-3/vong": F3.Vong,
+  "fb-3/may-hoc": F3.MayHoc,
+  "fb-3/san-sang": F3.SanSang,
+  "fb-3/ket": F3.Ket,
+  "cdkh-1/mo-dau": K1.MoDau,
+  "cdkh-1/khai-niem": K1.KhaiNiem,
+  "cdkh-1/vi-sao": K1.ViSao,
+  "cdkh-1/ba-nhom": K1.BaNhom,
+  "cdkh-1/tuoi": K1.Tuoi,
+  "cdkh-1/thu-nhap": K1.ThuNhap,
+  "cdkh-1/tam-ly": K1.TamLy,
+  "cdkh-1/tan-suat": K1.TanSuat,
+  "cdkh-1/kenh": K1.Kenh,
+  "cdkh-1/thuc-day": K1.ThucDay,
+  "cdkh-1/tam-quan-trong": K1.TamQuanTrong,
+  "cdkh-1/diem-can-nho": K1.DiemCanNho,
+  "cdkh-1/ket": K1.Ket,
+  "cdkh-2/mo-dau": K2.MoDau,
+  "cdkh-2/fb-hanh-vi": K2.FbHanhVi,
+  "cdkh-2/fb-toi-uu": K2.FbToiUu,
+  "cdkh-2/tt-hanh-vi": K2.TtHanhVi,
+  "cdkh-2/tt-toi-uu": K2.TtToiUu,
+  "cdkh-2/gg-hanh-vi": K2.GgHanhVi,
+  "cdkh-2/gg-toi-uu": K2.GgToiUu,
+  "cdkh-2/diem-can-nho": K2.DiemCanNho,
+  "cdkh-2/ket": K2.Ket,
+  "cdkh-3/mo-dau": K3.MoDau,
+  "cdkh-3/nguyen-tac": K3.NguyenTac,
+  "cdkh-3/fb-chi-so": K3.FbChiSo,
+  "cdkh-3/fb-cong-cu": K3.FbCongCu,
+  "cdkh-3/tiktok": K3.TikTok,
+  "cdkh-3/google": K3.Google,
+  "cdkh-3/diem-can-nho": K3.DiemCanNho,
+  "cdkh-3/ket": K3.Ket,
 };

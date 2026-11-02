@@ -7,13 +7,24 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { measureCoverage } from "../src/gates/qc";
 import { resolveJob } from "../src/training/job";
-import { secToFrames, type Timeline, type TrainingScript } from "../src/training/training-contract";
+import { ASPECTS, secToFrames, type Timeline, type TrainingScript } from "../src/training/training-contract";
 import { openStillSession } from "./render-tools";
 
 const MIN_COVERAGE = 0.62;
 const MAX_GAP = 0.19;
 const TOP = 0.08;
 const BOTTOM = 0.925;
+
+const SAFE_MARGIN = 60;
+
+/** Khoảng cách từ nội dung tới mép khung; che góc watermark để không tính nó là nội dung. */
+function edgeMargins(path: string, width: number, height: number) {
+  const log = spawnSync("ffmpeg", ["-hide_banner", "-i", path, "-vf", `drawbox=x=${width - 120}:y=0:w=120:h=150:color=black:t=fill,format=gray,bbox=min_val=70`, "-f", "null", "-"], { encoding: "utf8" }).stderr;
+  const match = /x1:(\d+) x2:(\d+) y1:(\d+) y2:(\d+)/.exec(log);
+  if (!match) throw new Error(`Không đo được mép khung: ${path}`);
+  const [x1, x2, y1, y2] = match.slice(1).map(Number);
+  return Math.min(x1, width - 1 - x2, y1, height - 1 - y2);
+}
 
 function auditFrame(path: string) {
   const info = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", path], { encoding: "utf8" }).trim();
@@ -51,9 +62,11 @@ try {
       // Hình hiện dần theo câu, nên độ phủ chỉ xét ở trạng thái cuối cảnh.
       if (i < scene.sentences.length - 1) continue;
       const audit = auditFrame(withText);
-      const pass = audit.rowCoverage >= MIN_COVERAGE && audit.largestGap <= MAX_GAP;
+      const { width, height } = ASPECTS[props.script.aspect];
+      const margin = edgeMargins(withText, width, height);
+      const pass = audit.rowCoverage >= MIN_COVERAGE && audit.largestGap <= MAX_GAP && margin >= SAFE_MARGIN;
       if (!pass) failed++;
-      report.push(`${pass ? "đạt " : "LỖI "} ${name}: phủ ${(audit.rowCoverage * 100).toFixed(0)}%, dải trống lớn nhất ${(audit.largestGap * 100).toFixed(0)}%`);
+      report.push(`${pass ? "đạt " : "LỖI "} ${name}: phủ ${(audit.rowCoverage * 100).toFixed(0)}%, dải trống lớn nhất ${(audit.largestGap * 100).toFixed(0)}%, cách mép ${margin} px`);
     }
   }
 } finally {

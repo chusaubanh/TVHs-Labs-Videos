@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { checkAgainstSource, checkLabels, checkLength, checkScript, checkSpokenNumbers, renderScriptReview } from "../src/training/script-checks";
-import { buildTimeline, TrainingScriptSchema, type TrainingScript } from "../src/training/training-contract";
+import { musicKeyTimes, planClips, planSfx } from "../src/training/placement";
+import { buildTimeline, secToFrames, TrainingScriptSchema, type TrainingScript } from "../src/training/training-contract";
 
 const GROUP = { title: "g", contentType: "danh-sach", learnerNeeds: "n", mustKeep: ["m"], canDrop: [], examples: [], delivery: "x" };
 
@@ -19,6 +20,14 @@ const base = (over: Record<string, unknown> = {}, scene: Record<string, unknown>
   });
 
 const SOURCE = "Nhắn Alo rồi im lặng 30 phút gây phân tán.";
+
+describe("câu chào thương hiệu", () => {
+  const issues = (text: string) => checkScript(base({}, { voiceSegments: [text] }), SOURCE).filter((i) => i.message.startsWith("too-short"));
+  it("chỉ miễn lỗi quá ngắn cho đúng tên thương hiệu", () => {
+    expect(issues("Thành Vinh Holdings.")).toEqual([]);
+    expect(issues("Câu ngắn thôi.")).toHaveLength(1);
+  });
+});
 
 describe("hợp đồng", () => {
   it("bắt buộc mỗi câu có một mô tả hình", () => {
@@ -103,5 +112,31 @@ describe("bảng duyệt và timeline", () => {
     const timeline = buildTimeline(script, "job", () => 2);
     expect(timeline.scenes[0]?.sentences[1]?.startSec).toBeCloseTo(2.12);
     expect(timeline.totalSec).toBeCloseTo(4.52);
+  });
+});
+
+describe("xếp lớp CapCut", () => {
+  const script = base({ music: { src: "m.mp3", underVoice: 0.1, inGap: 0.2, fadeInSec: 1, fadeOutSec: 2 } }, {
+    voiceSegments: ["Im lặng ba mươi phút.", "Câu thứ hai đủ dài."],
+    visual: ["Đồng hồ quay.", "Đồng hồ dừng."],
+    sfx: [
+      { src: "a.mp3", sentence: 0, fraction: 0, volume: 0.5, hitSec: 0 },
+      { src: "b.mp3", sentence: 0, fraction: 0.1, volume: 0.5, hitSec: 0 },
+      { src: "a.mp3", sentence: 1, fraction: 0.5, volume: 0.5, hitSec: 0 },
+    ],
+  });
+  const timeline = buildTimeline(script, "j", () => 2);
+  it("tiếng chồng nhau sang làn khác, hết chồng thì về làn đầu", () => {
+    expect(planSfx(script, timeline, () => 1).map((item) => item.lane)).toEqual([0, 1, 0]);
+  });
+  it("các đoạn cảnh ghép lại đủ tổng số khung", () => {
+    const clips = planClips(timeline);
+    expect(clips[0].fromFrame).toBe(0);
+    expect(clips.at(-1)?.toFrame).toBe(secToFrames(timeline.totalSec));
+  });
+  it("mốc nhạc nằm trong video và có đầu cuối", () => {
+    const keys = musicKeyTimes(script, timeline);
+    expect(keys[0]).toBe(0);
+    expect(keys.at(-1)).toBe(timeline.totalSec);
   });
 });

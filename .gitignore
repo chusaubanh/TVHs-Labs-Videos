@@ -13,3 +13,9 @@ tmp/
 public/jobs/
 output/
 graphify-out/cache/
+models/
+input/**/*.mp4
+input/**/*.mov
+input/**/*.mkv
+input/**/*.wav
+/*.mp3

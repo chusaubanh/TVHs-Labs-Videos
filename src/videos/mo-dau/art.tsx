@@ -39,7 +39,7 @@ export const G: React.FC<{ x?: number; y?: number; s?: number; r?: number; o?: n
 );
 
 /** Khung sân khấu: nền, máy quay trôi nhẹ, tranh SVG và nhãn HTML. */
-export const Stage: React.FC<{ bg: string; overlay?: React.ReactNode; children?: React.ReactNode; still?: boolean }> = ({ bg, overlay, children, still = false }) => {
+export const Stage: React.FC<{ bg: string; overlay?: React.ReactNode; children?: React.ReactNode; still?: boolean; inset?: number }> = ({ bg, overlay, children, still = false, inset = 1 }) => {
   const { f } = useT();
   const { durationInFrames } = useVideoConfig();
   // Ảnh PNG lớn dưới phép phóng thay đổi làm Chromium lấy mẫu lệch vài điểm giữa các lần chụp, nên màn logo đứng yên.
@@ -49,7 +49,7 @@ export const Stage: React.FC<{ bg: string; overlay?: React.ReactNode; children?:
       {/* Nền chìm: vầng vàng thương hiệu toả nhẹ và lưới mảnh, không tranh với hình. */}
       <AbsoluteFill style={{ background: "radial-gradient(ellipse 75% 60% at 50% 45%, rgba(197,160,89,0.13) 0%, rgba(197,160,89,0.04) 55%, rgba(197,160,89,0) 100%)" }} />
       <AbsoluteFill style={{ backgroundImage: "linear-gradient(rgba(197,160,89,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(197,160,89,0.09) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-      <AbsoluteFill style={{ transform: `scale(${drift})` }}>
+      <AbsoluteFill style={{ transform: `scale(${drift * inset})` }}>
         <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{ position: "absolute", inset: 0 }}>
           {children}
         </svg>

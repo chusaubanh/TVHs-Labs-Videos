@@ -123,10 +123,13 @@ export function checkLabels(script: TrainingScript): ScriptIssue[] {
   return issues;
 }
 
+/** Câu chào tên thương hiệu ở màn kết đã được duyệt, ngắn là có chủ ý. */
+const BRAND_SIGN_OFF = "Thành Vinh Holdings.";
+
 export function checkNarration(script: TrainingScript): ScriptIssue[] {
   return script.scenes.flatMap((scene) =>
     scene.voiceSegments.flatMap((text, i) =>
-      inspectNarration(text).map((issue) => ({
+      inspectNarration(text).filter((issue) => !(issue.code === "too-short" && text === BRAND_SIGN_OFF)).map((issue) => ({
         level: "error" as const,
         where: `${scene.id} / câu ${i + 1}`,
         message: `${issue.code}: ${issue.message}`,

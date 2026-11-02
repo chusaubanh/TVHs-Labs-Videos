@@ -28,7 +28,7 @@ Sửa `script.json` sau khi duyệt thì phiếu duyệt mất hiệu lực và 
 | Composition | Cảnh chưa dựng thì báo lỗi, không ra màn hình trống |
 | `voice`, `render` | Chưa được người dùng duyệt |
 | `gate:determinism` | Khung render lại ra hình khác; mọi khung giống hệt nhau |
-| `stills` | Cuối cảnh: độ phủ dưới 62%; dải trống quá 19% chiều cao |
+| `stills` | Cuối cảnh: độ phủ dưới 62%; dải trống quá 19% chiều cao; nội dung cách mép khung dưới 60 px |
 | `render` | Sai khổ, fps, codec, thời lượng; độ to lệch quá 1 LU so với −14; hình đứng yên quá 8 giây |
 
 Ngưỡng hình đứng yên 8 giây là tạm thời; đổi bằng `--max-still`, chốt sau khi có video thật.

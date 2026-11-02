@@ -11,6 +11,7 @@ import {
   type Timeline,
   type TrainingScript,
 } from "../../training/training-contract";
+import { sfxFromFrame, voiceFromFrame } from "../../training/placement";
 import { SCENES } from "../../videos/registry";
 import { GlobalFonts } from "../GlobalFonts";
 
@@ -70,14 +71,14 @@ export const TrainingVideoComposition: React.FC<TrainingVideoProps> = ({ script,
               <Scene />
             </SceneProvider>
             {timing.sentences.map((sentence) => (
-              <Sequence key={sentence.audio} from={Math.round(sentence.startSec * fps)} layout="none">
+              <Sequence key={sentence.audio} from={voiceFromFrame(sentence, fps)} layout="none">
                 <Audio src={staticFile(sentence.audio)} />
               </Sequence>
             ))}
             {scene.sfx.map((cue, i) => {
               const sentence = timing.sentences[cue.sentence];
               if (!sentence) throw new Error(`SFX của cảnh ${scene.id} trỏ sai câu.`);
-              const from = Math.max(0, Math.round((sentence.startSec + sentence.durationSec * cue.fraction - cue.hitSec) * fps));
+              const from = sfxFromFrame(sentence, cue, fps);
               return (
                 <Sequence key={`${cue.src}-${i}`} from={from} layout="none">
                   <Audio src={staticFile(cue.src)} volume={cue.volume} />
