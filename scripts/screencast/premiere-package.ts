@@ -26,6 +26,8 @@ import { resolveMediaBinary } from "../../src/studio/utils/media-binary.js";
 import { loadProject, type Layer } from "../../src/talking-head/project-schema.js";
 import { buildMixGraph, measureLoudness, probeForMix } from "../../src/talking-head/audio-mix.js";
 import { assignLanes, buildItems, clipToLength, nameScreenSpan, type Item, type Piece } from "./premiere-timeline.js";
+import { config } from "dotenv";
+config({ path: ".env.local", quiet: true });
 
 /* ── Tham số ── */
 const args = process.argv.slice(2);
@@ -42,8 +44,8 @@ const mediaDir = join(outDir, "media");
 const tmpDir = join(outDir, ".work");
 const UNTIL = opt("until") ? Number(opt("until")) : Infinity;
 const NAME = opt("name") ?? "timeline";
-const BRIDGE = "D:/Total_AI/04_Agents_MCP_Workflow/Bots_Agents/Em_yeu_khoa_hoc/Adobe/adobe-bridge.cjs";
-const BRIDGE_OUT = "D:/Gom/Em yêu khoa học/Cầu nối adobe/outputs"; // panel Premiere chỉ nhận XML nằm trong thư mục này
+const BRIDGE = process.env.ADOBE_BRIDGE ?? "";
+const BRIDGE_OUT = process.env.ADOBE_BRIDGE_OUT ?? join(outDir, "cau-noi"); // panel Premiere chỉ nhận XML nằm trong thư mục này
 mkdirSync(mediaDir, { recursive: true });
 mkdirSync(tmpDir, { recursive: true });
 
@@ -432,6 +434,7 @@ if (prproj) {
   mkdirSync(BRIDGE_OUT, { recursive: true });
   const target = join(BRIDGE_OUT, `${NAME}.xml`);
   copyFileSync(xmlFile, target);
+  if (!BRIDGE) throw new Error("Đặt ADOBE_BRIDGE trỏ tới adobe-bridge.cjs để dùng --import.");
   const r = spawnSync(process.execPath, [BRIDGE, "pr", "import", target, prproj], { encoding: "utf8" });
   const outText = `${r.stdout}${r.stderr}`;
   if (/Open Script Rough Cut Bridge/.test(outText)) throw new Error("Panel cầu nối trong Premiere đang tắt: mở project và bật panel Script Rough Cut Bridge rồi chạy lại.");
