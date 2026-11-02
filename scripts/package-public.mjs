@@ -46,7 +46,7 @@ mkdirSync(dest, { recursive: true });
 const tmp = mkdtempSync(join(tmpdir(), "s6x-"));
 const tar = join(tmp, "head.tar");
 execSync(`git archive --format=tar HEAD -o "${tar}"`, { stdio: "inherit" });
-const untar = spawnSync("tar", ["-xf", tar, "-C", tmp], { stdio: "inherit" });
+const untar = spawnSync("tar", ["-xf", "head.tar"], { cwd: tmp, stdio: "inherit" }); // GNU tar hiểu "C:" là máy từ xa
 if (untar.status !== 0) throw new Error("Không giải nén được commit.");
 
 for (const item of ALLOW) {

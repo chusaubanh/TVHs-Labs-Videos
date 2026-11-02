@@ -18,4 +18,4 @@ Luồng này nhận clip quay, phiên âm, cắt, xử lý âm thanh, chỉnh tr
 
 `scripts/screencast/` dựng video quay màn hình và đóng gói timeline Premiere. Lệnh chạy nêu ở đầu từng file và ở [QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md](tham-khao-repo-cu/QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md).
 
-Chưa kiểm trên repo này: dựng một video quay màn hình mới từ đầu, và mở gói Premiere trong Premiere. Job Pháp chế hiện báo `không căn được giọng s14` ở cả mã cũ lẫn mã mới vì dữ liệu job đã đổi từ 31/10, không phải lỗi do chuyển repo.
+Chưa kiểm trên repo này: dựng một video quay màn hình mới từ đầu, và mở gói Premiere trong Premiere.

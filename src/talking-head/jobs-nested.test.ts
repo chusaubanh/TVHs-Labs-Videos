@@ -56,7 +56,7 @@ describe("job id lồng, có dấu và khoảng trắng", () => {
 
 describe("th:intake theo tài liệu gốc", () => {
   it("tên tài liệu: bỏ đuôi và hậu tố cut/final; slug ASCII", () => {
-    expect(docNameFromFile("D:/x/Tiêu chuẩn của video bán hàng cut.mp4")).toBe("Tiêu chuẩn của video bán hàng");
+    expect(docNameFromFile("E:/x/Tiêu chuẩn của video bán hàng cut.mp4")).toBe("Tiêu chuẩn của video bán hàng");
     expect(docNameFromFile("Bài giảng 1 final cut.mov")).toBe("Bài giảng 1");
     expect(cleanSegment("a/b: c*d")).toBe("a b c d");
     expect(slugify("Tiêu chuẩn của video bán hàng")).toBe("tieu-chuan-cua-video-ban-hang");

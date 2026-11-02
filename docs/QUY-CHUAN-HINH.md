@@ -169,7 +169,7 @@ Use `assets/brand/tvhs-logo.png` and the palette in
 `assets/brand/tvhs-guideline.json`. Primary display accents are `#C5A059` and `#E0C286`;
 the main canvas is `#0C0C0C`.
 
-All rendered videos must feature the faint brand watermark (`assets/brand/watermark.png`, source: `D:\TVH\New folder\TVHS\logo\Asset 1.png`) in the top-right corner (`top: 44px, right: 44px`, `width: 84px`, `opacity: 0.40`). The pipeline applies this automatically during final audio-video muxing (`muxAudioOntoVideo`).
+All rendered videos must feature the faint brand watermark (`assets/brand/watermark.png`) in the top-right corner (`top: 44px, right: 44px`, `width: 84px`, `opacity: 0.40`). The pipeline applies this automatically during final audio-video muxing (`muxAudioOntoVideo`).
 
 Apply these Vietnamese typography safeguards:
 
