@@ -5,7 +5,7 @@ Giấy phép MIT trong `LICENSE` chỉ áp cho mã của dự án này. Các th�
 | Thành phần | Giấy phép | Lưu ý |
 | :--- | :--- | :--- |
 | Remotion | Remotion License | **Đơn vị vì lợi nhuận có trên 3 nhân viên phải mua Company License.** Tự kiểm tra tại https://www.remotion.dev/license |
-| HyperFrames | Apache-2.0 | Tải qua `npx` khi xuất Chế độ C |
+| HyperFrames 0.6.94 | Gói npm bản này không ghi giấy phép; bản 0.8.152 ghi Apache-2.0 | Tải qua `npx` khi xuất Chế độ C. Tự kiểm tra trước khi dùng thương mại |
 | GSAP | GSAP Standard License | https://gsap.com/licensing |
 | capcut-cli | MIT | |
 | VieNeu-TTS và model | Theo repo gốc | Tải ở lần chạy đầu; tự kiểm tra trước khi dùng thương mại |

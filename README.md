@@ -41,7 +41,7 @@ npm run setup
 npm run doctor
 ```
 
-Chế độ C cài thêm: `npm run th:setup`. Máy anh em không có NVIDIA vẫn làm được video từ tài liệu bằng CPU, chậm hơn nhiều; phiên âm Chế độ C cần NVIDIA.
+Chế độ C cài thêm: `npm run th:setup`. Máy không có NVIDIA vẫn làm được video từ tài liệu bằng CPU, chậm hơn nhiều; phiên âm Chế độ C cần NVIDIA.
 
 **Giấy phép Remotion:** đơn vị vì lợi nhuận có trên 3 nhân viên phải mua Company License. Xem https://www.remotion.dev/license.
 
