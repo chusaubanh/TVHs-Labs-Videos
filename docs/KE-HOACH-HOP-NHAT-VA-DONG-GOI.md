@@ -164,3 +164,10 @@ Cổng để phát hành: cả 5 mục đạt hoặc được ghi rõ là chưa 
 - Đã xong: giai đoạn 1 đến 4 và 6, phần sinh hai bản của giai đoạn 7, chạy thử clone sạch của giai đoạn 8, xoá draft `CDKH Phan 3`.
 - Đã quyết: bỏ `templates/` và `scene-kit`; nhạc nền nằm trong git bản nội bộ; không xử lý Truyện ma; tên repo `TVHs-Labs-Videos` và `S6xEditer`.
 - Còn chờ: xoá thư mục `_CHO-XOA-TVHs-Lab-Video-AI` sau khi chốt job `02-khung-hinh-vang`; đẩy GitHub; giấy phép Remotion; cập nhật trang web.
+
+## Đã đẩy lên GitHub (03/11/2026)
+
+| Repo | Chế độ | Nhánh | Ghi chú |
+| :--- | :--- | :--- | :--- |
+| https://github.com/chusaubanh/TVHs-Labs-Videos | Riêng tư | `main` | Đẩy theo commit từ `bai-viet-ai`, `master` cục bộ không đẩy |
+| https://github.com/chusaubanh/S6xEditer | Công khai | `main` | Sinh từ `scripts/package-public.mjs`, bỏ 49 ảnh chụp Editor vì trong hình có tên công ty |

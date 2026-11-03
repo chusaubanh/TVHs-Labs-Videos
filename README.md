@@ -123,4 +123,4 @@ npm run gate:determinism -- --fixtures
 - **Không công khai repo này.** Repo có logo, tên công ty, tài liệu và nhạc nội bộ.
 - **Nhạc nền chỉ dùng nội bộ.** Xem `public/audio/NGUON.md`.
 - **Giấy phép Remotion:** đơn vị vì lợi nhuận có trên 3 nhân viên phải mua Company License. Xem [remotion.dev/license](https://www.remotion.dev/license).
-- **Phát hành bản công khai:** chạy `node scripts/package-public.mjs <thư mục mới>`. Bộ quét chỉ đọc được chữ, nên phải tự xem mọi ảnh và video mới trước khi thêm vào danh sách cho phép.
+- **Phát hành bản công khai:** chạy `node scripts/package-public.mjs <thư mục tạm>`, rồi `robocopy <thư mục tạm> <bản clone S6xEditer> /MIR /XD .git`, xem `git status`, commit và push. Bộ quét chỉ đọc được chữ, nên phải tự xem mọi ảnh và video mới trước khi thêm vào danh sách cho phép.
