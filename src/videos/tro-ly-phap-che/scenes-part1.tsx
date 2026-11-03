@@ -171,30 +171,31 @@ export const KhoiTaoProject: React.FC = () => {
 
   return (
     <Stage
+      underlay={
+        <ScreenMockup
+          videoSrc="raw-recordings/tro-ly-phap-che/1.mp4"
+          startFrom={0}
+          x={160}
+          y={175}
+          w={1600}
+          h={760}
+          scale={p(0)}
+        />
+      }
       overlay={
         <>
-          <Tag i={0} x={420} y={80} p={p(0)} solid />
-          <Tag i={1} x={960} y={80} p={p(1)} />
-          <Tag i={2} x={1500} y={80} p={p(2)} color={RED} solid />
+          <Tag i={0} x={420} y={115} p={p(0)} solid />
+          <Tag i={1} x={960} y={115} p={p(1)} />
+          <Tag i={2} x={1500} y={115} p={p(2)} color={RED} solid />
         </>
       }
     >
-      <ScreenMockup
-        videoSrc="raw-recordings/tro-ly-phap-che/1.mp4"
-        startFrom={0}
-        x={160}
-        y={140}
-        w={1600}
-        h={850}
-        scale={p(0)}
-      />
-
       {/* Cảnh báo chỉ chat trong project */}
-      <G x={960} y={970} s={p(2) * alertPulse}>
-        <Box cx={0} cy={0} w={920} h={86} rx={43} fill="#2B1414" stroke={RED} strokeWidth={4} />
-        <circle cx={-380} cy={0} r={24} fill={RED} />
-        <path d="M-380 -12 L-380 4 M-380 12 L-380 14" stroke="#FFF" strokeWidth={5} strokeLinecap="round" />
-        <rect x={-320} y={-14} width={640} height={28} rx={14} fill="#FFD1D1" opacity={0.85} />
+      <G x={960} y={965} s={p(2) * alertPulse}>
+        <Box cx={0} cy={0} w={920} h={64} rx={32} fill="#2B1414" stroke={RED} strokeWidth={3} />
+        <circle cx={-380} cy={0} r={20} fill={RED} />
+        <path d="M-380 -10 L-380 4 M-380 10 L-380 12" stroke="#FFF" strokeWidth={4} strokeLinecap="round" />
+        <rect x={-320} y={-10} width={640} height={20} rx={10} fill="#FFD1D1" opacity={0.85} />
       </G>
     </Stage>
   );
@@ -218,36 +219,46 @@ export const KiemTraDieuKien: React.FC = () => {
       }
     >
       {/* Hộp thoại lệnh 1 */}
-      <G x={520} y={520} s={cmdIn * 1.05}>
-        <Box cx={0} cy={0} w={480} h={520} rx={24} fill={EL} stroke={GOLD} strokeWidth={3} />
-        <rect x={-200} y={-210} width={400} height={50} rx={12} fill="#242732" />
-        <circle cx={-160} cy={-185} r={8} fill={GOLDL} />
-        <rect x={-130} y={-195} width={240} height={20} rx={10} fill={HOV} />
-        <rect x={-200} y={-130} width={400} height={180} rx={16} fill="#111317" />
-        <Lines x={-170} y={-90} w={340} n={4} gap={36} color={TXT} t={12} />
-        <rect x={-180} y={90} width={360} height={60} rx={30} fill={HOV} />
-        <rect x={-120} y={110} width={240} height={20} rx={10} fill={GOLDL} />
+      <G x={520} y={535} s={cmdIn * 1.05}>
+        <Box cx={0} cy={0} w={480} h={560} rx={24} fill={EL} stroke={GOLD} strokeWidth={3} />
+        <rect x={-200} y={-230} width={400} height={50} rx={12} fill="#242732" />
+        <circle cx={-160} cy={-205} r={8} fill={GOLDL} />
+        <rect x={-130} y={-215} width={240} height={20} rx={10} fill={HOV} />
+        <rect x={-200} y={-150} width={400} height={200} rx={16} fill="#111317" />
+        <Lines x={-170} y={-110} w={340} n={4} gap={36} color={TXT} t={12} />
+        <rect x={-180} y={100} width={360} height={60} rx={30} fill={HOV} />
+        <rect x={-120} y={120} width={240} height={20} rx={10} fill={GOLDL} />
       </G>
 
       {/* Xin quyền & bấm đồng ý */}
-      <G x={960} y={520} s={allowIn * 1.05}>
-        <Box cx={0} cy={0} w={480} h={520} rx={24} fill={EL} stroke={XL} strokeWidth={3} />
-        <circle cx={0} cy={-130} r={50} fill="rgba(34,197,94,0.2)" stroke={XL} strokeWidth={3} />
-        <path d="M-18 -130 L-6 -118 L18 -142" stroke={XL} strokeWidth={6} strokeLinecap="round" fill="none" />
-        <rect x={-140} y={-45} width={280} height={28} rx={14} fill={HOV} />
-        <rect x={-100} y={0} width={200} height={20} rx={10} fill={SEC} opacity={0.6} />
-        <rect x={-160} y={80} width={320} height={70} rx={35} fill={XL} />
-        <path d="M-20 115 L-6 128 L20 102" stroke={INK} strokeWidth={8} strokeLinecap="round" fill="none" />
+      <G x={960} y={535} s={allowIn * 1.05}>
+        <Box cx={0} cy={0} w={480} h={560} rx={24} fill={EL} stroke={XL} strokeWidth={3} />
+        <circle cx={0} cy={-140} r={50} fill="rgba(34,197,94,0.2)" stroke={XL} strokeWidth={3} />
+        <path d="M-18 -140 L-6 -128 L18 -152" stroke={XL} strokeWidth={6} strokeLinecap="round" fill="none" />
+        <rect x={-140} y={-55} width={280} height={28} rx={14} fill={HOV} />
+        <rect x={-100} y={-10} width={200} height={20} rx={10} fill={SEC} opacity={0.6} />
+        <rect x={-160} y={90} width={320} height={70} rx={35} fill={XL} />
+        <path d="M-20 125 L-6 138 L20 112" stroke={INK} strokeWidth={8} strokeLinecap="round" fill="none" />
       </G>
 
       {/* Xác nhận hệ làm việc */}
-      <G x={1400} y={520} s={readyIn * 1.05}>
-        <Box cx={0} cy={0} w={480} h={520} rx={24} fill={EL} stroke={GOLD} strokeWidth={3} />
-        <circle cx={0} cy={-130} r={50} fill="rgba(197,160,89,0.2)" stroke={GOLDL} strokeWidth={3} />
-        <path d="M-18 -130 L-6 -118 L18 -142" stroke={GOLDL} strokeWidth={6} strokeLinecap="round" fill="none" />
-        <rect x={-140} y={-45} width={280} height={28} rx={14} fill={HOV} />
-        <rect x={-200} y={20} width={400} height={120} rx={16} fill="#111317" />
-        <Lines x={-160} y={50} w={320} n={2} gap={36} color={GOLDL} t={12} />
+      <G x={1400} y={535} s={readyIn * 1.05}>
+        <Box cx={0} cy={0} w={480} h={560} rx={24} fill={EL} stroke={GOLD} strokeWidth={3} />
+        <circle cx={0} cy={-140} r={50} fill="rgba(197,160,89,0.2)" stroke={GOLDL} strokeWidth={3} />
+        <path d="M-18 -140 L-6 -128 L18 -152" stroke={GOLDL} strokeWidth={6} strokeLinecap="round" fill="none" />
+        <rect x={-140} y={-55} width={280} height={28} rx={14} fill={HOV} />
+        <rect x={-200} y={10} width={400} height={140} rx={16} fill="#111317" />
+        <Lines x={-160} y={45} w={320} n={2} gap={36} color={GOLDL} t={12} />
+      </G>
+
+      {/* Thanh trạng thái sẵn sàng ở chân khung */}
+      <G x={960} y={955} s={readyIn * 1.05}>
+        <Box cx={0} cy={0} w={960} h={60} rx={30} fill="#181B22" stroke="rgba(197,160,89,0.4)" strokeWidth={2} />
+        <circle cx={-400} cy={0} r={14} fill={XL} />
+        <path d="M-407 0 L-402 5 L-393 -4" stroke={INK} strokeWidth={3} strokeLinecap="round" fill="none" />
+        <rect x={-360} y={-8} width={240} height={16} rx={8} fill={HOV} />
+        <circle cx={0} cy={0} r={6} fill={GOLDL} />
+        <rect x={40} y={-8} width={340} height={16} rx={8} fill={GOLDL} opacity={0.7} />
       </G>
     </Stage>
   );

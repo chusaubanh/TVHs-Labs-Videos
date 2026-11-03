@@ -51,10 +51,11 @@ export const G: React.FC<{
 
 export const Stage: React.FC<{
   bg?: string;
+  underlay?: React.ReactNode;
   overlay?: React.ReactNode;
   children?: React.ReactNode;
   still?: boolean;
-}> = ({ bg = INK, overlay, children, still = false }) => {
+}> = ({ bg = INK, underlay, overlay, children, still = false }) => {
   const { f } = useT();
   const { durationInFrames } = useVideoConfig();
   const drift = still ? 1 : interpolate(f, [0, durationInFrames], [1, 1.02]);
@@ -76,7 +77,8 @@ export const Stage: React.FC<{
         }}
       />
       <AbsoluteFill style={{ transform: `scale(${drift})` }}>
-        <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{ position: "absolute", inset: 0 }}>
+        {underlay}
+        <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           {children}
         </svg>
         {overlay}
