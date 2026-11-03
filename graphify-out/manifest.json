@@ -558,10 +558,10 @@
     "semantic_hash": "b04cce3cfc61bafeea2b9f5f024ce7c2"
   },
   "scripts/screencast/screencast-mix.ts": {
-    "mtime": 1793325603.0227072,
-    "seen": 1793697608.6968439,
-    "ast_hash": "1e72c94267175a0818beb695587a4d81",
-    "semantic_hash": "1e72c94267175a0818beb695587a4d81"
+    "mtime": 1793697862.6196277,
+    "seen": 1793697880.9861188,
+    "ast_hash": "6f59035f24faa8cc58baca0abb7dd8b7",
+    "semantic_hash": ""
   },
   "scripts/screencast/screencast-rieng.ts": {
     "mtime": 1793248179.1980443,
@@ -1146,10 +1146,10 @@
     "semantic_hash": "6d0e7c85bb7545ce38d42cbcbaeda7d4"
   },
   "docs/tham-khao-repo-cu/CHE-DO-C-SPEC.md": {
-    "mtime": 1792981984.4321074,
-    "seen": 1793697608.7022843,
-    "ast_hash": "2e8c578cd0434391e79b7ab821578919",
-    "semantic_hash": "2e8c578cd0434391e79b7ab821578919"
+    "mtime": 1793697863.4994092,
+    "seen": 1793697880.986401,
+    "ast_hash": "b596b818fb28e28e5d0e4bcc76ddc7a4",
+    "semantic_hash": ""
   },
   "docs/tham-khao-repo-cu/DECISIONS.md": {
     "mtime": 1793107465.1581323,
@@ -1210,5 +1210,17 @@
     "seen": 1793697608.7022998,
     "ast_hash": "231dafc4345762e647f0246d0477a2d9",
     "semantic_hash": "231dafc4345762e647f0246d0477a2d9"
+  },
+  "package.json": {
+    "mtime": 1793608172.733857,
+    "seen": 1793697880.9860294,
+    "ast_hash": "2882bf913046c4dac27ff1e3d7699a85",
+    "semantic_hash": ""
+  },
+  "docs/tham-khao-repo-cu/Netflix engineers posted 20 GitHub repos that turn your Opus 5.5 into a fcking motion empire.txt": {
+    "mtime": 1793172762.4950986,
+    "seen": 1793697880.9864087,
+    "ast_hash": "e51bf73911c74dd31218c9dead742e1f",
+    "semantic_hash": ""
   }
 }

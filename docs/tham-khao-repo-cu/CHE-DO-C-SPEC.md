@@ -2,6 +2,8 @@
 
 Chốt ngày 22/10/2026 (anh Phương), rà và hoà giải ngày 23/10/2026. Đây là nguồn chuẩn cho mọi code và tài liệu của Chế độ C.
 
+> **Ghi chú 03/11/2026:** các mục nói về `scene-kit`, `templates/`, `templateId` (bước 13-15, layer `type: "scene"`, set `tcvbh2`) đã bỏ ở repo này. Xem [CHE-DO-C.md](../CHE-DO-C.md) mục "Khác với tài liệu cũ".
+
 Mục cũ bị thay được viết lại hoặc đánh dấu `(đã thay 23/10/2026: …)` ngay tại chỗ. Thứ tự chạy thực tế (22 bước, có cảnh báo thứ tự) nằm ở "Thứ tự chạy chuẩn"; quy tắc cứng do người dùng đặt ở "Quy tắc cứng"; kinh nghiệm vận hành ở "Vận hành"; job mẫu ở "Ví dụ mẫu".
 
 ## Nguyên tắc

@@ -1,14 +1,19 @@
 # Graph Report - TVHs-Labs-Video  (2026-11-03)
 
 ## Corpus Check
-- 203 files · ~220,273 words
+- 201 files · ~220,578 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 4 file(s) not represented in the graph (top: (none) 2, .bat 2)
 
 ## Summary
-- 1964 nodes · 6190 edges · 79 communities (67 shown, 12 thin omitted)
+- 2059 nodes · 6302 edges · 89 communities (76 shown, 13 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 81 edges (avg confidence: 0.84)
-- Token cost: 496,293 input · 0 output
+- Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `7bd7c0b5`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - Cảnh video bài học
@@ -21,11 +26,11 @@
 - Chế độ C: lệnh dựng media
 - QA Editor qua CDP
 - Composition video đào tạo
-- Cân âm lượng clip
+- ref_node_fs
 - Screencast mix
 - Bake vật lý & cổng
 - Mix âm thanh Chế độ C
-- Lệnh B-roll
+- commands-broll.ts
 - Xuất CapCut
 - Screencast riêng
 - Screencast v2
@@ -35,7 +40,7 @@
 - Kiểm kịch bản
 - Job Editor quay màn hình
 - Intro & mã hoá GPU
-- Đo hiệu năng Chrome
+- perf-measure.mjs
 - Job & smoke test
 - Render overlay
 - Dàn ý tài liệu
@@ -81,9 +86,20 @@
 - Phân tích nội dung
 - Căn giọng screencast
 - Remotion bàn dựng chính
+- package.json
 - Nối clip FFmpeg
 - Repo cũ: cổng khung hình
 - Repo cũ: cache giọng
+- scripts
+- dependencies
+- training-contract.ts
+- clip-loudness.ts
+- Quy chuẩn hình và hợp đồng câu–hình
+- devDependencies
+- project.json v1 (timeline nhiều layer)
+- bake-rapier.ts
+- Phân tầng model Opus giao & kiểm · Sonnet kế hoạch · Haiku thực tập sinh
+- logger.ts
 
 ## God Nodes (most connected - your core abstractions)
 1. `G()` - 186 edges
@@ -98,36 +114,36 @@
 10. `Lines()` - 45 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `README TVHs-Labs-Videos` --references--> `Giấy phép Remotion`  [INFERRED]
-  README.md → docs/NANG-CAP-NHAN-SU.md
 - `JOB_DIR` --calls--> `jobDir()`  [EXTRACTED]
   scripts/editor/server.ts → src/talking-head/jobs.ts
-- `S6 · Tổ kiểm định (QA)` --implements--> `Đánh giá công cụ từ mã nguồn; chưa chạy là 'Cần thử'`  [INFERRED]
-  .claude/agents/s6-qa.md → AGENTS.md
-- `S7 · Visual Critic` --implements--> `Cổng tắt chữ`  [EXTRACTED]
-  .claude/agents/s7-visual-critic.md → docs/NANG-CAP-NHAN-SU.md
 - `Copilot instructions` --references--> `AGENTS.md (chỉ dẫn chung cho agent)`  [EXTRACTED]
   .github/copilot-instructions.md → AGENTS.md
+- `README TVHs-Labs-Videos` --references--> `S6xEditer (bản công khai)`  [EXTRACTED]
+  README.md → docs/KE-HOACH-HOP-NHAT-VA-DONG-GOI.md
+- `README TVHs-Labs-Videos` --references--> `Giấy phép Remotion`  [INFERRED]
+  README.md → docs/NANG-CAP-NHAN-SU.md
+- `Hợp đồng câu–hình (một câu = một voiceSegments = một nhịp hình)` --conceptually_related_to--> `Mỗi câu là một hành động của hình`  [INFERRED]
+  docs/QUY-CHUAN-HINH.md → AGENTS.md
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Luồng S1→S7 làm video từ tài liệu** — _claude_agents_s1_content_architect, _claude_agents_s2_copywriter, _claude_agents_s3_audio, _claude_agents_s4_visual, _claude_agents_s5a_motion_2d, _claude_agents_s5b_stage_3d, _claude_agents_s6_qa, _claude_agents_s7_visual_critic [EXTRACTED 1.00]
-- **Bảo đảm tất định khung hình** — agents_rule_frame_pure_function, docs_nang_cap_nhan_su_determinism_test, docs_quy_trinh_new_tool_procedure, scripts_gate_determinism, _claude_agents_s6_qa [INFERRED 0.85]
-- **Kể bằng hình, không bằng chữ** — agents_rule_sentence_is_picture_action, docs_nang_cap_nhan_su_picture_before_text, docs_quy_chuan_hinh_keyword_only_text, docs_quy_chuan_chuoi_ai_anti_slide_rule, docs_nang_cap_nhan_su_label_off_gate [INFERRED 0.85]
-- **Luồng B-roll Chế độ C: plan → th:broll → overlay dịch người nói → SFX** — docs_tham_khao_repo_cu_broll_guide_broll_plan_json, docs_tham_khao_repo_cu_broll_guide_th_broll, docs_tham_khao_repo_cu_broll_guide_overlay_dich_nguoi_noi_side, docs_tham_khao_repo_cu_broll_guide_moi_phan_tu_co_sfx, docs_tham_khao_repo_cu_che_do_c_spec_overlay_runtime_tat_dinh [INFERRED 0.85]
-- **Motion design + harness + loop là một stack** — docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_four_parts_of_a_studio, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_harness_engineering, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_loop_engineering, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_smoke_test_seam_check, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_house_rules [EXTRACTED 1.00]
-- **Dây chuyền Master + 7 Specialist** — docs_tham_khao_repo_cu_multi_agent_model_master_agent, docs_tham_khao_repo_cu_multi_agent_model_specialist_1_content_architect, docs_tham_khao_repo_cu_multi_agent_model_specialist_2_copywriter, docs_tham_khao_repo_cu_multi_agent_model_specialist_3_audio, docs_tham_khao_repo_cu_multi_agent_model_specialist_4_svg_designer, docs_tham_khao_repo_cu_multi_agent_model_specialist_5_motion, docs_tham_khao_repo_cu_multi_agent_model_specialist_6_qa, docs_tham_khao_repo_cu_multi_agent_model_specialist_7_visual_critic [EXTRACTED 1.00]
 - **Hệ cổng chặn rule trước render (máy + MẮT)** — docs_tham_khao_repo_cu_skill_bang_rule_cong, docs_tham_khao_repo_cu_skill_cong_truoc_render, docs_tham_khao_repo_cu_skill_canary_fixtures, docs_tham_khao_repo_cu_skill_approval_json, docs_tham_khao_repo_cu_skill_quality_gate [EXTRACTED 1.00]
 - **Bộ rule hình 0 / 0b / 0c / 0d** — docs_tham_khao_repo_cu_skill_rule_0_hinh_minh_hoa, docs_tham_khao_repo_cu_skill_rule_0b_hinh_phai_ro, docs_tham_khao_repo_cu_skill_rule_0c_taste_rules, docs_tham_khao_repo_cu_skill_rule_0d_cam_template_generic [EXTRACTED 1.00]
+- **Motion design + harness + loop là một stack** — docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_four_parts_of_a_studio, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_harness_engineering, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_loop_engineering, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_smoke_test_seam_check, docs_tham_khao_repo_cu_how_to_turn_opus_5_5_into_a_studio__the_full_guide_to_motion_design__harnesses_and_loops___x_house_rules [EXTRACTED 1.00]
+- **Dây chuyền Master + 7 Specialist** — docs_tham_khao_repo_cu_multi_agent_model_master_agent, docs_tham_khao_repo_cu_multi_agent_model_specialist_1_content_architect, docs_tham_khao_repo_cu_multi_agent_model_specialist_2_copywriter, docs_tham_khao_repo_cu_multi_agent_model_specialist_3_audio, docs_tham_khao_repo_cu_multi_agent_model_specialist_4_svg_designer, docs_tham_khao_repo_cu_multi_agent_model_specialist_5_motion, docs_tham_khao_repo_cu_multi_agent_model_specialist_6_qa, docs_tham_khao_repo_cu_multi_agent_model_specialist_7_visual_critic [EXTRACTED 1.00]
+- **Luồng S1→S7 làm video từ tài liệu** — _claude_agents_s1_content_architect, _claude_agents_s2_copywriter, _claude_agents_s3_audio, _claude_agents_s4_visual, _claude_agents_s5a_motion_2d, _claude_agents_s5b_stage_3d, _claude_agents_s6_qa, _claude_agents_s7_visual_critic [EXTRACTED 1.00]
+- **Luồng B-roll Chế độ C: plan → th:broll → overlay dịch người nói → SFX** — docs_tham_khao_repo_cu_broll_guide_broll_plan_json, docs_tham_khao_repo_cu_broll_guide_th_broll, docs_tham_khao_repo_cu_broll_guide_overlay_dich_nguoi_noi_side, docs_tham_khao_repo_cu_broll_guide_moi_phan_tu_co_sfx, docs_tham_khao_repo_cu_che_do_c_spec_overlay_runtime_tat_dinh [INFERRED 0.85]
+- **Bảo đảm tất định khung hình** — agents_rule_frame_pure_function, docs_nang_cap_nhan_su_determinism_test, docs_quy_trinh_new_tool_procedure, scripts_gate_determinism, _claude_agents_s6_qa [INFERRED 0.85]
 - **Chẩn đoán quảng cáo bằng chỉ số phễu** — docs_tham_khao_repo_cu_brief_3_bai_hoc_ba_tang_pheu, docs_tham_khao_repo_cu_brief_3_bai_hoc_ma_tran_bat_benh, docs_tham_khao_repo_cu_brief_3_bai_hoc_quy_trinh_danh_gia_nguoc, docs_tham_khao_repo_cu_brief_3_bai_hoc_nguyen_tac_phan_dinh_loi [INFERRED 0.85]
+- **Kể bằng hình, không bằng chữ** — agents_rule_sentence_is_picture_action, docs_nang_cap_nhan_su_picture_before_text, docs_quy_chuan_hinh_keyword_only_text, docs_quy_chuan_chuoi_ai_anti_slide_rule, docs_nang_cap_nhan_su_label_off_gate [INFERRED 0.85]
 
-## Communities (79 total, 12 thin omitted)
+## Communities (89 total, 13 thin omitted)
 
 ### Community 0 - "Cảnh video bài học"
 Cohesion: 0.06
-Nodes (250): AiLaBanAy(), Gear(), Hook(), Intern(), NguocDoi(), PhanXa(), Quarter(), Stairs() (+242 more)
+Nodes (253): react, BakedPhysics, bakedPose(), AiLaBanAy(), Gear(), Hook(), Intern(), NguocDoi() (+245 more)
 
 ### Community 1 - "Cảnh Trợ lý Pháp chế & Label"
 Cohesion: 0.09
@@ -138,12 +154,12 @@ Cohesion: 0.05
 Nodes (31): Máy chủ VieNeu (cổng 8124), #17 VieNeu-TTS, free_vram(), setup_env(), main(), patch_torchaudio(), detect_cv2(), detect_mediapipe() (+23 more)
 
 ### Community 3 - "Chế độ C: CLI & căn lời"
-Cohesion: 0.10
-Nodes (62): alignEdits(), alignSegment(), lcsPairs(), normToken(), main(), clipsBuild(), clipsInit(), subject() (+54 more)
+Cohesion: 0.12
+Nodes (54): main(), clipsBuild(), clipsInit(), subject(), archiveIfExists(), audio(), cut(), alignEditsCmd() (+46 more)
 
 ### Community 4 - "Chế độ C: API thư viện"
-Cohesion: 0.05
-Nodes (52): handleLibraryApi(), LibraryCtx, listTemplates(), readJsonBody(), ROUTES, sendJson(), templateAspect(), project (+44 more)
+Cohesion: 0.06
+Nodes (54): handleLibraryApi(), LibraryCtx, listTemplates(), readJsonBody(), ROUTES, sendJson(), templateAspect(), project (+46 more)
 
 ### Community 5 - "Gói Premiere quay màn hình"
 Cohesion: 0.03
@@ -151,43 +167,43 @@ Nodes (56): all, args, AudioLayer, callouts, cfg, cfgPath, clean, clipGain (+48 
 
 ### Community 6 - "Kế hoạch B-roll"
 Cohesion: 0.06
-Nodes (46): AnyLayer, AssetInfo, assetSize(), Beat, BeatSchema, BrollContext, BrollPlan, BrollPlanSchema (+38 more)
+Nodes (45): AnyLayer, AssetInfo, assetSize(), Beat, BeatSchema, BrollContext, BrollPlan, BrollResult (+37 more)
 
 ### Community 7 - "Chế độ C: lệnh dựng media"
-Cohesion: 0.08
-Nodes (43): archiveIfExists(), audio(), Brand, buildProject(), flattenOutline(), geometry(), outlineLayers(), isKept() (+35 more)
+Cohesion: 0.07
+Nodes (45): Brand, buildProject(), flattenOutline(), geometry(), outlineLayers(), isKept(), keepRangesFromCuts(), mapTime() (+37 more)
 
 ### Community 8 - "QA Editor qua CDP"
 Cohesion: 0.06
 Nodes (28): openPage(), sleep(), R, [url = "http://localhost:4360/?theme=dark", out = "scripts/editor/public/design/screens"], clipRect(), drag(), E(), fails (+20 more)
 
 ### Community 9 - "Composition video đào tạo"
-Cohesion: 0.09
-Nodes (31): SceneProvider, calculateTrainingMetadata(), musicVolume(), TrainingVideoComposition(), TrainingVideoProps, GlobalFonts(), emptyProps, RemotionRoot() (+23 more)
+Cohesion: 0.13
+Nodes (23): remotion, SceneProvider, calculateTrainingMetadata(), musicVolume(), TrainingVideoComposition(), TrainingVideoProps, GlobalFonts(), emptyProps (+15 more)
 
-### Community 10 - "Cân âm lượng clip"
+### Community 10 - "ref_node_fs"
 Cohesion: 0.11
-Nodes (33): Cache, cacheFile(), CLIP_TARGET_LUFS, ClipGain, computeClipGains(), GAIN_MAX, GAIN_MIN, integrated() (+25 more)
+Nodes (31): vitest, gpuEncodeAvailable(), videoCodecArgs(), computeClipGains(), buildClipsFromCutMap(), buildClipsAudioFilter(), CLIP_GROUP_CACHE, clipFrames (+23 more)
 
 ### Community 11 - "Screencast mix"
 Cohesion: 0.08
 Nodes (33): aenc, args, assFilterPath(), assTime(), blocks(), blurChain(), Box, boxesFor() (+25 more)
 
 ### Community 12 - "Bake vật lý & cổng"
-Cohesion: 0.08
-Nodes (27): bakePhysics(), clean(), PhysicsSpec, [specPath, outPath], [input, output, pan], panFilter(), args, aspect (+19 more)
+Cohesion: 0.07
+Nodes (35): typescript, normalizeLoudness(), [input, output, pan], panFilter(), args, errors, facts, finalPath (+27 more)
 
 ### Community 13 - "Mix âm thanh Chế độ C"
-Cohesion: 0.12
-Nodes (26): resolveMediaBinary(), shortPathCache, buildMixGraph(), decodeMono(), duckParams(), ensureProjectMix(), f(), frameDb() (+18 more)
+Cohesion: 0.09
+Nodes (34): resolveMediaBinary(), shortPathCache, buildMixGraph(), decodeMono(), duckParams(), ensureProjectMix(), f(), frameDb() (+26 more)
 
-### Community 14 - "Lệnh B-roll"
-Cohesion: 0.10
-Nodes (31): broll(), convertFace(), Face, loadAssetManifest(), measuredTransform(), sameVt(), SfxPack, loadProject() (+23 more)
+### Community 14 - "commands-broll.ts"
+Cohesion: 0.26
+Nodes (11): BrollPlanSchema, broll(), convertFace(), Face, loadAssetManifest(), measuredTransform(), sameVt(), loadProject() (+3 more)
 
 ### Community 15 - "Xuất CapCut"
-Cohesion: 0.07
-Nodes (30): after, args, bake(), before, cli, clips, counted, created (+22 more)
+Cohesion: 0.06
+Nodes (34): after, args, bake(), before, cli, clips, counted, created (+26 more)
 
 ### Community 16 - "Screencast riêng"
 Cohesion: 0.09
@@ -199,7 +215,7 @@ Nodes (30): args, assFilterPath(), assTime(), blocks(), blurChain(), Box, boxesF
 
 ### Community 18 - "Cấu hình & TTS studio"
 Cohesion: 0.08
-Nodes (21): Config, intDefault(), loadConfig(), TtsProvider, SfxSpec, TemplateScene, TemplateSceneType, TemplateScript (+13 more)
+Nodes (23): axios, dotenv, zod, Config, intDefault(), loadConfig(), TtsProvider, SfxSpec (+15 more)
 
 ### Community 19 - "Server Editor"
 Cohesion: 0.10
@@ -218,20 +234,20 @@ Cohesion: 0.07
 Nodes (27): args, base, calloutLayers, calloutStyle, cfg, cfgPath, dir, doc (+19 more)
 
 ### Community 23 - "Intro & mã hoá GPU"
-Cohesion: 0.14
-Nodes (26): gpuEncodeAvailable(), videoCodecArgs(), addIntroToProject(), BACKUP_FILES, buildAudio(), buildIntroLayers(), clippedWordWarnings(), DEFAULT_INTRO_SFX (+18 more)
+Cohesion: 0.16
+Nodes (22): addIntroToProject(), BACKUP_FILES, buildAudio(), buildIntroLayers(), clippedWordWarnings(), DEFAULT_INTRO_SFX, intro(), introAudioFilter() (+14 more)
 
-### Community 24 - "Đo hiệu năng Chrome"
-Cohesion: 0.09
-Nodes (18): chrome, proc, profile, normalizeLoudness(), args, errors, facts, finalPath (+10 more)
+### Community 24 - "perf-measure.mjs"
+Cohesion: 0.33
+Nodes (3): chrome, proc, profile
 
 ### Community 25 - "Job & smoke test"
-Cohesion: 0.15
-Nodes (20): Bảng file phụ trách theo tổ, [aspect = "16:9", voice = "Ngọc Huyền", doc = "fixtures/smoke/smoke.md"], job, script, applySpeed(), main(), probeDurationSec(), synthesize() (+12 more)
+Cohesion: 0.22
+Nodes (15): applySpeed(), main(), probeDurationSec(), synthesize(), [input, step, flag, by], Approvals, ApprovalStep, approve() (+7 more)
 
 ### Community 26 - "Render overlay"
-Cohesion: 0.14
-Nodes (23): log, toAsciiShortPath(), ./overlay-runtime.js, area(), backgroundFilter(), Box, composition(), dirSig() (+15 more)
+Cohesion: 0.16
+Nodes (22): toAsciiShortPath(), ./overlay-runtime.js, area(), backgroundFilter(), Box, composition(), dirSig(), fileSig() (+14 more)
 
 ### Community 27 - "Dàn ý tài liệu"
 Cohesion: 0.13
@@ -239,39 +255,39 @@ Nodes (22): cleanHeading(), cleanInline(), CONTENT_TYPES, ContentHint, DocumentO
 
 ### Community 28 - "Cổng tất định"
 Cohesion: 0.11
-Nodes (15): Master · Bàn dựng, FIXTURE_FRAMES, FIXTURE_IDS, report(), hashFile(), openStillSession(), StillSession, testDeterminism() (+7 more)
+Nodes (17): Master · Bàn dựng, @remotion/bundler, @remotion/renderer, FIXTURE_FRAMES, FIXTURE_IDS, report(), hashFile(), openStillSession() (+9 more)
 
 ### Community 29 - "Máy quay ảo"
 Cohesion: 0.19
 Nodes (19): aiCameraOn(), clipTransformSpans(), effectiveMoves(), effectiveShifts(), hasClipTransforms(), staticCovers(), TransformSpan, VideoClipSchema (+11 more)
 
 ### Community 30 - "Repo cũ: mô hình đa agent"
-Cohesion: 0.14
-Nodes (16): Agent Workflow / Multi-Agent Operating Model, Anti-Slop Design & Speech-Synced Active Focus Glow, Video Aspect Ratio & Framing Gate, Company Brand Palette & Third-Party Brand Exception, Kiến trúc render đa worker trên máy người dùng, Master Agent (Executive Producer), Specialist 1 — Content Architect & Series Planner, Specialist 2 — AI Copywriter & Narration (+8 more)
+Cohesion: 0.16
+Nodes (15): Agent Workflow / Multi-Agent Operating Model, Anti-Slop Design & Speech-Synced Active Focus Glow, Video Aspect Ratio & Framing Gate, Company Brand Palette & Third-Party Brand Exception, Kiến trúc render đa worker trên máy người dùng, Master Agent (Executive Producer), Specialist 1 — Content Architect & Series Planner, Specialist 2 — AI Copywriter & Narration (+7 more)
 
 ### Community 31 - "Tổ S1–S7 và luồng"
-Cohesion: 0.18
-Nodes (16): S1 · Content Architect, S2 · Copywriter, S3 · Tổ âm thanh, S7 · Visual Critic, AGENTS.md (chỉ dẫn chung cho agent), Luồng S1→S7, 18 nhân sự theo tổ Specialist, #16 Remotion Audio + FFmpeg (+8 more)
+Cohesion: 0.20
+Nodes (15): S1 · Content Architect, S2 · Copywriter, S3 · Tổ âm thanh, AGENTS.md (chỉ dẫn chung cho agent), 18 nhân sự theo tổ Specialist, #16 Remotion Audio + FFmpeg, Kế hoạch hợp nhất pipeline cũ và đóng gói, Nghiên cứu nâng cấp 18 nhân sự (+7 more)
 
 ### Community 32 - "S4 tranh & công cụ"
-Cohesion: 0.13
-Nodes (9): S4 · Tổ tranh, #08 dotLottie, #04 Satori, #03 SVGO, Cổng tắt chữ, Hợp đồng câu–hình (một câu = một voiceSegments = một nhịp hình), font(), loadFonts() (+1 more)
+Cohesion: 0.23
+Nodes (9): S4 · Tổ tranh, #08 dotLottie, #04 Satori, #03 SVGO, @lottiefiles/dotlottie-web, satori, font(), loadFonts() (+1 more)
 
 ### Community 33 - "Bài X: harness & loop"
-Cohesion: 0.16
-Nodes (13): How to Turn Opus 5.5 Into a Studio (bài X), Addy Osmani — Loop Engineering, Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents (arXiv 2609.00006), Birgitta Böckeler — Harness engineering for coding agent users, Claude Opus 5.5, Bốn loại loop: agentic, goal, time, proactive, Bốn phần của studio (stage, renderer, encoder, checks), Guides (feedforward) và Sensors (feedback) (+5 more)
+Cohesion: 0.20
+Nodes (12): How to Turn Opus 5.5 Into a Studio (bài X), Addy Osmani — Loop Engineering, Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents (arXiv 2609.00006), Birgitta Böckeler — Harness engineering for coding agent users, Claude Opus 5.5, Bốn loại loop: agentic, goal, time, proactive, Guides (feedforward) và Sensors (feedback), Harness engineering (agent = model + harness) (+4 more)
 
 ### Community 34 - "Brand & lời đọc"
-Cohesion: 0.14
-Nodes (15): tts(), buildIntro(), tts(), tts(), tts(), applyNarrationReplacements(), BrandConfig, BrandConfigSchema (+7 more)
+Cohesion: 0.13
+Nodes (15): tts(), tts(), tts(), tts(), applyNarrationReplacements(), BrandConfig, BrandConfigSchema, BrandPersona (+7 more)
 
 ### Community 35 - "Repo cũ: đặc tả Chế độ C"
-Cohesion: 0.13
-Nodes (15): Chế độ C — đặc tả kỹ thuật v1, Mix âm thanh: ducking + loudnorm master −16 LUFS, Chế độ C — Talking head từ clip quay thật, Job mẫu 02-khung-hinh-vang (set tcvbh2), Model ASR chạy lần lượt trên GPU (Whisper, wav2vec2, DeepFilterNet3), Overlay runtime tất định (mountOverlay/seek), Phát hiện từ đệm bằng VAD, project.json v1 (timeline nhiều layer) (+7 more)
+Cohesion: 0.20
+Nodes (9): Chế độ C — đặc tả kỹ thuật v1, Mix âm thanh: ducking + loudnorm master −16 LUFS, Chế độ C — Talking head từ clip quay thật, Job mẫu 02-khung-hinh-vang (set tcvbh2), Model ASR chạy lần lượt trên GPU (Whisper, wav2vec2, DeepFilterNet3), Overlay runtime tất định (mountOverlay/seek), Phát hiện từ đệm bằng VAD, Preset th-presets (subtitle, lowerThird, sfx-packs) (+1 more)
 
 ### Community 36 - "Kế hoạch cắt"
-Cohesion: 0.13
-Nodes (13): Filler, fillerCandidates(), MERGE_GAP, PAUSE_COMMA, PAUSE_SENTENCE, renderCutsMd(), SILENCE_MIN, T() (+5 more)
+Cohesion: 0.10
+Nodes (23): alignEdits(), alignSegment(), lcsPairs(), normToken(), Filler, fillerCandidates(), MERGE_GAP, PAUSE_COMMA (+15 more)
 
 ### Community 37 - "Kiểm parity Editor"
 Cohesion: 0.12
@@ -279,11 +295,11 @@ Nodes (11): args, dir, FFMPEG, job, out, probe, REPO, results (+3 more)
 
 ### Community 38 - "S5A chuyển động 2D"
 Cohesion: 0.14
-Nodes (10): S5A · Tổ chuyển động 2D, #06 Anime.js v4, #02 GSAP Skills, #05 GSAP Timeline, #10 Motion Canvas (hoãn), #01 Remotion Skills, #07 Remotion Spring, Watermark thương hiệu (+2 more)
+Nodes (11): S5A · Tổ chuyển động 2D, #06 Anime.js v4, #02 GSAP Skills, #05 GSAP Timeline, #10 Motion Canvas (hoãn), #01 Remotion Skills, #07 Remotion Spring, Watermark thương hiệu (+3 more)
 
 ### Community 39 - "S5B phim trường 3D"
-Cohesion: 0.17
-Nodes (11): S5B · Tổ phim trường 3D, #13 Drei, #15 Postprocessing, #12 R3F, #14 Rapier, #11 Three.js, Lộ trình đề xuất GĐ 0–5, Font 3D thiếu dấu tiếng Việt (+3 more)
+Cohesion: 0.21
+Nodes (9): S5B · Tổ phim trường 3D, #13 Drei, #15 Postprocessing, #12 R3F, #14 Rapier, #11 Three.js, Lộ trình đề xuất GĐ 0–5, Font 3D thiếu dấu tiếng Việt (+1 more)
 
 ### Community 40 - "Đóng gói bản công khai"
 Cohesion: 0.13
@@ -302,8 +318,8 @@ Cohesion: 0.18
 Nodes (13): assignLanes(), buildItems(), cut, ev, items, { lanes, count }, pieces, total (+5 more)
 
 ### Community 44 - "Công cụ audio studio"
-Cohesion: 0.26
-Nodes (12): sceneKitCuts(), concatWithSilence(), getDurationSec, mixSfxOntoVoice(), SfxMixSpec, getMediaDurationSec(), runMediaCommand(), concatVideos() (+4 more)
+Cohesion: 0.25
+Nodes (13): sceneKitCuts(), buildIntro(), concatWithSilence(), getDurationSec, mixSfxOntoVoice(), SfxMixSpec, getMediaDurationSec(), runMediaCommand() (+5 more)
 
 ### Community 45 - "Repo cũ: brief bài học"
 Cohesion: 0.20
@@ -314,8 +330,8 @@ Cohesion: 0.15
 Nodes (9): BASE, bigLay, coLay, file(), K(), ltLay, NS, pack() (+1 more)
 
 ### Community 47 - "Quy tắc cứng & S6"
-Cohesion: 0.17
-Nodes (4): S6 · Tổ kiểm định (QA), Copilot instructions, Cổng đối chiếu nguồn, Thêm công cụ hoặc hiệu ứng mới
+Cohesion: 0.14
+Nodes (6): S6 · Tổ kiểm định (QA), Copilot instructions, #18 FFmpeg (người duyệt cuối), Cổng đối chiếu nguồn, Thêm công cụ hoặc hiệu ứng mới, Cổng render (khổ, fps, codec, −14 LUFS)
 
 ### Community 48 - "Repo cũ: hướng dẫn B-roll"
 Cohesion: 0.19
@@ -330,8 +346,8 @@ Cohesion: 0.20
 Nodes (8): BLACK, DIR, lin(), lum(), ratio(), REPO, rows, WHITE
 
 ### Community 51 - "Kế hoạch hợp nhất repo"
-Cohesion: 0.18
-Nodes (11): Chế độ C: dựng từ clip quay thật, Quay màn hình và Premiere, Kế hoạch hợp nhất pipeline cũ và đóng gói, Repo cũ TVHs-Lab-Video-AI, Giấy phép Remotion, requirements-asr.lock (môi trường phiên âm), DeepFilterNet 0.5.6, pyannote.audio 3.4.0 (+3 more)
+Cohesion: 0.22
+Nodes (9): Chế độ C: dựng từ clip quay thật, Quay màn hình và Premiere, Repo cũ TVHs-Lab-Video-AI, requirements-asr.lock (môi trường phiên âm), DeepFilterNet 0.5.6, pyannote.audio 3.4.0, torch 2.6.0+cu124, whisperx 3.4.2 (+1 more)
 
 ### Community 52 - "Repo cũ: Hook/Hold/CTR"
 Cohesion: 0.18
@@ -350,8 +366,8 @@ Cohesion: 0.31
 Nodes (10): DIGITS, FILLER_PHRASES, integerToVietnamese(), NarrationIssue, normalizeVietnameseNarration(), numericTokenToVietnamese(), readThreeDigits(), readTwoDigits() (+2 more)
 
 ### Community 57 - "Label & phiếu duyệt"
-Cohesion: 0.20
-Nodes (9): Sửa script.json làm mất hiệu lực phiếu duyệt, <Label i={n} /> là đường duy nhất cho chữ trên màn hình, #18 FFmpeg (người duyệt cuối), 0b. Hình phải rõ, lengthDecision, Máy móc chặn những gì (các cổng), Cổng render (khổ, fps, codec, −14 LUFS), script:validate (+1 more)
+Cohesion: 0.25
+Nodes (7): Sửa script.json làm mất hiệu lực phiếu duyệt, <Label i={n} /> là đường duy nhất cho chữ trên màn hình, 0b. Hình phải rõ, lengthDecision, Máy móc chặn những gì (các cổng), script:validate, Cổng stills (độ phủ ≥ 62%)
 
 ### Community 58 - "Phần tử timeline XML"
 Cohesion: 0.22
@@ -367,11 +383,11 @@ Nodes (5): Quy trình video hướng dẫn quay màn hình → Premiere, Gói Pr
 
 ### Community 62 - "Tối ưu SVG"
 Cohesion: 0.33
-Nodes (5): ASSETS_DIR, optimizeSvg(), OUTPUT_DIR, SKIP, walk()
+Nodes (6): svgo, ASSETS_DIR, optimizeSvg(), OUTPUT_DIR, SKIP, walk()
 
 ### Community 63 - "Repo cũ: 20 repo motion"
-Cohesion: 0.40
-Nodes (6): 20 GitHub repos motion design cho Opus 5.5, Bộ skill motion design cho Opus 5.5 (claude-motion, motion-graphics-skills…), GSAP, HyperFrames (HTML → MP4), lottie-web, Remotion (video viết bằng React)
+Cohesion: 0.29
+Nodes (7): Bốn phần của studio (stage, renderer, encoder, checks), 20 GitHub repos motion design cho Opus 5.5, Bộ skill motion design cho Opus 5.5 (claude-motion, motion-graphics-skills…), GSAP, HyperFrames (HTML → MP4), lottie-web, Remotion (video viết bằng React)
 
 ### Community 64 - "Repo cũ: SKILL & cài đặt"
 Cohesion: 0.40
@@ -393,33 +409,69 @@ Nodes (4): Hình theo loại nội dung, Cấu trúc nhận thức cho người 
 Cohesion: 0.50
 Nodes (4): alignVoice(), envelope(), pcm(), pearson()
 
+### Community 72 - "package.json"
+Cohesion: 0.07
+Nodes (25): author, description, keywords, license, main, name, private, type (+17 more)
+
+### Community 79 - "scripts"
+Cohesion: 0.05
+Nodes (40): scripts, approve, assets:optimize, audio:pan, capcut:export, doc:outline, doctor, editor (+32 more)
+
+### Community 80 - "dependencies"
+Cohesion: 0.10
+Nodes (21): dependencies, animejs, axios, dotenv, gsap, @lottiefiles/dotlottie-web, react, react-dom (+13 more)
+
+### Community 81 - "training-contract.ts"
+Cohesion: 0.12
+Nodes (14): Bảng file phụ trách theo tổ, [aspect = "16:9", voice = "Ngọc Huyền", doc = "fixtures/smoke/smoke.md"], job, script, AnalysisSchema, ContentGroupSchema, LengthDecisionSchema, MusicSchema (+6 more)
+
+### Community 82 - "clip-loudness.ts"
+Cohesion: 0.21
+Nodes (14): Cache, cacheFile(), CLIP_TARGET_LUFS, ClipGain, GAIN_MAX, GAIN_MIN, integrated(), levelProxyAudio() (+6 more)
+
+### Community 83 - "Quy chuẩn hình và hợp đồng câu–hình"
+Cohesion: 0.20
+Nodes (5): S7 · Visual Critic, Luồng S1→S7, Cổng tắt chữ, Quy chuẩn hình và hợp đồng câu–hình, Hợp đồng câu–hình (một câu = một voiceSegments = một nhịp hình)
+
+### Community 84 - "devDependencies"
+Cohesion: 0.20
+Nodes (10): devDependencies, capcut-cli, svgo, tsx, @types/node, @types/react, @types/react-dom, @types/three (+2 more)
+
+### Community 85 - "project.json v1 (timeline nhiều layer)"
+Cohesion: 0.33
+Nodes (6): project.json v1 (timeline nhiều layer), videoClips — nguồn sự thật duy nhất, Bản đồ đọc source, Ba phần chính: Document Video, Talking Head, Studio, Lệnh Studio (studio:package, studio:editor, studio:export), Contract Studio (output/<job>/studio/)
+
+### Community 86 - "bake-rapier.ts"
+Cohesion: 0.40
+Nodes (4): bakePhysics(), clean(), PhysicsSpec, [specPath, outPath]
+
 ## Ambiguous Edges - Review These
-- `Rule 0c — Taste rules cho khung hình video` → `Phiên bản phổ quát (bỏ ngưỡng số liệu cứng)`  [AMBIGUOUS]
+- `Phiên bản phổ quát (bỏ ngưỡng số liệu cứng)` → `Rule 0c — Taste rules cho khung hình video`  [AMBIGUOUS]
   docs/tham-khao-repo-cu/brief-3-bai-hoc.html · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **81 isolated node(s):** `./overlay-runtime.js`, `Talking Head README`, `Sửa script.json làm mất hiệu lực phiếu duyệt`, `Máy chủ VieNeu (cổng 8124)`, `#09 Remotion · Bàn dựng chính` (+76 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 733 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **12 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **95 isolated node(s):** `@react-three/drei`, `@react-three/fiber`, `@react-three/postprocessing`, `@react-three/rapier`, `@remotion/three` (+90 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 814 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **13 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Chế độ C — đặc tả kỹ thuật v1` connect `Repo cũ: đặc tả Chế độ C` to `Repo cũ: hướng dẫn B-roll`, `Repo cũ: cổng & quy tắc`, `Repo cũ: sổ quyết định`, `Repo cũ: duyệt & canary`, `Repo cũ: mô hình đa agent`?**
-  _High betweenness centrality (0.152) - this node is a cross-community bridge._
-- **What connects `./overlay-runtime.js`, `Talking Head README`, `Sửa script.json làm mất hiệu lực phiếu duyệt` to the rest of the system?**
-  _81 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `react` connect `Cảnh video bài học` to `S4 tranh & công cụ`, `Cảnh Trợ lý Pháp chế & Label`, `S5A chuyển động 2D`, `package.json`, `Composition video đào tạo`, `Bake vật lý & cổng`?**
+  _High betweenness centrality (0.201) - this node is a cross-community bridge._
+- **What connects `@react-three/drei`, `@react-three/fiber`, `@react-three/postprocessing` to the rest of the system?**
+  _95 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Cảnh video bài học` be split into smaller, more focused modules?**
-  _Cohesion score 0.06080955540809555 - nodes in this community are weakly interconnected._
-- **Why does `Mix âm thanh: ducking + loudnorm master −16 LUFS` connect `Repo cũ: đặc tả Chế độ C` to `Mix âm thanh Chế độ C`?**
-  _High betweenness centrality (0.079) - this node is a cross-community bridge._
+  _Cohesion score 0.05965768901124588 - nodes in this community are weakly interconnected._
+- **Why does `Chế độ C — đặc tả kỹ thuật v1` connect `Repo cũ: đặc tả Chế độ C` to `Repo cũ: hướng dẫn B-roll`, `Repo cũ: cổng & quy tắc`, `Kế hoạch hợp nhất repo`, `Repo cũ: sổ quyết định`, `project.json v1 (timeline nhiều layer)`, `Repo cũ: duyệt & canary`, `Repo cũ: mô hình đa agent`?**
+  _High betweenness centrality (0.123) - this node is a cross-community bridge._
 - **Should `Cảnh Trợ lý Pháp chế & Label` be split into smaller, more focused modules?**
-  _Cohesion score 0.0912280701754386 - nodes in this community are weakly interconnected._
-- **Why does `Model ASR chạy lần lượt trên GPU (Whisper, wav2vec2, DeepFilterNet3)` connect `Repo cũ: đặc tả Chế độ C` to `Công cụ audio studio`?**
-  _High betweenness centrality (0.069) - this node is a cross-community bridge._
+  _Cohesion score 0.09357126515671471 - nodes in this community are weakly interconnected._
+- **Why does `AGENTS.md (chỉ dẫn chung cho agent)` connect `Tổ S1–S7 và luồng` to `S4 tranh & công cụ`, `Cảnh video bài học`, `S5A chuyển động 2D`, `S5B phim trường 3D`, `Quy tắc cứng & S6`, `Quy chuẩn hình và hợp đồng câu–hình`, `Kế hoạch hợp nhất repo`?**
+  _High betweenness centrality (0.078) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
 
-- **What is the exact relationship between `Rule 0c — Taste rules cho khung hình video` and `Phiên bản phổ quát (bỏ ngưỡng số liệu cứng)`?**
+- **What is the exact relationship between `Phiên bản phổ quát (bỏ ngưỡng số liệu cứng)` and `Rule 0c — Taste rules cho khung hình video`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._

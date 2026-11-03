@@ -2,7 +2,8 @@
  * Dựng video hướng dẫn "quay màn hình + thuyết minh + phụ đề nảy theo giọng", xen kẽ các cảnh scene-kit
  * (bản tổng quát của screencast-rieng.ts — bản đó giữ nguyên cho job "Hướng dẫn transcript").
  *
- * - Cảnh scene-kit render trước bằng `npm run pipeline -- <docDir>/script.json` (video.mp4 + clips/scene-<id>-fit.mp4).
+ * - Cảnh scene-kit render trước (video.mp4 + clips/scene-<id>-fit.mp4). Lệnh `npm run pipeline` của repo cũ không còn;
+ *   `npm run render` ở repo này chỉ ra `output/<tài liệu>/video.mp4`, không ra clips/*-fit, nên phải tự có hai thứ đó.
  *   Công cụ cắt video.mp4 theo độ dài cộng dồn của các clip *-fit (đúng ranh giới cảnh, giữ nguyên tiếng + SFX).
  * - Đoạn quay màn hình: TTS VieNeu từng đoạn (cache), tua tối đa maxSpeed, giữ khung cuối khi lời dài hơn hình,
  *   phụ đề ASS nảy vàng TVHS + nhãn góc. `spoken` (nếu có) là lời đưa vào TTS; `text` là phụ đề trên màn hình.

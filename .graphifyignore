@@ -11,5 +11,4 @@ requirements-vieneu.lock.txt
 input/
 fixtures/
 src/fixtures/baked-stack.json
-package.json
 tsconfig.json
