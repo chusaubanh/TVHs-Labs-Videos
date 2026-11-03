@@ -2,7 +2,7 @@ import { useGsapTimeline } from "@remotion/gsap";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { ThreeCanvas } from "@remotion/three";
 import React from "react";
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Freeze, OffthreadVideo, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { bakedPose, type BakedPhysics } from "../kit/baked-physics";
 import { DotLottieFrame } from "../kit/DotLottieFrame";
 import { useAnimeTimeline } from "../kit/use-anime-timeline";
@@ -97,6 +97,19 @@ const RapierFixture: React.FC = () => {
   );
 };
 
+/** Phát clip quay màn hình qua Freeze: tua nhanh rồi dừng khung cuối, như cảnh huong-dan-tro-ly. */
+const OffthreadClipFixture: React.FC = () => {
+  const frame = useCurrentFrame();
+  const local = Math.min(59, Math.floor(frame * 1.5));
+  return (
+    <Stage>
+      <Freeze frame={local}>
+        <OffthreadVideo src={staticFile("fixtures/testsrc-60fps.mp4")} trimBefore={15} muted style={{ width: 640, height: 360 }} />
+      </Freeze>
+    </Stage>
+  );
+};
+
 /** Cố ý sai: chạy theo đồng hồ thật. Bài thử tất định phải bắt được cảnh này. */
 const BadClockFixture: React.FC = () => (
   <Stage>
@@ -112,4 +125,5 @@ export const FIXTURES = [
   { id: "fixture-dotlottie", component: LottieFixture },
   { id: "fixture-bloom", component: BloomFixture },
   { id: "fixture-rapier", component: RapierFixture },
+  { id: "fixture-offthread-clip", component: OffthreadClipFixture },
 ];

@@ -15,6 +15,10 @@ import * as F3 from "./fb-ads/phan-3";
 import { BucTranhDoi, DaoNguoc, Hook, LoiHua, VongLapCu } from "./mo-dau/part1";
 import { Cach1, Cach2, ThanhPham } from "./mo-dau/part2";
 import { ChanChamDat, ChotVongLap, Ket, Viec1, Viec2, Viec3 } from "./mo-dau/part3";
+import * as HB from "./huong-dan-tro-ly/broll-scenes";
+import * as HC from "./huong-dan-tro-ly/clip-scenes";
+import * as HO from "./huong-dan-tro-ly/opening";
+import * as HR from "./huong-dan-tro-ly/reuse";
 import * as PC1 from "./tro-ly-phap-che/scenes-part1";
 import * as PC2 from "./tro-ly-phap-che/scenes-part2";
 import * as PC3 from "./tro-ly-phap-che/scenes-part3";
@@ -135,4 +139,27 @@ export const SCENES: Record<string, React.FC> = {
   "tro-ly-phap-che/nguyen-tac-3d": PC3.NguyenTac3D,
   "tro-ly-phap-che/dong-bo-va-tra-kho": PC3.DongBoVaTraKho,
   "tro-ly-phap-che/xu-ly-su-co-va-ket": PC3.XuLySuCoVaKet,
+  "huong-dan-tro-ly/mo-dau": HO.MoDau,
+  "huong-dan-tro-ly/can-chuan-bi": HO.CanChuanBi,
+  "huong-dan-tro-ly/truoc-khi-bat-dau": HB.TruocKhiBatDau,
+  "huong-dan-tro-ly/tao-project": HC.TaoProject,
+  "huong-dan-tro-ly/kiem-tra-dieu-kien": HR.KiemTraDieuKien,
+  "huong-dan-tro-ly/giao-yeu-cau": HC.GiaoYeuCau,
+  "huong-dan-tro-ly/claude-hoi-lai": HC.ClaudeHoiLai,
+  "huong-dan-tro-ly/tram-dung-1": HR.TramDung1,
+  "huong-dan-tro-ly/cong-chan": HC.CongChan,
+  "huong-dan-tro-ly/mo-huong-dan-tai": HC.MoHuongDanTai,
+  "huong-dan-tro-ly/luu-van-ban-luat": HC.LuuVanBanLuat,
+  "huong-dan-tro-ly/xuat-excel-kiem-tra": HR.XuatExcelKiemTra,
+  "huong-dan-tro-ly/mo-chat-moi": HB.MoChatMoi,
+  "huong-dan-tro-ly/mo-file-excel": HC.MoFileExcel,
+  "huong-dan-tro-ly/tram-dung-2": HR.TramDung2,
+  "huong-dan-tro-ly/doi-chieu-va-danh-dau": HB.DoiChieuVaDanhDau,
+  "huong-dan-tro-ly/bao-cao-kiem": HB.BaoCaoKiem,
+  "huong-dan-tro-ly/nguyen-tac-3d": HR.NguyenTac3D,
+  "huong-dan-tro-ly/dong-bo-va-tra-kho": HR.DongBoVaTraKho,
+  "huong-dan-tro-ly/ket-qua-trong-kho": HB.KetQuaTrongKho,
+  "huong-dan-tro-ly/kiem-hieu-luc": HB.KiemHieuLuc,
+  "huong-dan-tro-ly/khi-gap-su-co": HB.KhiGapSuCo,
+  "huong-dan-tro-ly/xu-ly-su-co-va-ket": HR.XuLySuCoVaKet,
 };

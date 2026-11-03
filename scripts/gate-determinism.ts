@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 import { resolveJob } from "../src/training/job";
 import { openStillSession, testDeterminism } from "./render-tools";
 
-const FIXTURE_IDS = ["fixture-gsap", "fixture-anime", "fixture-spring", "fixture-dotlottie", "fixture-bloom", "fixture-rapier"];
+const FIXTURE_IDS = ["fixture-gsap", "fixture-anime", "fixture-spring", "fixture-dotlottie", "fixture-bloom", "fixture-rapier", "fixture-offthread-clip"];
 const FIXTURE_FRAMES = [0, 10, 25, 45, 70, 89];
 
 const input = process.argv[2];

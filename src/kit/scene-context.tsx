@@ -34,6 +34,12 @@ export function useBeats(): { starts: number[]; ends: number[]; active: number; 
   return { starts, ends, active, at };
 }
 
+/** Lời đọc của cảnh và cờ ẩn chữ, cho lớp phụ đề của video chọn có phụ đề. */
+export function useSceneText(): { voiceSegments: string[]; hideText: boolean } {
+  const { scene, hideText } = useScene();
+  return { voiceSegments: scene.voiceSegments, hideText };
+}
+
 /** Khổ hiện tại. Cảnh dùng các số này để bố trí, không ghi cứng 1080. */
 export function useLayout() {
   const { width, height } = useVideoConfig();
