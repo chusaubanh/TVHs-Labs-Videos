@@ -1,7 +1,15 @@
 {
+  "5": "project-schema.ts",
   "10": "ref_node_fs",
-  "14": "commands-broll.ts",
+  "11": "ref_node_fs",
+  "14": "ref_node_child_process",
+  "16": "stills.ts",
+  "17": "#17 VieNeu-TTS",
+  "20": "revision.ts",
   "24": "perf-measure.mjs",
+  "32": "gates.test.ts",
+  "45": "Required Workflow 15 bước (AI là tác giả, code gác cổng)",
+  "52": "Chế độ B — Chuỗi bài AI",
   "72": "package.json",
   "79": "scripts",
   "80": "dependencies",
@@ -10,7 +18,5 @@
   "83": "Quy chuẩn hình và hợp đồng câu–hình",
   "84": "devDependencies",
   "85": "project.json v1 (timeline nhiều layer)",
-  "86": "bake-rapier.ts",
-  "87": "Phân tầng model Opus giao & kiểm · Sonnet kế hoạch · Haiku thực tập sinh",
-  "88": "logger.ts"
+  "86": "bake-rapier.ts"
 }

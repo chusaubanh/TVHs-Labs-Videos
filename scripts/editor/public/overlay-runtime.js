@@ -1,7 +1,7 @@
 /**
  * Overlay runtime (Chế độ C) — dùng chung cho editor và th:render.
  * Hàm thuần theo thời gian t: không dùng setTimeout/rAF/CSS animation, nên seek(t) luôn cho đúng một khung.
- * Tên preset và đường cong lấy từ scripts/scene-kit/motion.mjs (ENTER, leave, EASE, DUR).
+ * Tên preset và đường cong chép từ scripts/scene-kit/motion.mjs của repo cũ (ENTER, leave, EASE, DUR); file đó đã bỏ.
  *
  *   const ov = mountOverlay(rootEl, project, { assetBase: "/", canvasW: 1080, canvasH: 1920 });
  *   ov.seek(12.3); ov.update(newProject); ov.destroy();

@@ -276,10 +276,10 @@
     "semantic_hash": "f162b852a5e78c0dfc9ee207632f2b10"
   },
   "CLAUDE.md": {
-    "mtime": 1793688131.5366998,
-    "seen": 1793697608.7022629,
-    "ast_hash": "b87461312fdbc13e4972c2a5c30a871b",
-    "semantic_hash": "b87461312fdbc13e4972c2a5c30a871b"
+    "mtime": 1793699730.8882308,
+    "seen": 1793700087.2915456,
+    "ast_hash": "5fa1095f27ac2cacddeadfdff21e42d0",
+    "semantic_hash": "5fa1095f27ac2cacddeadfdff21e42d0"
   },
   "README.md": {
     "mtime": 1793669945.4431546,
@@ -528,58 +528,10 @@
     "semantic_hash": "208238cca8df9d9be122fe11b26e23d8"
   },
   "scripts/package-public.mjs": {
-    "mtime": 1793669088.6778157,
-    "seen": 1793697608.6963081,
-    "ast_hash": "908050306f71358b1f4ffdf6c187b649",
-    "semantic_hash": "908050306f71358b1f4ffdf6c187b649"
-  },
-  "scripts/screencast/premiere-package.ts": {
-    "mtime": 1793609164.277831,
-    "seen": 1793697608.6968358,
-    "ast_hash": "4d6358a6cf64b63ee4f78e1afcab3a81",
-    "semantic_hash": "4d6358a6cf64b63ee4f78e1afcab3a81"
-  },
-  "scripts/screencast/premiere-timeline.check.ts": {
-    "mtime": 1793325644.154921,
-    "seen": 1793697608.696838,
-    "ast_hash": "ef121aae8cb08408ddb52bd56092fb5f",
-    "semantic_hash": "ef121aae8cb08408ddb52bd56092fb5f"
-  },
-  "scripts/screencast/premiere-timeline.ts": {
-    "mtime": 1793325657.1813645,
-    "seen": 1793697608.6968396,
-    "ast_hash": "c85c4eafb1fe8973f3562e242d25b3af",
-    "semantic_hash": "c85c4eafb1fe8973f3562e242d25b3af"
-  },
-  "scripts/screencast/screencast-editor-job.ts": {
-    "mtime": 1793259850.8960116,
-    "seen": 1793697608.6968415,
-    "ast_hash": "b04cce3cfc61bafeea2b9f5f024ce7c2",
-    "semantic_hash": "b04cce3cfc61bafeea2b9f5f024ce7c2"
-  },
-  "scripts/screencast/screencast-mix.ts": {
-    "mtime": 1793697862.6196277,
-    "seen": 1793697880.9861188,
-    "ast_hash": "6f59035f24faa8cc58baca0abb7dd8b7",
-    "semantic_hash": ""
-  },
-  "scripts/screencast/screencast-rieng.ts": {
-    "mtime": 1793248179.1980443,
-    "seen": 1793697608.6968453,
-    "ast_hash": "10e8ef0913d46ae54a3fa57b48cec0e7",
-    "semantic_hash": "10e8ef0913d46ae54a3fa57b48cec0e7"
-  },
-  "scripts/screencast/screencast-v2.ts": {
-    "mtime": 1793248179.216184,
-    "seen": 1793697608.696847,
-    "ast_hash": "8e1485e8c3445d28e7220426d8a18a3f",
-    "semantic_hash": "8e1485e8c3445d28e7220426d8a18a3f"
-  },
-  "scripts/screencast/screencast.ts": {
-    "mtime": 1793248179.2323234,
-    "seen": 1793697608.6968486,
-    "ast_hash": "007b89f422ab4df554be56b3b7fdd7d0",
-    "semantic_hash": "007b89f422ab4df554be56b3b7fdd7d0"
+    "mtime": 1793699685.990462,
+    "seen": 1793700087.2913015,
+    "ast_hash": "d62d59df11718bf5161f2ab0647ff773",
+    "semantic_hash": "d62d59df11718bf5161f2ab0647ff773"
   },
   "scripts/setup-asr.ps1": {
     "mtime": 1793605300.950285,
@@ -1110,10 +1062,10 @@
     "semantic_hash": "eecef1def0601e96964b3529d95676a2"
   },
   "AGENTS.md": {
-    "mtime": 1793688131.5349088,
-    "seen": 1793697608.7022612,
-    "ast_hash": "83da4a6f190f5cd93224e6d05c5d267a",
-    "semantic_hash": "83da4a6f190f5cd93224e6d05c5d267a"
+    "mtime": 1793699730.017879,
+    "seen": 1793700087.2915437,
+    "ast_hash": "df401b57d37531234a617fc7be1558e1",
+    "semantic_hash": "df401b57d37531234a617fc7be1558e1"
   },
   "GEMINI.md": {
     "mtime": 1793688131.5381584,
@@ -1122,22 +1074,16 @@
     "semantic_hash": "771faa62feb60b7de901a397aebb29b0"
   },
   "docs/CHE-DO-C.md": {
-    "mtime": 1793612396.0441725,
-    "seen": 1793697608.7022703,
-    "ast_hash": "4dd2794ac478d1068c0eed173ba25d6c",
-    "semantic_hash": "4dd2794ac478d1068c0eed173ba25d6c"
+    "mtime": 1793699684.2361825,
+    "seen": 1793700087.2915473,
+    "ast_hash": "5ca182a52a794600f98f1375ed8ff917",
+    "semantic_hash": "5ca182a52a794600f98f1375ed8ff917"
   },
   "docs/KE-HOACH-HOP-NHAT-VA-DONG-GOI.md": {
     "mtime": 1793669946.6072693,
     "seen": 1793697608.7022715,
     "ast_hash": "f09689b24bebddd03f19eea599045ff4",
     "semantic_hash": "f09689b24bebddd03f19eea599045ff4"
-  },
-  "docs/tham-khao-repo-cu/BRIEF-DOC-3-BAI-HOC.md": {
-    "mtime": 1791442463.4047031,
-    "seen": 1793697608.7022812,
-    "ast_hash": "4b499d7bb7f1d283126494b8532b8cf6",
-    "semantic_hash": "4b499d7bb7f1d283126494b8532b8cf6"
   },
   "docs/tham-khao-repo-cu/BROLL-GUIDE.md": {
     "mtime": 1792728471.7636166,
@@ -1147,21 +1093,15 @@
   },
   "docs/tham-khao-repo-cu/CHE-DO-C-SPEC.md": {
     "mtime": 1793697863.4994092,
-    "seen": 1793697880.986401,
+    "seen": 1793700087.2915494,
     "ast_hash": "b596b818fb28e28e5d0e4bcc76ddc7a4",
-    "semantic_hash": ""
+    "semantic_hash": "b596b818fb28e28e5d0e4bcc76ddc7a4"
   },
   "docs/tham-khao-repo-cu/DECISIONS.md": {
     "mtime": 1793107465.1581323,
     "seen": 1793697608.7022858,
     "ast_hash": "306441c1aecf773ac713360d3bac89b5",
     "semantic_hash": "306441c1aecf773ac713360d3bac89b5"
-  },
-  "docs/tham-khao-repo-cu/How to Turn Opus 5.5 Into a Studio_ The Full Guide to Motion Design, Harnesses and Loops_ _ X.md": {
-    "mtime": 1793172882.8617954,
-    "seen": 1793697608.7022877,
-    "ast_hash": "3b38fdf1e1c99e7cdd286c1e95f89a32",
-    "semantic_hash": "3b38fdf1e1c99e7cdd286c1e95f89a32"
   },
   "docs/tham-khao-repo-cu/MULTI_AGENT_MODEL.md": {
     "mtime": 1792730155.1804965,
@@ -1175,12 +1115,6 @@
     "ast_hash": "1757090a8970b492194990e69ccff99d",
     "semantic_hash": "1757090a8970b492194990e69ccff99d"
   },
-  "docs/tham-khao-repo-cu/QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md": {
-    "mtime": 1793334979.4795203,
-    "seen": 1793697608.7022922,
-    "ast_hash": "dbd09ac0f5ea89d2fc296df18e613b16",
-    "semantic_hash": "dbd09ac0f5ea89d2fc296df18e613b16"
-  },
   "docs/tham-khao-repo-cu/READING-MAP.md": {
     "mtime": 1792986466.0067194,
     "seen": 1793697608.7022934,
@@ -1192,12 +1126,6 @@
     "seen": 1793697608.7022953,
     "ast_hash": "dacc5059b7029559fc16b8643279bffa",
     "semantic_hash": "dacc5059b7029559fc16b8643279bffa"
-  },
-  "docs/tham-khao-repo-cu/brief-3-bai-hoc.html": {
-    "mtime": 1791268640.1903033,
-    "seen": 1793697608.7022967,
-    "ast_hash": "072eea9f9c4305e0b65393d7b7d74ef8",
-    "semantic_hash": "072eea9f9c4305e0b65393d7b7d74ef8"
   },
   "requirements-asr.lock.txt": {
     "mtime": 1792637974.949847,
@@ -1212,15 +1140,15 @@
     "semantic_hash": "231dafc4345762e647f0246d0477a2d9"
   },
   "package.json": {
-    "mtime": 1793608172.733857,
-    "seen": 1793697880.9860294,
-    "ast_hash": "2882bf913046c4dac27ff1e3d7699a85",
-    "semantic_hash": ""
+    "mtime": 1793699718.6504836,
+    "seen": 1793700087.2912269,
+    "ast_hash": "53183ba7804dabdd15b0ebd1f349fc2b",
+    "semantic_hash": "53183ba7804dabdd15b0ebd1f349fc2b"
   },
-  "docs/tham-khao-repo-cu/Netflix engineers posted 20 GitHub repos that turn your Opus 5.5 into a fcking motion empire.txt": {
-    "mtime": 1793172762.4950986,
-    "seen": 1793697880.9864087,
-    "ast_hash": "e51bf73911c74dd31218c9dead742e1f",
-    "semantic_hash": ""
+  "scripts/graph-overview.py": {
+    "mtime": 1793699717.7855203,
+    "seen": 1793700087.2912927,
+    "ast_hash": "28ca8bf9e372d037e6adcc89b7db7e77",
+    "semantic_hash": "28ca8bf9e372d037e6adcc89b7db7e77"
   }
 }

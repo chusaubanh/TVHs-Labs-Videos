@@ -48,6 +48,4 @@ Cài một lần bằng `npm run th:setup`. Dấu ✋ là chỗ người dùng p
 
 ## Quay màn hình và Premiere
 
-`scripts/screencast/` dựng video quay màn hình và đóng gói timeline Premiere. Lệnh chạy nêu ở đầu từng file và ở [QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md](tham-khao-repo-cu/QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md).
-
-Chưa kiểm trên repo này: dựng một video quay màn hình mới từ đầu, và mở gói Premiere trong Premiere.
+Đã bỏ ngày 03/11/2026 vì không còn dùng: luồng này cần các clip `-fit` của scene-kit, mà repo này không tạo ra. Mã cũ `scripts/screencast/` còn trong lịch sử git ở commit `fdb3235`; [QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md](tham-khao-repo-cu/QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md) chỉ còn để tham khảo.

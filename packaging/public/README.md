@@ -143,7 +143,6 @@ npm run gate:determinism -- --fixtures
 - Chỉ hỗ trợ Windows.
 - Đường chạy CPU mới được thử bằng cách ép CPU trên máy có NVIDIA, chưa thử trên máy thật không có NVIDIA.
 - Cài Chế độ C từ đầu trên máy mới, gồm việc tự tải model, chưa được kiểm thử.
-- Luồng quay màn hình và gói Premiere trong `scripts/screencast/` chưa được kiểm thử đầu cuối, và có thể cần sửa.
 
 ## Tài liệu
 

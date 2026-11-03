@@ -44,7 +44,8 @@
     "th:clips-init": "tsx src/talking-head/cli.ts clips-init",
     "th:clips-build": "tsx src/talking-head/cli.ts clips-build",
     "setup": "powershell -ExecutionPolicy Bypass -File scripts/setup-windows.ps1",
-    "doctor": "powershell -ExecutionPolicy Bypass -File scripts/doctor.ps1"
+    "doctor": "powershell -ExecutionPolicy Bypass -File scripts/doctor.ps1",
+    "graph": "graphify update . && uv tool run --from graphifyy python scripts/graph-overview.py"
   },
   "keywords": [
     "remotion",

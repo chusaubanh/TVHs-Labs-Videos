@@ -12,7 +12,7 @@ Shared instructions for every coding agent (Claude Code, Codex, Gemini CLI, Curs
 - Steps, commands and the gates that block: `docs/QUY-TRINH.md`
 - Decisions, evidence, roadmap: `docs/NANG-CAP-NHAN-SU.md`
 - Footage mode: `docs/CHE-DO-C.md`; the old repo's docs are frozen in `docs/tham-khao-repo-cu/`
-- Code map: `graphify-out/GRAPH_REPORT.md`; refresh after code changes with `graphify update .`
+- Code map: `graphify-out/GRAPH_REPORT.md`; refresh after code changes with `npm run graph` (also rebuilds the light view `graphify-out/graph-overview.html`); after doc changes run `/graphify --update`, which costs tokens
 
 ## Hard rules
 Rules 2 and 3 apply to the document flow. Chế độ C follows `docs/CHE-DO-C.md` and its spec.
