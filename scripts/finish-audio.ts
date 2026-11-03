@@ -13,5 +13,7 @@ export function normalizeLoudness(input: string, output: string, target = -14): 
   execFileSync("ffmpeg", ["-y", "-hide_banner", "-loglevel", "error", "-i", input, "-c:v", "copy", "-af", second, "-ar", "48000", "-c:a", "aac", "-b:a", "192k", output]);
 }
 
-const [input, output] = process.argv.slice(2);
-if (input && output) normalizeLoudness(input, output);
+if (process.argv[1]?.endsWith("finish-audio.ts")) {
+  const [input, output] = process.argv.slice(2);
+  if (input && output) normalizeLoudness(input, output);
+}
