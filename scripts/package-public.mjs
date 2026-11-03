@@ -56,6 +56,8 @@ for (const item of ALLOW) {
   cpSync(from, join(dest, item), { recursive: true });
 }
 cpSync("packaging/public", dest, { recursive: true });
+// Ảnh chụp Editor có tên công ty trong hình, bộ quét chuỗi không đọc được ảnh.
+rmSync(join(dest, "scripts/editor/public/design/screens"), { recursive: true, force: true });
 
 // Thương hiệu mẫu: không chép logo thật.
 const guideline = JSON.parse(readFileSync(join(tmp, "assets/brand/tvhs-guideline.json"), "utf8"));

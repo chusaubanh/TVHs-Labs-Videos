@@ -12,4 +12,4 @@ Giấy phép MIT trong `LICENSE` chỉ áp cho mã của dự án này. Các th�
 | WhisperX, PhoWhisper, DeepFilterNet | Theo repo gốc | Tải khi cài Chế độ C |
 | Be Vietnam Pro, Lexend, Nunito | SIL Open Font License | Nằm trong repo |
 
-Dự án không kèm nhạc nền. Tự thêm nhạc bạn có quyền dùng vào `public/audio/music/` và `assets/music-th/`.
+SFX trong `assets/sfx-th/` do dự án tự sinh bằng code, phát hành cùng giấy phép MIT. Dự án không kèm nhạc nền. Tự thêm nhạc bạn có quyền dùng vào `public/audio/music/` và `assets/music-th/`.
