@@ -12,16 +12,16 @@
     "semantic_hash": "39e69438ef34c09fb2e820f6ffd47e8c"
   },
   "scripts/finish-audio.ts": {
-    "mtime": 1793423520.0950415,
-    "seen": 1793424137.2704427,
-    "ast_hash": "eb6faa0f6348a0a94b25b5db6f70cc7a",
-    "semantic_hash": "eb6faa0f6348a0a94b25b5db6f70cc7a"
+    "mtime": 1793688135.0728402,
+    "seen": 1793697608.6960251,
+    "ast_hash": "e5860c51c3c14fd715fdf6e414c8d5b4",
+    "semantic_hash": "e5860c51c3c14fd715fdf6e414c8d5b4"
   },
   "scripts/gate-determinism.ts": {
-    "mtime": 1793422468.3924613,
-    "seen": 1793424137.2704444,
-    "ast_hash": "009467afbbc079bafa5b309256e68e31",
-    "semantic_hash": "009467afbbc079bafa5b309256e68e31"
+    "mtime": 1793688135.078788,
+    "seen": 1793697608.6960278,
+    "ast_hash": "f1a7686d95c2999d394b5628f99b8cc6",
+    "semantic_hash": "f1a7686d95c2999d394b5628f99b8cc6"
   },
   "scripts/optimize-svg.mjs": {
     "mtime": 1793422135.4589038,
@@ -36,10 +36,10 @@
     "semantic_hash": "9d27403667a7849cce0d53866523860c"
   },
   "scripts/pipeline-runner.ts": {
-    "mtime": 1793431251.77726,
-    "seen": 1793436021.362477,
-    "ast_hash": "d4c7b3d1735a23ed52e53010b72cc69c",
-    "semantic_hash": ""
+    "mtime": 1793608172.6842716,
+    "seen": 1793697608.696557,
+    "ast_hash": "025455be0ca15703ed147d8c27bdfecb",
+    "semantic_hash": "025455be0ca15703ed147d8c27bdfecb"
   },
   "scripts/qc-ffmpeg.ts": {
     "mtime": 1793422137.207718,
@@ -48,10 +48,10 @@
     "semantic_hash": "eceefaed579dba3cced981dd2cdd9ff1"
   },
   "scripts/render-tools.ts": {
-    "mtime": 1793422466.7143018,
-    "seen": 1793424137.2704518,
-    "ast_hash": "51419f1610f27786386dda3bf7320431",
-    "semantic_hash": "51419f1610f27786386dda3bf7320431"
+    "mtime": 1793608172.7122016,
+    "seen": 1793697608.6968327,
+    "ast_hash": "a9ce0eb84434a1052bc9d90e02c8b4c9",
+    "semantic_hash": "a9ce0eb84434a1052bc9d90e02c8b4c9"
   },
   "scripts/smoke.ts": {
     "mtime": 1793423689.2954957,
@@ -60,22 +60,22 @@
     "semantic_hash": "67ad933e78d09548be0a38786f1a4ef6"
   },
   "scripts/stills.ts": {
-    "mtime": 1793423775.150159,
-    "seen": 1793424137.2704551,
-    "ast_hash": "a500c4add380c4735567877dfc4f210d",
-    "semantic_hash": "a500c4add380c4735567877dfc4f210d"
+    "mtime": 1793596740.1311364,
+    "seen": 1793697608.6971023,
+    "ast_hash": "c2b76efb9fd08cca8c4b6e35d78b3984",
+    "semantic_hash": "c2b76efb9fd08cca8c4b6e35d78b3984"
   },
   "scripts/vieneu-server.py": {
-    "mtime": 1793431251.8153045,
-    "seen": 1793436021.3624876,
-    "ast_hash": "46e62b775bb5447abb5b9d2dc990e70e",
-    "semantic_hash": ""
+    "mtime": 1793688135.0923865,
+    "seen": 1793697608.6971073,
+    "ast_hash": "4ea39f64e0f8b25c07e3939f2598ad59",
+    "semantic_hash": "4ea39f64e0f8b25c07e3939f2598ad59"
   },
   "src/audio/voice-cli.ts": {
-    "mtime": 1793431252.109653,
-    "seen": 1793436021.362489,
-    "ast_hash": "9712cc5053f4a665ee00e9a012e17015",
-    "semantic_hash": ""
+    "mtime": 1793608205.3785012,
+    "seen": 1793697608.697109,
+    "ast_hash": "725e181f577f02470cc6f3e15de67d95",
+    "semantic_hash": "725e181f577f02470cc6f3e15de67d95"
   },
   "src/audio/voices-cli.ts": {
     "mtime": 1793422125.268078,
@@ -108,10 +108,10 @@
     "semantic_hash": "a7713da52e3ffb06926d0790334069d6"
   },
   "src/kit/scene-context.tsx": {
-    "mtime": 1793422126.1045434,
-    "seen": 1793424137.2704663,
-    "ast_hash": "ee095c981d8b8f0d7d7e5c03dce28c6d",
-    "semantic_hash": "ee095c981d8b8f0d7d7e5c03dce28c6d"
+    "mtime": 1793688135.0941079,
+    "seen": 1793697608.698926,
+    "ast_hash": "4e50e4907ea73cc357335548db0818ed",
+    "semantic_hash": "4e50e4907ea73cc357335548db0818ed"
   },
   "src/kit/use-anime-timeline.ts": {
     "mtime": 1793422126.936612,
@@ -132,10 +132,10 @@
     "semantic_hash": "67bc753b20f9fb7d54597a3ffff1e6b1"
   },
   "src/remotion/compositions/TrainingVideoComposition.tsx": {
-    "mtime": 1793434265.2040586,
-    "seen": 1793436021.36251,
-    "ast_hash": "aa5535a5f6e6c70fcd4af2d1d76dcaa1",
-    "semantic_hash": ""
+    "mtime": 1793607408.6128795,
+    "seen": 1793697608.7000647,
+    "ast_hash": "cc061fb8c2f4db3c1139bc8bde98b5d8",
+    "semantic_hash": "cc061fb8c2f4db3c1139bc8bde98b5d8"
   },
   "src/remotion/index.ts": {
     "mtime": 1793410105.4232943,
@@ -162,10 +162,10 @@
     "semantic_hash": "1ef6306745e840d0912025e91169b7a6"
   },
   "src/training/job.ts": {
-    "mtime": 1793422121.8857203,
-    "seen": 1793424137.2704792,
-    "ast_hash": "3637df37af7fc08b39f37c16b5907a28",
-    "semantic_hash": "3637df37af7fc08b39f37c16b5907a28"
+    "mtime": 1793691535.381399,
+    "seen": 1793697608.7013266,
+    "ast_hash": "a591a3a4c41da601771f26497fdbc1d9",
+    "semantic_hash": "a591a3a4c41da601771f26497fdbc1d9"
   },
   "src/training/outline-cli.ts": {
     "mtime": 1793411733.944496,
@@ -174,10 +174,10 @@
     "semantic_hash": "2559663cadf6ceeb03d0124627431683"
   },
   "src/training/script-checks.ts": {
-    "mtime": 1793435255.258635,
-    "seen": 1793436021.3625233,
-    "ast_hash": "0e2a9a2b16174642bceb39dd54c6cd51",
-    "semantic_hash": ""
+    "mtime": 1793581984.1506464,
+    "seen": 1793697608.7016368,
+    "ast_hash": "23dbd88dcb578e1bc9f96d7bdb1b4c43",
+    "semantic_hash": "23dbd88dcb578e1bc9f96d7bdb1b4c43"
   },
   "src/training/script-validate-cli.ts": {
     "mtime": 1793422122.7226858,
@@ -187,9 +187,9 @@
   },
   "src/training/training-contract.ts": {
     "mtime": 1793435241.7415326,
-    "seen": 1793436021.3625267,
+    "seen": 1793697608.7019126,
     "ast_hash": "cf72f65948b0d142e7854497cee4ffd2",
-    "semantic_hash": ""
+    "semantic_hash": "cf72f65948b0d142e7854497cee4ffd2"
   },
   "src/training/vietnamese-narration.ts": {
     "mtime": 1791424950.7273662,
@@ -198,189 +198,1017 @@
     "semantic_hash": "0d91f0fde596916361d34c701d588ed2"
   },
   "src/videos/registry.ts": {
-    "mtime": 1793435489.5362186,
-    "seen": 1793436021.3625443,
-    "ast_hash": "b25c5fb4ec290ec8c0db054bc699e0cc",
-    "semantic_hash": ""
+    "mtime": 1793689961.7864404,
+    "seen": 1793697608.7022321,
+    "ast_hash": "59326e2f6b4cb325505544851875f15a",
+    "semantic_hash": "59326e2f6b4cb325505544851875f15a"
   },
   "tests/gates.test.ts": {
     "mtime": 1793431727.4143715,
-    "seen": 1793436021.3625462,
+    "seen": 1793697608.7022407,
     "ast_hash": "2f19cc170a1df559e64653b3f06121b3",
-    "semantic_hash": ""
+    "semantic_hash": "2f19cc170a1df559e64653b3f06121b3"
   },
   "tests/job.test.ts": {
-    "mtime": 1793422272.9194715,
-    "seen": 1793424137.2704904,
-    "ast_hash": "c3d2311daa18cde8996781359e136c70",
-    "semantic_hash": "c3d2311daa18cde8996781359e136c70"
+    "mtime": 1793691536.2016048,
+    "seen": 1793697608.7022424,
+    "ast_hash": "2f3b2c0f370bd01f232b886fa8064620",
+    "semantic_hash": "2f3b2c0f370bd01f232b886fa8064620"
   },
   "tests/script-checks.test.ts": {
-    "mtime": 1793435241.7424996,
-    "seen": 1793436021.3625498,
-    "ast_hash": "a66a01298945c67797add6fcc8bf6a39",
-    "semantic_hash": ""
+    "mtime": 1793593816.0731282,
+    "seen": 1793697608.702244,
+    "ast_hash": "a97bc2726fd3dfafb199fe186f397885",
+    "semantic_hash": "a97bc2726fd3dfafb199fe186f397885"
   },
   "vitest.config.ts": {
-    "mtime": 1793420349.0278678,
-    "seen": 1793424137.2704947,
-    "ast_hash": "83d25eba8191ca391c475ed6d726218a",
-    "semantic_hash": "83d25eba8191ca391c475ed6d726218a"
+    "mtime": 1793604449.0975442,
+    "seen": 1793697608.7022457,
+    "ast_hash": "48f868d12447adac45db88ecffcbbe4a",
+    "semantic_hash": "48f868d12447adac45db88ecffcbbe4a"
   },
   ".claude/agents/s1-content-architect.md": {
-    "mtime": 1793421312.5043304,
-    "seen": 1793424137.270496,
-    "ast_hash": "5ad94d6ecb6c28fb306d7db4f1ff11b8",
-    "semantic_hash": "5ad94d6ecb6c28fb306d7db4f1ff11b8"
+    "mtime": 1793688131.5127919,
+    "seen": 1793697608.7022474,
+    "ast_hash": "ba28a9ea7971cf042a90652bd2791989",
+    "semantic_hash": "ba28a9ea7971cf042a90652bd2791989"
   },
   ".claude/agents/s2-copywriter.md": {
-    "mtime": 1793421313.3593745,
-    "seen": 1793424137.2704978,
-    "ast_hash": "9ff849cd4ed438b3dd3b5f17f71b22c9",
-    "semantic_hash": "9ff849cd4ed438b3dd3b5f17f71b22c9"
+    "mtime": 1793688131.5149713,
+    "seen": 1793697608.702249,
+    "ast_hash": "2a10d8e1ad24f78714f8b0d5cc6dcd5e",
+    "semantic_hash": "2a10d8e1ad24f78714f8b0d5cc6dcd5e"
   },
   ".claude/agents/s3-audio.md": {
-    "mtime": 1793421314.2041209,
-    "seen": 1793424137.2704992,
-    "ast_hash": "f3f85edd99f79cee17b8783610677169",
-    "semantic_hash": "f3f85edd99f79cee17b8783610677169"
+    "mtime": 1793688131.5190072,
+    "seen": 1793697608.7022505,
+    "ast_hash": "256cd1329ee7a0f00386830fcfb2ea5b",
+    "semantic_hash": "256cd1329ee7a0f00386830fcfb2ea5b"
   },
   ".claude/agents/s4-visual.md": {
-    "mtime": 1793421315.0517604,
-    "seen": 1793424137.2705011,
-    "ast_hash": "9cd8f6ca91d30046a9fe4e8d12b95392",
-    "semantic_hash": "9cd8f6ca91d30046a9fe4e8d12b95392"
+    "mtime": 1793688131.5209541,
+    "seen": 1793697608.7022517,
+    "ast_hash": "c5b814cc87393e3fc369b31619651680",
+    "semantic_hash": "c5b814cc87393e3fc369b31619651680"
   },
   ".claude/agents/s5a-motion-2d.md": {
-    "mtime": 1793424370.2563016,
-    "seen": 1793424491.0990648,
-    "ast_hash": "c7a7e038361e50664f773360e7272dab",
-    "semantic_hash": ""
+    "mtime": 1793688131.5224783,
+    "seen": 1793697608.7022533,
+    "ast_hash": "6446fcfab11bbf4453eaffc8b754145c",
+    "semantic_hash": "6446fcfab11bbf4453eaffc8b754145c"
   },
   ".claude/agents/s5b-stage-3d.md": {
-    "mtime": 1793421316.6906536,
-    "seen": 1793424137.2705042,
-    "ast_hash": "20391b30e5f967395b808160410418f4",
-    "semantic_hash": "20391b30e5f967395b808160410418f4"
+    "mtime": 1793688131.5244734,
+    "seen": 1793697608.702255,
+    "ast_hash": "3abc03eb77f144025a17bc2cd45d3ebb",
+    "semantic_hash": "3abc03eb77f144025a17bc2cd45d3ebb"
   },
   ".claude/agents/s6-qa.md": {
-    "mtime": 1793421504.585549,
-    "seen": 1793424137.2705054,
-    "ast_hash": "354f2dd1396b6034cb5c849327b3ee77",
-    "semantic_hash": "354f2dd1396b6034cb5c849327b3ee77"
+    "mtime": 1793688131.5289981,
+    "seen": 1793697608.7022567,
+    "ast_hash": "d4d6b71903bb8f17e9da9a2ef04c52d7",
+    "semantic_hash": "d4d6b71903bb8f17e9da9a2ef04c52d7"
   },
   ".claude/agents/s7-visual-critic.md": {
-    "mtime": 1793421503.7744658,
-    "seen": 1793424137.2705073,
-    "ast_hash": "17226ff1c292b35334a565b3687fb903",
-    "semantic_hash": "17226ff1c292b35334a565b3687fb903"
+    "mtime": 1793688131.5300136,
+    "seen": 1793697608.702258,
+    "ast_hash": "f162b852a5e78c0dfc9ee207632f2b10",
+    "semantic_hash": "f162b852a5e78c0dfc9ee207632f2b10"
   },
   "CLAUDE.md": {
-    "mtime": 1793431251.8509576,
-    "seen": 1793436021.3625684,
-    "ast_hash": "f8e302e89067e587771a0b9e871b43e9",
-    "semantic_hash": ""
+    "mtime": 1793688131.5366998,
+    "seen": 1793697608.7022629,
+    "ast_hash": "b87461312fdbc13e4972c2a5c30a871b",
+    "semantic_hash": "b87461312fdbc13e4972c2a5c30a871b"
   },
   "README.md": {
-    "mtime": 1793423799.0123653,
-    "seen": 1793424137.2705102,
-    "ast_hash": "dad35ba4e6be994ea742882394da9299",
-    "semantic_hash": "dad35ba4e6be994ea742882394da9299"
+    "mtime": 1793669945.4431546,
+    "seen": 1793697608.7022662,
+    "ast_hash": "b80ea28f471e39c27d94231b2bea526f",
+    "semantic_hash": "b80ea28f471e39c27d94231b2bea526f"
   },
   "docs/18-NHAN-SU.md": {
     "mtime": 1793429875.928137,
-    "seen": 1793436021.3625722,
+    "seen": 1793697608.7022686,
     "ast_hash": "29125785285ec7a4066114ffc1452ba2",
-    "semantic_hash": ""
+    "semantic_hash": "29125785285ec7a4066114ffc1452ba2"
   },
   "docs/NANG-CAP-NHAN-SU.md": {
-    "mtime": 1793430244.7713292,
-    "seen": 1793436021.362574,
-    "ast_hash": "bb9308f0ca3e091f2199a87623580298",
-    "semantic_hash": ""
+    "mtime": 1793607686.0603516,
+    "seen": 1793697608.7022734,
+    "ast_hash": "91c546158a6ebb2543bc7df5281f02f4",
+    "semantic_hash": "91c546158a6ebb2543bc7df5281f02f4"
   },
   "docs/QUY-CHUAN-HINH.md": {
-    "mtime": 1793424135.1940122,
-    "seen": 1793424137.2705142,
-    "ast_hash": "17470c1a0582cc4a360f73e07eaffcaa",
-    "semantic_hash": "17470c1a0582cc4a360f73e07eaffcaa"
+    "mtime": 1793609289.1291406,
+    "seen": 1793697608.7022765,
+    "ast_hash": "ff80e1973ad393845f1a8d036aed2736",
+    "semantic_hash": "ff80e1973ad393845f1a8d036aed2736"
   },
   "docs/QUY-CHUAN-KICH-BAN.md": {
-    "mtime": 1793421310.411121,
-    "seen": 1793424137.2705157,
-    "ast_hash": "51f54885f508551ecca46c0c292f2e49",
-    "semantic_hash": "51f54885f508551ecca46c0c292f2e49"
+    "mtime": 1793607685.9946985,
+    "seen": 1793697608.702278,
+    "ast_hash": "60721465a8155ff84cc1c4170344a320",
+    "semantic_hash": "60721465a8155ff84cc1c4170344a320"
   },
   "docs/QUY-TRINH.md": {
-    "mtime": 1793424369.4408517,
-    "seen": 1793424491.099083,
-    "ast_hash": "026066f155e24865d298ca68fe40a957",
-    "semantic_hash": ""
+    "mtime": 1793595775.1422,
+    "seen": 1793697608.7022796,
+    "ast_hash": "c8147c59e9dd3e3fe801c179b88d3b82",
+    "semantic_hash": "c8147c59e9dd3e3fe801c179b88d3b82"
   },
   "src/gates/raw-text.ts": {
     "mtime": 1793431755.7385535,
-    "seen": 1793436021.362497,
+    "seen": 1793697608.6982903,
     "ast_hash": "2cf7a3f893a7d8690e80895dbe6cc9c6",
-    "semantic_hash": ""
+    "semantic_hash": "2cf7a3f893a7d8690e80895dbe6cc9c6"
   },
   "src/videos/bai-1/part1.tsx": {
     "mtime": 1793435651.7346616,
-    "seen": 1793436021.3625307,
+    "seen": 1793697608.7021706,
     "ast_hash": "0cbe9327c7b392e973862f6c0b9d86ad",
-    "semantic_hash": ""
+    "semantic_hash": "0cbe9327c7b392e973862f6c0b9d86ad"
   },
   "src/videos/bai-1/part2.tsx": {
     "mtime": 1793435668.8458383,
-    "seen": 1793436021.3625326,
+    "seen": 1793697608.7021732,
     "ast_hash": "fb2f6f417ce08c060d3b542ee095eb0d",
-    "semantic_hash": ""
+    "semantic_hash": "fb2f6f417ce08c060d3b542ee095eb0d"
   },
   "src/videos/bai-1/part3.tsx": {
     "mtime": 1793435651.7687714,
-    "seen": 1793436021.3625338,
+    "seen": 1793697608.7021759,
     "ast_hash": "da7b0e643deba2ab0e8ba39e8ef173af",
-    "semantic_hash": ""
+    "semantic_hash": "da7b0e643deba2ab0e8ba39e8ef173af"
   },
   "src/videos/mo-dau/art.tsx": {
-    "mtime": 1793433372.6849425,
-    "seen": 1793436021.3625355,
-    "ast_hash": "0d407da30ff1a1c671ef83e8d3282a2e",
-    "semantic_hash": ""
+    "mtime": 1793594640.0827494,
+    "seen": 1793697608.7022192,
+    "ast_hash": "5139dbd6796b0da4d53bade4bce542a7",
+    "semantic_hash": "5139dbd6796b0da4d53bade4bce542a7"
   },
   "src/videos/mo-dau/part1.tsx": {
     "mtime": 1793431728.4487484,
-    "seen": 1793436021.3625367,
+    "seen": 1793697608.7022223,
     "ast_hash": "37020fbe0e59f05236d35a946a48d807",
-    "semantic_hash": ""
+    "semantic_hash": "37020fbe0e59f05236d35a946a48d807"
   },
   "src/videos/mo-dau/part2.tsx": {
     "mtime": 1793433584.0190785,
-    "seen": 1793436021.3625383,
+    "seen": 1793697608.7022245,
     "ast_hash": "6bace61b3f4ece3a3af7efc2a469f333",
-    "semantic_hash": ""
+    "semantic_hash": "6bace61b3f4ece3a3af7efc2a469f333"
   },
   "src/videos/mo-dau/part3.tsx": {
     "mtime": 1793433372.7240076,
-    "seen": 1793436021.3625398,
+    "seen": 1793697608.7022262,
     "ast_hash": "71fd890f2d35e0b21125e99564c06be0",
-    "semantic_hash": ""
+    "semantic_hash": "71fd890f2d35e0b21125e99564c06be0"
   },
   "src/videos/mo-dau/pile-spec.json": {
     "mtime": 1793431941.5728972,
-    "seen": 1793436021.3625412,
+    "seen": 1793697608.7022283,
     "ast_hash": "99dfbb43a002abf16543baebfe2ea11a",
-    "semantic_hash": ""
+    "semantic_hash": "99dfbb43a002abf16543baebfe2ea11a"
   },
   "src/videos/mo-dau/pile.json": {
     "mtime": 1793431942.3708415,
-    "seen": 1793436021.3625426,
+    "seen": 1793697608.7022305,
     "ast_hash": "ec3bbae490249e5e6910a064f85aaed7",
-    "semantic_hash": ""
+    "semantic_hash": "ec3bbae490249e5e6910a064f85aaed7"
   },
   "docs/QUY-CHUAN-CHUOI-AI.md": {
-    "mtime": 1793430157.2330492,
-    "seen": 1793436021.3625755,
-    "ast_hash": "2d15ff5d6e211aac1c42b7795394d641",
-    "semantic_hash": ""
+    "mtime": 1793607685.8999753,
+    "seen": 1793697608.7022748,
+    "ast_hash": "48fe1b8ace9c177cbeb78d842d445da8",
+    "semantic_hash": "48fe1b8ace9c177cbeb78d842d445da8"
+  },
+  "samples/Pha-tra/script.json": {
+    "mtime": 1793609161.9585538,
+    "seen": 1793697608.6956987,
+    "ast_hash": "4ed64a2bd2b642601809071c2214e859",
+    "semantic_hash": "4ed64a2bd2b642601809071c2214e859"
+  },
+  "scripts/asr/_common.py": {
+    "mtime": 1792634151.7150085,
+    "seen": 1793697608.6957028,
+    "ast_hash": "6660ce744258110c85ad9404124104fc",
+    "semantic_hash": "6660ce744258110c85ad9404124104fc"
+  },
+  "scripts/asr/check_env.py": {
+    "mtime": 1792634152.1991336,
+    "seen": 1793697608.6957052,
+    "ast_hash": "541d5a49b2d3702afa5315802865d12d",
+    "semantic_hash": "541d5a49b2d3702afa5315802865d12d"
+  },
+  "scripts/asr/denoise.py": {
+    "mtime": 1792713000.716158,
+    "seen": 1793697608.695707,
+    "ast_hash": "8962934ab10724bac861339cb8153401",
+    "semantic_hash": "8962934ab10724bac861339cb8153401"
+  },
+  "scripts/asr/subject.py": {
+    "mtime": 1792657938.235906,
+    "seen": 1793697608.6957092,
+    "ast_hash": "44f553fe153b9db3c2412e31fb91e1f6",
+    "semantic_hash": "44f553fe153b9db3c2412e31fb91e1f6"
+  },
+  "scripts/asr/transcribe.py": {
+    "mtime": 1792637711.142478,
+    "seen": 1793697608.695711,
+    "ast_hash": "649075bf630264d0ca223b2e65f5bd98",
+    "semantic_hash": "649075bf630264d0ca223b2e65f5bd98"
+  },
+  "scripts/capcut-export.ts": {
+    "mtime": 1793608172.7110362,
+    "seen": 1793697608.6959937,
+    "ast_hash": "ad26fe89e1d984ef27d68304448ae7e4",
+    "semantic_hash": "ad26fe89e1d984ef27d68304448ae7e4"
+  },
+  "scripts/doctor.ps1": {
+    "mtime": 1793608431.0579526,
+    "seen": 1793697608.6959956,
+    "ast_hash": "9c22364094051c88efd90b536cd9ccfd",
+    "semantic_hash": "9c22364094051c88efd90b536cd9ccfd"
+  },
+  "scripts/editor/api-library.ts": {
+    "mtime": 1792640813.6880555,
+    "seen": 1793697608.6959975,
+    "ast_hash": "6ac984ec4a864db6acc22541edd1fe13",
+    "semantic_hash": "6ac984ec4a864db6acc22541edd1fe13"
+  },
+  "scripts/editor/cdp.mjs": {
+    "mtime": 1792718006.0511746,
+    "seen": 1793697608.696,
+    "ast_hash": "d93b8783d7a6ae53acf96c64aa70e2dc",
+    "semantic_hash": "d93b8783d7a6ae53acf96c64aa70e2dc"
+  },
+  "scripts/editor/clips-core.check.mjs": {
+    "mtime": 1792716034.609237,
+    "seen": 1793697608.6960018,
+    "ast_hash": "0b9fb56f647082384efe14da79cbe5e9",
+    "semantic_hash": "0b9fb56f647082384efe14da79cbe5e9"
+  },
+  "scripts/editor/parity-check.ts": {
+    "mtime": 1792981141.9933186,
+    "seen": 1793697608.6960037,
+    "ast_hash": "4918c19fe92102c2d1023742c94d5e06",
+    "semantic_hash": "4918c19fe92102c2d1023742c94d5e06"
+  },
+  "scripts/editor/perf-measure.mjs": {
+    "mtime": 1792642154.2798393,
+    "seen": 1793697608.6960053,
+    "ast_hash": "31986420953565ff9d00b76ea7eb071d",
+    "semantic_hash": "31986420953565ff9d00b76ea7eb071d"
+  },
+  "scripts/editor/preset-contrast.mjs": {
+    "mtime": 1792641756.0580277,
+    "seen": 1793697608.696007,
+    "ast_hash": "006be3f22eeb39eafeb6e2982d2ca917",
+    "semantic_hash": "006be3f22eeb39eafeb6e2982d2ca917"
+  },
+  "scripts/editor/qa-broll-editor.mjs": {
+    "mtime": 1792659498.6219716,
+    "seen": 1793697608.6960084,
+    "ast_hash": "2a5b53f48a38b6c5b7176524c2d03889",
+    "semantic_hash": "2a5b53f48a38b6c5b7176524c2d03889"
+  },
+  "scripts/editor/qa-clips-editor.mjs": {
+    "mtime": 1792729601.909318,
+    "seen": 1793697608.6960104,
+    "ast_hash": "ef40af33e187ea069b2abfab4a5cc0a6",
+    "semantic_hash": "ef40af33e187ea069b2abfab4a5cc0a6"
+  },
+  "scripts/editor/qa-clips-play.mjs": {
+    "mtime": 1792719337.9514503,
+    "seen": 1793697608.6960118,
+    "ast_hash": "2b541302271b4973707beb4e61143af9",
+    "semantic_hash": "2b541302271b4973707beb4e61143af9"
+  },
+  "scripts/editor/qa-clips-revision.mjs": {
+    "mtime": 1792715434.5717473,
+    "seen": 1793697608.6960135,
+    "ast_hash": "c4961b3ac9ed3c9be350183eaede0e0d",
+    "semantic_hash": "c4961b3ac9ed3c9be350183eaede0e0d"
+  },
+  "scripts/editor/qa-overlay-theme.mjs": {
+    "mtime": 1792659869.1601672,
+    "seen": 1793697608.6960151,
+    "ast_hash": "1afb14583f045fea98ca1b31d11ab6eb",
+    "semantic_hash": "1afb14583f045fea98ca1b31d11ab6eb"
+  },
+  "scripts/editor/qa-reframe-editor.mjs": {
+    "mtime": 1792729601.9417303,
+    "seen": 1793697608.6960166,
+    "ast_hash": "2f9a003e848e182da2b3e0f19189d6c3",
+    "semantic_hash": "2f9a003e848e182da2b3e0f19189d6c3"
+  },
+  "scripts/editor/server.ts": {
+    "mtime": 1792986758.9973798,
+    "seen": 1793697608.6960187,
+    "ast_hash": "7802a671edfad610c27832f927848914",
+    "semantic_hash": "7802a671edfad610c27832f927848914"
+  },
+  "scripts/editor/test/words-align.test.mjs": {
+    "mtime": 1792636288.5998929,
+    "seen": 1793697608.6960204,
+    "ast_hash": "4b044ff269156ff2820eb6708f5f3814",
+    "semantic_hash": "4b044ff269156ff2820eb6708f5f3814"
+  },
+  "scripts/music-analyze.py": {
+    "mtime": 1792640119.6333072,
+    "seen": 1793697608.6960292,
+    "ast_hash": "5edabaf9d696daf248027dd3eb5b72dd",
+    "semantic_hash": "5edabaf9d696daf248027dd3eb5b72dd"
+  },
+  "scripts/open-studio.ps1": {
+    "mtime": 1792986762.4693608,
+    "seen": 1793697608.6960306,
+    "ast_hash": "208238cca8df9d9be122fe11b26e23d8",
+    "semantic_hash": "208238cca8df9d9be122fe11b26e23d8"
+  },
+  "scripts/package-public.mjs": {
+    "mtime": 1793669088.6778157,
+    "seen": 1793697608.6963081,
+    "ast_hash": "908050306f71358b1f4ffdf6c187b649",
+    "semantic_hash": "908050306f71358b1f4ffdf6c187b649"
+  },
+  "scripts/screencast/premiere-package.ts": {
+    "mtime": 1793609164.277831,
+    "seen": 1793697608.6968358,
+    "ast_hash": "4d6358a6cf64b63ee4f78e1afcab3a81",
+    "semantic_hash": "4d6358a6cf64b63ee4f78e1afcab3a81"
+  },
+  "scripts/screencast/premiere-timeline.check.ts": {
+    "mtime": 1793325644.154921,
+    "seen": 1793697608.696838,
+    "ast_hash": "ef121aae8cb08408ddb52bd56092fb5f",
+    "semantic_hash": "ef121aae8cb08408ddb52bd56092fb5f"
+  },
+  "scripts/screencast/premiere-timeline.ts": {
+    "mtime": 1793325657.1813645,
+    "seen": 1793697608.6968396,
+    "ast_hash": "c85c4eafb1fe8973f3562e242d25b3af",
+    "semantic_hash": "c85c4eafb1fe8973f3562e242d25b3af"
+  },
+  "scripts/screencast/screencast-editor-job.ts": {
+    "mtime": 1793259850.8960116,
+    "seen": 1793697608.6968415,
+    "ast_hash": "b04cce3cfc61bafeea2b9f5f024ce7c2",
+    "semantic_hash": "b04cce3cfc61bafeea2b9f5f024ce7c2"
+  },
+  "scripts/screencast/screencast-mix.ts": {
+    "mtime": 1793325603.0227072,
+    "seen": 1793697608.6968439,
+    "ast_hash": "1e72c94267175a0818beb695587a4d81",
+    "semantic_hash": "1e72c94267175a0818beb695587a4d81"
+  },
+  "scripts/screencast/screencast-rieng.ts": {
+    "mtime": 1793248179.1980443,
+    "seen": 1793697608.6968453,
+    "ast_hash": "10e8ef0913d46ae54a3fa57b48cec0e7",
+    "semantic_hash": "10e8ef0913d46ae54a3fa57b48cec0e7"
+  },
+  "scripts/screencast/screencast-v2.ts": {
+    "mtime": 1793248179.216184,
+    "seen": 1793697608.696847,
+    "ast_hash": "8e1485e8c3445d28e7220426d8a18a3f",
+    "semantic_hash": "8e1485e8c3445d28e7220426d8a18a3f"
+  },
+  "scripts/screencast/screencast.ts": {
+    "mtime": 1793248179.2323234,
+    "seen": 1793697608.6968486,
+    "ast_hash": "007b89f422ab4df554be56b3b7fdd7d0",
+    "semantic_hash": "007b89f422ab4df554be56b3b7fdd7d0"
+  },
+  "scripts/setup-asr.ps1": {
+    "mtime": 1793605300.950285,
+    "seen": 1793697608.6968505,
+    "ast_hash": "64c6ce1ba1b821f3d94530f8bf4b0784",
+    "semantic_hash": "64c6ce1ba1b821f3d94530f8bf4b0784"
+  },
+  "scripts/setup-windows.ps1": {
+    "mtime": 1793608431.0927334,
+    "seen": 1793697608.6968522,
+    "ast_hash": "7239a013f36cb80c239c1aba0fd553c3",
+    "semantic_hash": "7239a013f36cb80c239c1aba0fd553c3"
+  },
+  "scripts/th-presets/build-presets.mjs": {
+    "mtime": 1792680089.854711,
+    "seen": 1793697608.6971047,
+    "ast_hash": "ba3f7fb9996e61a95bd9e2883e7cd741",
+    "semantic_hash": "ba3f7fb9996e61a95bd9e2883e7cd741"
+  },
+  "src/studio/audio/audio-tools.ts": {
+    "mtime": 1792134928.0830188,
+    "seen": 1793697608.7003398,
+    "ast_hash": "f3491e17c35d07fafa21495a134eba54",
+    "semantic_hash": "f3491e17c35d07fafa21495a134eba54"
+  },
+  "src/studio/brand/brand-config.ts": {
+    "mtime": 1792981737.3966465,
+    "seen": 1793697608.700342,
+    "ast_hash": "10ef83e915890275c15a9fecd3fe3315",
+    "semantic_hash": "10ef83e915890275c15a9fecd3fe3315"
+  },
+  "src/studio/foundation/config.ts": {
+    "mtime": 1785139907.3271644,
+    "seen": 1793697608.7003443,
+    "ast_hash": "4061484ebe85a7ef2d854ff029205669",
+    "semantic_hash": "4061484ebe85a7ef2d854ff029205669"
+  },
+  "src/studio/media/media-runner.ts": {
+    "mtime": 1788487166.2137754,
+    "seen": 1793697608.7003465,
+    "ast_hash": "f0b061ccf7e64a5245c7cbee59898888",
+    "semantic_hash": "f0b061ccf7e64a5245c7cbee59898888"
+  },
+  "src/studio/render/template-script-schema.ts": {
+    "mtime": 1792035497.4844909,
+    "seen": 1793697608.7003481,
+    "ast_hash": "2b26d71e3346564ff472db4bed5d3304",
+    "semantic_hash": "2b26d71e3346564ff472db4bed5d3304"
+  },
+  "src/studio/render/video-tools.ts": {
+    "mtime": 1792634307.7186272,
+    "seen": 1793697608.7003498,
+    "ast_hash": "5c4aec81c0b271d9b900f02bd69f1f7e",
+    "semantic_hash": "5c4aec81c0b271d9b900f02bd69f1f7e"
+  },
+  "src/studio/tts/tts-client.ts": {
+    "mtime": 1792981141.9183204,
+    "seen": 1793697608.7003515,
+    "ast_hash": "be6c657085e8882c14a1e2d172163037",
+    "semantic_hash": "be6c657085e8882c14a1e2d172163037"
+  },
+  "src/studio/tts/vieneu-client.ts": {
+    "mtime": 1791428467.709889,
+    "seen": 1793697608.7003536,
+    "ast_hash": "d1b5ca3d79834bced44bf95292438b30",
+    "semantic_hash": "d1b5ca3d79834bced44bf95292438b30"
+  },
+  "src/studio/tts/vieneu-voices.ts": {
+    "mtime": 1791429633.4727998,
+    "seen": 1793697608.7003553,
+    "ast_hash": "803bf3d07dffa4d69cc5827aaf286bac",
+    "semantic_hash": "803bf3d07dffa4d69cc5827aaf286bac"
+  },
+  "src/studio/utils/logger.ts": {
+    "mtime": 1785134763.171322,
+    "seen": 1793697608.700357,
+    "ast_hash": "f6fbe2766430fdc420118037edc4eb54",
+    "semantic_hash": "f6fbe2766430fdc420118037edc4eb54"
+  },
+  "src/studio/utils/media-binary.ts": {
+    "mtime": 1792124632.2421362,
+    "seen": 1793697608.7003648,
+    "ast_hash": "055b604699c96abf4e8ae26d431f4fd1",
+    "semantic_hash": "055b604699c96abf4e8ae26d431f4fd1"
+  },
+  "src/talking-head/align-edits.ts": {
+    "mtime": 1792634206.0021298,
+    "seen": 1793697608.700366,
+    "ast_hash": "0260679475db74b66e1134c703ea38c1",
+    "semantic_hash": "0260679475db74b66e1134c703ea38c1"
+  },
+  "src/talking-head/api-library.test.ts": {
+    "mtime": 1793610182.8756578,
+    "seen": 1793697608.7003682,
+    "ast_hash": "690ed65ca5a23241a09eeaace70d5812",
+    "semantic_hash": "690ed65ca5a23241a09eeaace70d5812"
+  },
+  "src/talking-head/approval-gate.test.ts": {
+    "mtime": 1792638995.6604517,
+    "seen": 1793697608.70037,
+    "ast_hash": "5d4f36fa6c5d74abb95e3edf6ab3e3d8",
+    "semantic_hash": "5d4f36fa6c5d74abb95e3edf6ab3e3d8"
+  },
+  "src/talking-head/audio-mix.test.ts": {
+    "mtime": 1792641013.139892,
+    "seen": 1793697608.7003717,
+    "ast_hash": "275bc96cef76d7a0db8dbcc66eaefb64",
+    "semantic_hash": "275bc96cef76d7a0db8dbcc66eaefb64"
+  },
+  "src/talking-head/audio-mix.ts": {
+    "mtime": 1792981141.785373,
+    "seen": 1793697608.7003827,
+    "ast_hash": "c8c492401a1eaeb7d6cb66947310c3e7",
+    "semantic_hash": "c8c492401a1eaeb7d6cb66947310c3e7"
+  },
+  "src/talking-head/broll-plan.test.ts": {
+    "mtime": 1792681420.0130448,
+    "seen": 1793697608.7003849,
+    "ast_hash": "4e0257f3553464f7e31fe929bc6d2cd3",
+    "semantic_hash": "4e0257f3553464f7e31fe929bc6d2cd3"
+  },
+  "src/talking-head/broll-plan.ts": {
+    "mtime": 1792681420.0130448,
+    "seen": 1793697608.7003863,
+    "ast_hash": "0cd17f85b90f682f0f955ee16ec7b4a9",
+    "semantic_hash": "0cd17f85b90f682f0f955ee16ec7b4a9"
+  },
+  "src/talking-head/camera-auto.test.ts": {
+    "mtime": 1792679698.7691643,
+    "seen": 1793697608.700388,
+    "ast_hash": "30cd5b6de039a412e9e22304a6935270",
+    "semantic_hash": "30cd5b6de039a412e9e22304a6935270"
+  },
+  "src/talking-head/camera-auto.ts": {
+    "mtime": 1792679698.7686653,
+    "seen": 1793697608.7003894,
+    "ast_hash": "cf99a47b8508ec8a96d607828b1700d2",
+    "semantic_hash": "cf99a47b8508ec8a96d607828b1700d2"
+  },
+  "src/talking-head/camera.test.ts": {
+    "mtime": 1792718881.3158457,
+    "seen": 1793697608.7003908,
+    "ast_hash": "3b6c32688e8cf3445cadd3362eed1def",
+    "semantic_hash": "3b6c32688e8cf3445cadd3362eed1def"
+  },
+  "src/talking-head/camera.ts": {
+    "mtime": 1792717677.1987793,
+    "seen": 1793697608.7003925,
+    "ast_hash": "79cbcf54ecd2ec2ae07758c6a6cf3e0d",
+    "semantic_hash": "79cbcf54ecd2ec2ae07758c6a6cf3e0d"
+  },
+  "src/talking-head/cli.ts": {
+    "mtime": 1792728744.1305132,
+    "seen": 1793697608.700394,
+    "ast_hash": "42ba7d1200a315a504361184eb89459b",
+    "semantic_hash": "42ba7d1200a315a504361184eb89459b"
+  },
+  "src/talking-head/clip-loudness.test.ts": {
+    "mtime": 1792715231.539129,
+    "seen": 1793697608.7003956,
+    "ast_hash": "00a5725077374d1c7d1f2c6f1a063329",
+    "semantic_hash": "00a5725077374d1c7d1f2c6f1a063329"
+  },
+  "src/talking-head/clip-loudness.ts": {
+    "mtime": 1792715120.1223555,
+    "seen": 1793697608.700397,
+    "ast_hash": "6d2d1f9f919013b1dbc77ca9193171b7",
+    "semantic_hash": "6d2d1f9f919013b1dbc77ca9193171b7"
+  },
+  "src/talking-head/clips-render.ts": {
+    "mtime": 1792981141.8035169,
+    "seen": 1793697608.7003987,
+    "ast_hash": "d0ce51a94370d14acce35d339d70a6d6",
+    "semantic_hash": "d0ce51a94370d14acce35d339d70a6d6"
+  },
+  "src/talking-head/clips.test.ts": {
+    "mtime": 1792726524.6436489,
+    "seen": 1793697608.7004008,
+    "ast_hash": "b0c91e24f3c082bc1ab5b6bfa2057b38",
+    "semantic_hash": "b0c91e24f3c082bc1ab5b6bfa2057b38"
+  },
+  "src/talking-head/clips.ts": {
+    "mtime": 1792728744.1290076,
+    "seen": 1793697608.7004023,
+    "ast_hash": "bbf331e22a567913b4d63729d2df8836",
+    "semantic_hash": "bbf331e22a567913b4d63729d2df8836"
+  },
+  "src/talking-head/commands-broll.ts": {
+    "mtime": 1792718856.1143875,
+    "seen": 1793697608.700404,
+    "ast_hash": "b1023fed7abb4c9bb934a2decc97a481",
+    "semantic_hash": "b1023fed7abb4c9bb934a2decc97a481"
+  },
+  "src/talking-head/commands-media.ts": {
+    "mtime": 1792713468.431075,
+    "seen": 1793697608.7004056,
+    "ast_hash": "5d4a4ae13a14b63979b24d4271dfb1ee",
+    "semantic_hash": "5d4a4ae13a14b63979b24d4271dfb1ee"
+  },
+  "src/talking-head/commands-text.ts": {
+    "mtime": 1792728749.758727,
+    "seen": 1793697608.700407,
+    "ast_hash": "9e91bd4807e9135c982e8889a11e32c8",
+    "semantic_hash": "9e91bd4807e9135c982e8889a11e32c8"
+  },
+  "src/talking-head/cut-core.ts": {
+    "mtime": 1792634289.8671458,
+    "seen": 1793697608.700409,
+    "ast_hash": "529a3913bc508a854b8bdfa0f6de3fe0",
+    "semantic_hash": "529a3913bc508a854b8bdfa0f6de3fe0"
+  },
+  "src/talking-head/cut-plan.ts": {
+    "mtime": 1792638911.1452937,
+    "seen": 1793697608.7004101,
+    "ast_hash": "b6413a42401c4f5d5b4b932bee904b10",
+    "semantic_hash": "b6413a42401c4f5d5b4b932bee904b10"
+  },
+  "src/talking-head/cut-render.ts": {
+    "mtime": 1792981141.8115473,
+    "seen": 1793697608.7004118,
+    "ast_hash": "fcf7781312c4ae210b7a2dbbf9311ec2",
+    "semantic_hash": "fcf7781312c4ae210b7a2dbbf9311ec2"
+  },
+  "src/talking-head/cut-sync.test.ts": {
+    "mtime": 1792638217.9361372,
+    "seen": 1793697608.7004132,
+    "ast_hash": "127a1231816702444187d8b5facebec1",
+    "semantic_hash": "127a1231816702444187d8b5facebec1"
+  },
+  "src/talking-head/ffmpeg-util.ts": {
+    "mtime": 1792981141.81499,
+    "seen": 1793697608.700415,
+    "ast_hash": "eb911e2587fb609369f965a551a300dc",
+    "semantic_hash": "eb911e2587fb609369f965a551a300dc"
+  },
+  "src/talking-head/intro.test.ts": {
+    "mtime": 1792680800.4731176,
+    "seen": 1793697608.7004166,
+    "ast_hash": "22fce6d631e117a29d8eb58a719aae96",
+    "semantic_hash": "22fce6d631e117a29d8eb58a719aae96"
+  },
+  "src/talking-head/intro.ts": {
+    "mtime": 1792981141.8295493,
+    "seen": 1793697608.7004182,
+    "ast_hash": "648b2348b9aa81b5b8ad3c10a1faad0d",
+    "semantic_hash": "648b2348b9aa81b5b8ad3c10a1faad0d"
+  },
+  "src/talking-head/jobs-nested.test.ts": {
+    "mtime": 1793609289.2278981,
+    "seen": 1793697608.7004201,
+    "ast_hash": "84c926b1e039944a336ca7ca6fb75c88",
+    "semantic_hash": "84c926b1e039944a336ca7ca6fb75c88"
+  },
+  "src/talking-head/jobs.ts": {
+    "mtime": 1792728744.127496,
+    "seen": 1793697608.7004213,
+    "ast_hash": "e2de8de29f8c401778043993c79a167b",
+    "semantic_hash": "e2de8de29f8c401778043993c79a167b"
+  },
+  "src/talking-head/music.test.ts": {
+    "mtime": 1793610183.194621,
+    "seen": 1793697608.700423,
+    "ast_hash": "e0504334720b88a26fd37ea65b3d7404",
+    "semantic_hash": "e0504334720b88a26fd37ea65b3d7404"
+  },
+  "src/talking-head/music.ts": {
+    "mtime": 1792640663.3395958,
+    "seen": 1793697608.7004247,
+    "ast_hash": "f8139c3df90bdeaaf92f5feb60b9c9dc",
+    "semantic_hash": "f8139c3df90bdeaaf92f5feb60b9c9dc"
+  },
+  "src/talking-head/peaks.ts": {
+    "mtime": 1792981141.8353603,
+    "seen": 1793697608.700426,
+    "ast_hash": "2dd222f60365cfb0cf722ac109e2f018",
+    "semantic_hash": "2dd222f60365cfb0cf722ac109e2f018"
+  },
+  "src/talking-head/presets.test.ts": {
+    "mtime": 1792638287.5111415,
+    "seen": 1793697608.700428,
+    "ast_hash": "fa4699b18527e5b656ef35f6014fc063",
+    "semantic_hash": "fa4699b18527e5b656ef35f6014fc063"
+  },
+  "src/talking-head/presets.ts": {
+    "mtime": 1792638280.2399945,
+    "seen": 1793697608.7004297,
+    "ast_hash": "55a75b9412c6808f4d8d93e6db2dd8fd",
+    "semantic_hash": "55a75b9412c6808f4d8d93e6db2dd8fd"
+  },
+  "src/talking-head/project-schema.test.ts": {
+    "mtime": 1792657784.9041502,
+    "seen": 1793697608.700431,
+    "ast_hash": "92b9b9f232e35bb66bd796cb2ed6d83b",
+    "semantic_hash": "92b9b9f232e35bb66bd796cb2ed6d83b"
+  },
+  "src/talking-head/project-schema.ts": {
+    "mtime": 1792728744.127496,
+    "seen": 1793697608.7004325,
+    "ast_hash": "2450f4debbd6f643cb9e5e9533844207",
+    "semantic_hash": "2450f4debbd6f643cb9e5e9533844207"
+  },
+  "src/talking-head/render-cli.ts": {
+    "mtime": 1792981141.853752,
+    "seen": 1793697608.7004342,
+    "ast_hash": "fdb99ca6b32a46cd104d0b30ba602293",
+    "semantic_hash": "fdb99ca6b32a46cd104d0b30ba602293"
+  },
+  "src/talking-head/render-overlay.ts": {
+    "mtime": 1792981141.856559,
+    "seen": 1793697608.7004356,
+    "ast_hash": "fb32a18be02e3acca4cd4bbf30388458",
+    "semantic_hash": "fb32a18be02e3acca4cd4bbf30388458"
+  },
+  "src/talking-head/revision.ts": {
+    "mtime": 1792712741.241027,
+    "seen": 1793697608.7004378,
+    "ast_hash": "f46f2a84a52ca0eac824ba9672dfb2fe",
+    "semantic_hash": "f46f2a84a52ca0eac824ba9672dfb2fe"
+  },
+  "src/talking-head/sfx-plan.test.ts": {
+    "mtime": 1792680109.8327658,
+    "seen": 1793697608.7004392,
+    "ast_hash": "afae9ceb9555eb41dea53bed10db4623",
+    "semantic_hash": "afae9ceb9555eb41dea53bed10db4623"
+  },
+  "src/talking-head/sfx-plan.ts": {
+    "mtime": 1792680070.8088214,
+    "seen": 1793697608.700441,
+    "ast_hash": "6524a9927121dea2cee666a9174f7526",
+    "semantic_hash": "6524a9927121dea2cee666a9174f7526"
+  },
+  "src/talking-head/source-media.ts": {
+    "mtime": 1792981141.8691454,
+    "seen": 1793697608.7004426,
+    "ast_hash": "b54f1f86aac0d7cb0d0de603aefc2fb9",
+    "semantic_hash": "b54f1f86aac0d7cb0d0de603aefc2fb9"
+  },
+  "src/talking-head/subtitles.ts": {
+    "mtime": 1792634292.6519928,
+    "seen": 1793697608.700444,
+    "ast_hash": "f9cb9eefb6da62fe963a29b33105ab49",
+    "semantic_hash": "f9cb9eefb6da62fe963a29b33105ab49"
+  },
+  "src/talking-head/talking-head.test.ts": {
+    "mtime": 1792638903.6950033,
+    "seen": 1793697608.7004454,
+    "ast_hash": "5b9f72420c5c05cbab1a6eaf4de64845",
+    "semantic_hash": "5b9f72420c5c05cbab1a6eaf4de64845"
+  },
+  "src/talking-head/types.ts": {
+    "mtime": 1792634206.065691,
+    "seen": 1793697608.7004473,
+    "ast_hash": "e239024d70dad6ade32b88e4e8cb25ca",
+    "semantic_hash": "e239024d70dad6ade32b88e4e8cb25ca"
+  },
+  "src/talking-head/video-moves.ts": {
+    "mtime": 1792717727.668898,
+    "seen": 1793697608.7004488,
+    "ast_hash": "8009078491288fc41d34be12b4891d1b",
+    "semantic_hash": "8009078491288fc41d34be12b4891d1b"
+  },
+  "src/talking-head/voicing.test.ts": {
+    "mtime": 1792638890.408126,
+    "seen": 1793697608.7004504,
+    "ast_hash": "eb9e0fc7ac53b3f93b3de29f17bd2061",
+    "semantic_hash": "eb9e0fc7ac53b3f93b3de29f17bd2061"
+  },
+  "src/talking-head/voicing.ts": {
+    "mtime": 1792638817.0573044,
+    "seen": 1793697608.7004519,
+    "ast_hash": "b37ddd84e174dc1f18b8367ed3e10c6d",
+    "semantic_hash": "b37ddd84e174dc1f18b8367ed3e10c6d"
+  },
+  "src/training/hardware.ts": {
+    "mtime": 1793608172.5053084,
+    "seen": 1793697608.701321,
+    "ast_hash": "387f507e52d17695116433976648a837",
+    "semantic_hash": "387f507e52d17695116433976648a837"
+  },
+  "src/training/placement.ts": {
+    "mtime": 1793593815.0193968,
+    "seen": 1793697608.7016337,
+    "ast_hash": "ad1cb4de997a93f201df04f0d7a9eef4",
+    "semantic_hash": "ad1cb4de997a93f201df04f0d7a9eef4"
+  },
+  "src/videos/bai-2/part1.tsx": {
+    "mtime": 1793436602.8610175,
+    "seen": 1793697608.7021778,
+    "ast_hash": "8445c252a1445a961990192b7c509abf",
+    "semantic_hash": "8445c252a1445a961990192b7c509abf"
+  },
+  "src/videos/bai-2/part2.tsx": {
+    "mtime": 1793436602.9301634,
+    "seen": 1793697608.7021797,
+    "ast_hash": "5f09ed16fc0e3799f2cb79e4c4cf864f",
+    "semantic_hash": "5f09ed16fc0e3799f2cb79e4c4cf864f"
+  },
+  "src/videos/cdkh/art.tsx": {
+    "mtime": 1793587046.382538,
+    "seen": 1793697608.702181,
+    "ast_hash": "a2060e5c7ebb5ed2beeecbe8dae71aa4",
+    "semantic_hash": "a2060e5c7ebb5ed2beeecbe8dae71aa4"
+  },
+  "src/videos/cdkh/phan-1.tsx": {
+    "mtime": 1793595099.6578448,
+    "seen": 1793697608.7021832,
+    "ast_hash": "bc38ee3c354345f3005ec12e167c1f49",
+    "semantic_hash": "bc38ee3c354345f3005ec12e167c1f49"
+  },
+  "src/videos/cdkh/phan-2.tsx": {
+    "mtime": 1793595641.3705409,
+    "seen": 1793697608.7021875,
+    "ast_hash": "c16580e1c6a3a8fc633b3985d1d9b3e9",
+    "semantic_hash": "c16580e1c6a3a8fc633b3985d1d9b3e9"
+  },
+  "src/videos/cdkh/phan-3.tsx": {
+    "mtime": 1793595641.3705409,
+    "seen": 1793697608.7021902,
+    "ast_hash": "860a292a726dd634520037c1512b76f0",
+    "semantic_hash": "860a292a726dd634520037c1512b76f0"
+  },
+  "src/videos/fb-ads/art.tsx": {
+    "mtime": 1793595099.6573386,
+    "seen": 1793697608.7021916,
+    "ast_hash": "91cdc3883f3a9c28e7b175875bd39af4",
+    "semantic_hash": "91cdc3883f3a9c28e7b175875bd39af4"
+  },
+  "src/videos/fb-ads/phan-1.tsx": {
+    "mtime": 1793594640.08426,
+    "seen": 1793697608.7021928,
+    "ast_hash": "72b04b2e3001f95acd43aa8c62745f96",
+    "semantic_hash": "72b04b2e3001f95acd43aa8c62745f96"
+  },
+  "src/videos/fb-ads/phan-2.tsx": {
+    "mtime": 1793595099.6573386,
+    "seen": 1793697608.7021945,
+    "ast_hash": "c03bd61365bad561eb8e63b2cd3ed4a2",
+    "semantic_hash": "c03bd61365bad561eb8e63b2cd3ed4a2"
+  },
+  "src/videos/fb-ads/phan-3.tsx": {
+    "mtime": 1793594640.0888188,
+    "seen": 1793697608.7021961,
+    "ast_hash": "f82e0bdeba9646dc0c50ffc913e119cb",
+    "semantic_hash": "f82e0bdeba9646dc0c50ffc913e119cb"
+  },
+  "src/videos/human3/art.tsx": {
+    "mtime": 1793689860.8013098,
+    "seen": 1793697608.7022042,
+    "ast_hash": "c52a154fd7898293fe7e4122276c42d6",
+    "semantic_hash": "c52a154fd7898293fe7e4122276c42d6"
+  },
+  "src/videos/human3/phan-1.tsx": {
+    "mtime": 1793693165.0494142,
+    "seen": 1793697608.7022057,
+    "ast_hash": "84a9ad698d2d5cc6cef3f30c9813bd63",
+    "semantic_hash": "84a9ad698d2d5cc6cef3f30c9813bd63"
+  },
+  "src/videos/human3/phan-2.tsx": {
+    "mtime": 1793693544.746338,
+    "seen": 1793697608.7022073,
+    "ast_hash": "3e662710da3c44b299ccf27cbeef66de",
+    "semantic_hash": "3e662710da3c44b299ccf27cbeef66de"
+  },
+  "src/videos/huong-dan-tro-ly/broll-scenes.tsx": {
+    "mtime": 1793688135.095716,
+    "seen": 1793697608.7022088,
+    "ast_hash": "0d28507d1ab592a061cebc48d912680b",
+    "semantic_hash": "0d28507d1ab592a061cebc48d912680b"
+  },
+  "src/videos/huong-dan-tro-ly/clip-scenes.tsx": {
+    "mtime": 1793688135.096982,
+    "seen": 1793697608.7022107,
+    "ast_hash": "cdbf72a0cb35770c5f9eb66916e05661",
+    "semantic_hash": "cdbf72a0cb35770c5f9eb66916e05661"
+  },
+  "src/videos/huong-dan-tro-ly/kit.tsx": {
+    "mtime": 1793688135.0982175,
+    "seen": 1793697608.7022126,
+    "ast_hash": "52e3c95e7e1bf900da04647fb747e422",
+    "semantic_hash": "52e3c95e7e1bf900da04647fb747e422"
+  },
+  "src/videos/huong-dan-tro-ly/opening.tsx": {
+    "mtime": 1793688135.0993931,
+    "seen": 1793697608.7022142,
+    "ast_hash": "b4c0be6b35d9f3f7425abe86134f9179",
+    "semantic_hash": "b4c0be6b35d9f3f7425abe86134f9179"
+  },
+  "src/videos/huong-dan-tro-ly/reuse.tsx": {
+    "mtime": 1793688135.1008308,
+    "seen": 1793697608.7022157,
+    "ast_hash": "5c841aa8a71dbc9763da0f25f3359bc1",
+    "semantic_hash": "5c841aa8a71dbc9763da0f25f3359bc1"
+  },
+  "src/videos/mau/cac-buoc.tsx": {
+    "mtime": 1793610467.8199816,
+    "seen": 1793697608.702217,
+    "ast_hash": "813608b2ae588b47812851b955946468",
+    "semantic_hash": "813608b2ae588b47812851b955946468"
+  },
+  "src/videos/tro-ly-phap-che/art.tsx": {
+    "mtime": 1793688135.1024098,
+    "seen": 1793697608.7022336,
+    "ast_hash": "2def7b32c38945bf1c87084b420e411a",
+    "semantic_hash": "2def7b32c38945bf1c87084b420e411a"
+  },
+  "src/videos/tro-ly-phap-che/scenes-part1.tsx": {
+    "mtime": 1793688135.1029465,
+    "seen": 1793697608.7022355,
+    "ast_hash": "6bbff5d51dcdd5a82916864262975570",
+    "semantic_hash": "6bbff5d51dcdd5a82916864262975570"
+  },
+  "src/videos/tro-ly-phap-che/scenes-part2.tsx": {
+    "mtime": 1793688135.1044633,
+    "seen": 1793697608.7022367,
+    "ast_hash": "40f10cc28b5acef6e84b3694a2415cd4",
+    "semantic_hash": "40f10cc28b5acef6e84b3694a2415cd4"
+  },
+  "src/videos/tro-ly-phap-che/scenes-part3.tsx": {
+    "mtime": 1793688135.1059785,
+    "seen": 1793697608.7022388,
+    "ast_hash": "cbdc47d4bc58adc6d447592a7cb3d7df",
+    "semantic_hash": "cbdc47d4bc58adc6d447592a7cb3d7df"
+  },
+  ".github/copilot-instructions.md": {
+    "mtime": 1793688131.5323508,
+    "seen": 1793697608.7022598,
+    "ast_hash": "eecef1def0601e96964b3529d95676a2",
+    "semantic_hash": "eecef1def0601e96964b3529d95676a2"
+  },
+  "AGENTS.md": {
+    "mtime": 1793688131.5349088,
+    "seen": 1793697608.7022612,
+    "ast_hash": "83da4a6f190f5cd93224e6d05c5d267a",
+    "semantic_hash": "83da4a6f190f5cd93224e6d05c5d267a"
+  },
+  "GEMINI.md": {
+    "mtime": 1793688131.5381584,
+    "seen": 1793697608.7022645,
+    "ast_hash": "771faa62feb60b7de901a397aebb29b0",
+    "semantic_hash": "771faa62feb60b7de901a397aebb29b0"
+  },
+  "docs/CHE-DO-C.md": {
+    "mtime": 1793612396.0441725,
+    "seen": 1793697608.7022703,
+    "ast_hash": "4dd2794ac478d1068c0eed173ba25d6c",
+    "semantic_hash": "4dd2794ac478d1068c0eed173ba25d6c"
+  },
+  "docs/KE-HOACH-HOP-NHAT-VA-DONG-GOI.md": {
+    "mtime": 1793669946.6072693,
+    "seen": 1793697608.7022715,
+    "ast_hash": "f09689b24bebddd03f19eea599045ff4",
+    "semantic_hash": "f09689b24bebddd03f19eea599045ff4"
+  },
+  "docs/tham-khao-repo-cu/BRIEF-DOC-3-BAI-HOC.md": {
+    "mtime": 1791442463.4047031,
+    "seen": 1793697608.7022812,
+    "ast_hash": "4b499d7bb7f1d283126494b8532b8cf6",
+    "semantic_hash": "4b499d7bb7f1d283126494b8532b8cf6"
+  },
+  "docs/tham-khao-repo-cu/BROLL-GUIDE.md": {
+    "mtime": 1792728471.7636166,
+    "seen": 1793697608.7022827,
+    "ast_hash": "6d0e7c85bb7545ce38d42cbcbaeda7d4",
+    "semantic_hash": "6d0e7c85bb7545ce38d42cbcbaeda7d4"
+  },
+  "docs/tham-khao-repo-cu/CHE-DO-C-SPEC.md": {
+    "mtime": 1792981984.4321074,
+    "seen": 1793697608.7022843,
+    "ast_hash": "2e8c578cd0434391e79b7ab821578919",
+    "semantic_hash": "2e8c578cd0434391e79b7ab821578919"
+  },
+  "docs/tham-khao-repo-cu/DECISIONS.md": {
+    "mtime": 1793107465.1581323,
+    "seen": 1793697608.7022858,
+    "ast_hash": "306441c1aecf773ac713360d3bac89b5",
+    "semantic_hash": "306441c1aecf773ac713360d3bac89b5"
+  },
+  "docs/tham-khao-repo-cu/How to Turn Opus 5.5 Into a Studio_ The Full Guide to Motion Design, Harnesses and Loops_ _ X.md": {
+    "mtime": 1793172882.8617954,
+    "seen": 1793697608.7022877,
+    "ast_hash": "3b38fdf1e1c99e7cdd286c1e95f89a32",
+    "semantic_hash": "3b38fdf1e1c99e7cdd286c1e95f89a32"
+  },
+  "docs/tham-khao-repo-cu/MULTI_AGENT_MODEL.md": {
+    "mtime": 1792730155.1804965,
+    "seen": 1793697608.702289,
+    "ast_hash": "db6762ba9fe6864a8e531ce046540904",
+    "semantic_hash": "db6762ba9fe6864a8e531ce046540904"
+  },
+  "docs/tham-khao-repo-cu/PIPELINE_GATES_AND_RULES.md": {
+    "mtime": 1792730155.1151671,
+    "seen": 1793697608.7022908,
+    "ast_hash": "1757090a8970b492194990e69ccff99d",
+    "semantic_hash": "1757090a8970b492194990e69ccff99d"
+  },
+  "docs/tham-khao-repo-cu/QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md": {
+    "mtime": 1793334979.4795203,
+    "seen": 1793697608.7022922,
+    "ast_hash": "dbd09ac0f5ea89d2fc296df18e613b16",
+    "semantic_hash": "dbd09ac0f5ea89d2fc296df18e613b16"
+  },
+  "docs/tham-khao-repo-cu/READING-MAP.md": {
+    "mtime": 1792986466.0067194,
+    "seen": 1793697608.7022934,
+    "ast_hash": "c7dc27f3a2224cb41a5e0339460481a7",
+    "semantic_hash": "c7dc27f3a2224cb41a5e0339460481a7"
+  },
+  "docs/tham-khao-repo-cu/SKILL.md": {
+    "mtime": 1792730133.3561893,
+    "seen": 1793697608.7022953,
+    "ast_hash": "dacc5059b7029559fc16b8643279bffa",
+    "semantic_hash": "dacc5059b7029559fc16b8643279bffa"
+  },
+  "docs/tham-khao-repo-cu/brief-3-bai-hoc.html": {
+    "mtime": 1791268640.1903033,
+    "seen": 1793697608.7022967,
+    "ast_hash": "072eea9f9c4305e0b65393d7b7d74ef8",
+    "semantic_hash": "072eea9f9c4305e0b65393d7b7d74ef8"
+  },
+  "requirements-asr.lock.txt": {
+    "mtime": 1792637974.949847,
+    "seen": 1793697608.7022984,
+    "ast_hash": "71870739f7e0c438b54136f79e7e2609",
+    "semantic_hash": "71870739f7e0c438b54136f79e7e2609"
+  },
+  "src/talking-head/README.md": {
+    "mtime": 1792981594.1399236,
+    "seen": 1793697608.7022998,
+    "ast_hash": "231dafc4345762e647f0246d0477a2d9",
+    "semantic_hash": "231dafc4345762e647f0246d0477a2d9"
   }
 }
