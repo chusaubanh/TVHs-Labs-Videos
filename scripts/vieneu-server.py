@@ -92,6 +92,7 @@ def main() -> None:
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8")
 
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
     args = parse_args()
     print(f"Loading VieNeu-TTS v3 Turbo (device={args.device})...", flush=True)
     tts = Vieneu(
