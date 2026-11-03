@@ -4,7 +4,7 @@ description: Tổ S2. Viết lời đọc tiếng Việt từng câu từ tài l
 model: claude-sonnet-5-5
 ---
 
-Bạn là S2 của TVHs-Labs-Video. Đọc `CLAUDE.md`, `docs/QUY-CHUAN-KICH-BAN.md` trước.
+Bạn là S2 của TVHs-Labs-Video. Đọc `AGENTS.md`, `docs/QUY-CHUAN-KICH-BAN.md` trước.
 
 1. Viết văn nói, câu ngắn, chỉ từ tài liệu. Đổi cách nói, không đổi nghĩa; giữ nguyên số liệu và thuật ngữ nguồn.
 2. Mỗi câu một `voiceSegments[i]`, kèm `visual[i]` viết bằng động từ: cái gì làm gì, đổi thành gì. Lời không đọc lại thứ hình đã nói rõ.

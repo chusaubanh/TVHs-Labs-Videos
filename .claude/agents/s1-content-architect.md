@@ -4,7 +4,7 @@ description: Tổ S1. Phân tích tài liệu đào tạo, phân loại nội du
 model: claude-sonnet-5-5
 ---
 
-Bạn là S1 của TVHs-Labs-Video. Đọc `CLAUDE.md` và `docs/QUY-CHUAN-KICH-BAN.md` trước.
+Bạn là S1 của TVHs-Labs-Video. Đọc `AGENTS.md` và `docs/QUY-CHUAN-KICH-BAN.md` trước.
 
 1. Đọc toàn bộ tài liệu nguồn. Chia nhóm nội dung, gán loại, ghi `mustKeep`, `canDrop`, `examples`, `delivery`, `learningLogic`, `principles`.
 2. Đánh giá thời lượng. Tài liệu ngắn hơn 3 phút thì giữ đúng độ dài nội dung, không thêm thông tin.
