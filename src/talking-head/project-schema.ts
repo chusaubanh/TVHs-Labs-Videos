@@ -28,7 +28,7 @@ export const WordSchema = z.object({
 });
 
 export const AnimInSchema = z.object({
-  kind: z.enum(["rise", "drop", "left", "right", "pop", "bounce", "zoom", "soft", "stamp", "fade", "none"]),
+  kind: z.enum(["rise", "drop", "left", "right", "pop", "bounce", "zoom", "soft", "stamp", "slam", "fade", "none"]),
   dur: z.number().min(0),
 });
 export const AnimOutSchema = z.object({
@@ -116,6 +116,8 @@ export const TrackSchema = z
   layers: z.array(LayerSchema).default([]),
   /** Vẽ DƯỚI video (nền cho chế độ pip). Thứ tự vẽ: track belowVideo → video (videoMoves) → các track còn lại. */
   belowVideo: z.boolean().optional(),
+  /** Chữ sau người nói: vẽ trên video nhưng bị người nói che (cần matte của th:matte). Thứ tự: video → track behindSubject → người nói → còn lại. */
+  behindSubject: z.boolean().optional(),
   })
   .refine((t) => !["sfx", "music"].includes(t.kind) || t.layers.every((l) => l.type === "audio"), {
     message: "Track sfx/music chỉ chứa layer type audio",

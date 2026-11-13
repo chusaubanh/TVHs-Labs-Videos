@@ -79,6 +79,14 @@ describe("audio-mix", () => {
     expect(g).toContain("acrossfade=d=1");
   }, 120000);
 
+  it("duckDb >= 0 thì không duck: không có sidechaincompress", () => {
+    const layer = { ...audioLayer("M-1", 0, "music-short.wav", 10, -10), meta: { source: "auto" } };
+    const mkG = (duckDb: number) => buildMixGraph(Object.assign(mk([], [], { audio: { music: { duckDb } } }), { tracks: [{ id: "m", kind: "music", name: "n", hidden: false, locked: false, layers: [layer] }] }) as Project, dir, { durations: { [join(dir, "music-short.wav")]: 12 } }).graph;
+    expect(mkG(0)).not.toContain("sidechaincompress");
+    expect(mkG(0)).toContain("[vsc]anullsink");
+    expect(mkG(-12)).toContain("sidechaincompress");
+  });
+
   it("thiếu source.audio thì lấy audio của source.video", async () => {
     await runCapture("ffmpeg", ["-y", "-f", "lavfi", "-i", "color=c=black:s=64x64:d=10:r=10", "-f", "lavfi", "-i", "sine=frequency=400:duration=10:sample_rate=48000", "-shortest", "-c:v", "mpeg4", join(dir, "clip.mp4")]);
     const p = mk([], [], { source: { video: "clip.mp4" } });

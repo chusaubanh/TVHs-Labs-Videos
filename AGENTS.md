@@ -22,7 +22,7 @@ Rules 2 and 3 apply to the document flow. Chế độ C follows `docs/CHE-DO-C.m
 4. The user chooses the aspect per video: 16:9, 9:16, 4:5, 1:1. No hard-coded canvas size; landscape and portrait get their own layout.
 5. Stop for the user at: length decision, voice and aspect confirmation, `script-review.md` approval, visual approval before a full render.
 6. Do not edit `input/`, `assets/brand/` or `.research/`. `.research/repos/` is read-only source evidence; the user does the cloning.
-7. Rendering and voice run on the GPU: Chromium with `--gl=angle`, encoding with `--hardware-acceleration=required` (NVENC), VieNeu with the PyTorch CUDA backend. Audio filters in FFmpeg have no GPU path.
+7. Rendering and voice use the GPU when the machine has one: Chromium with `--gl=angle`, encoding with NVENC (`--hardware-acceleration=required`), VieNeu with the PyTorch CUDA backend. Without NVENC, encoding falls back to CPU (libx264); the code already does this (`src/training/hardware.ts`, `gpuEncodeAvailable()`). Audio filters in FFmpeg have no GPU path.
 8. Judge a tool from its source, with file paths. Anything not run is "Cần thử". Report gates skipped as skipped, not passed.
 
 ## Flow

@@ -5,6 +5,8 @@ import { ensureCutFromClips } from "./clips-render.js";
 import { jobDir, parseArgs, warnStale, withStep } from "./jobs.js";
 import { loadProject } from "./project-schema.js";
 import { renderProject } from "./render-overlay.js";
+import { safeZoneWarnings } from "./render-checks.js";
+import { sceneSampleTexts } from "./scenes.js";
 import { log } from "../studio/utils/logger.js";
 
 const { pos, flags } = parseArgs(process.argv.slice(2));
@@ -19,6 +21,10 @@ try {
     await warnStale(job, ["cut", "audio", "project"]);
     // Trộn giọng + SFX + nhạc (ducking, loudnorm) -> mix.wav; cache theo hash đầu vào nên render lại không trộn lại
     const project = await loadProject(join(jobDir(job), "project.json"));
+    const sample = sceneSampleTexts(project, job);
+    if (sample.length) throw new Error(`Luật 1: cảnh editonny còn chữ mẫu, sửa trong output/<job>/scenes/<tên>/index.html rồi render lại:\n  ${sample.join("\n  ")}`);
+    const unsafe = safeZoneWarnings(project);
+    if (unsafe.length) log.warn(`${unsafe.length} layer chữ ra ngoài vùng an toàn (cảnh báo, vẫn render):\n  ${unsafe.slice(0, 20).join("\n  ")}`);
     // videoClips là nguồn sự thật: dựng lại cut.mp4/audio.wav/transcript.cut.json theo hash trước pass overlay
     if (project.videoClips?.length) {
       const c = await ensureCutFromClips(project, jobDir(job), { cpu: !!flags.cpu });

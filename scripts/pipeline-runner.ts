@@ -2,6 +2,7 @@
  * Render cuối, chỉ chạy khi kịch bản và hình đã được người dùng duyệt.
  * tsx scripts/pipeline-runner.ts "<tài liệu>" [--max-still 8]
  */
+import "./local-tmp";
 import { execFileSync } from "node:child_process";
 import { readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";

@@ -10,7 +10,7 @@ import { CutsSchema, OutlineSchema, TranscriptSchema, saveProject, type Layer, t
 import { chunkToLayer, splitSubtitles, type SubGeo } from "./subtitles.js";
 
 
-import { renderCut, snapKeeps, type Aspect } from "./cut-render.js";
+import { isVfr, renderCut, snapKeeps, standardFps, type Aspect } from "./cut-render.js";
 export type { Aspect } from "./cut-render.js";
 
 /** Không ghi đè: đổi tên file cũ thành <tên>.prev-<thời gian><đuôi>. */
@@ -23,7 +23,7 @@ async function archiveIfExists(file: string): Promise<void> {
 
 // ---------- 02d cut ----------
 
-export async function cut(job: string, aspectArg: string | undefined, forceCpu = false): Promise<void> {
+export async function cut(job: string, aspectArg: string | undefined, forceCpu = false, cropYArg?: number): Promise<void> {
   assertNoClips(job, "th:cut");
   if (!aspectArg) throw new Error("Thiếu --aspect: chọn 16:9 | 4:5 | 9:16 | keep (không có mặc định ngầm, hỏi người dùng).");
   const aspect = (aspectArg === "original" ? "keep" : aspectArg) as Aspect;
@@ -32,16 +32,31 @@ export async function cut(job: string, aspectArg: string | undefined, forceCpu =
   const dir = jobDir(job);
   const media = await loadMedia(job);
   const cuts = await readJson(requireFile(join(dir, "cuts.json"), "Chạy th:cut-plan trước."), CutsSchema);
+  const srcPath = resolve(REPO_ROOT, media.source);
+  // vị trí crop dọc (0 trên – 1 dưới): cờ --crop-y, không có thì dùng giá trị đã lưu, mặc định giữa. Lưu vào media.json để clips-render dùng cùng khung.
+  if (cropYArg !== undefined && !(cropYArg >= 0 && cropYArg <= 1)) throw new Error("--crop-y phải trong 0–1 (0 = sát trên, 0.5 = giữa).");
+  const cropY = cropYArg ?? media.info.cropY ?? 0.5;
+  if (cropY !== (media.info.cropY ?? 0.5)) await writeJson(join(dir, "media.json"), { ...media, info: { ...media.info, cropY } });
+  // đo pts thật 20 s đầu: avg_frame_rate một mình không lộ được VFR
+  const pts = (await runCapture("ffprobe", ["-v", "error", "-select_streams", "v:0", "-read_intervals", "%+20", "-show_entries", "packet=pts_time", "-of", "csv=p=0", srcPath])).stdout
+    .split(/\r?\n/).map(Number).filter((x) => Number.isFinite(x));
+  const vfr = isVfr(pts);
+  const fps = vfr ? standardFps(media.info.fps) : media.info.fps;
+  if (vfr && fps !== media.info.fps) {
+    console.log(`Nguồn VFR (khung không đều, avg ${media.info.fps.toFixed(3)} fps): cắt ra CFR ${fps} fps, ghi vào media.json cho các bước sau.`);
+    // một nơi duy nhất: clips-render, proxy… đọc media.info.fps
+    await writeJson(join(dir, "media.json"), { ...media, info: { ...media.info, fps, avgFps: media.info.fps, vfr: true } });
+  }
   // snap điểm cắt về biên khung hình trước khi cắt: video, audio và ánh xạ transcript dùng cùng mốc
-  const keeps = snapKeeps(keepRangesFromCuts(cuts, media.info.duration), media.info.fps, media.info.duration);
+  const keeps = snapKeeps(keepRangesFromCuts(cuts, media.info.duration), fps, media.info.duration);
   if (!keeps.length) throw new Error("Không còn đoạn nào để giữ. Kiểm tra cuts.json (mode/approved).");
   await withStep(job, "cut", async () => {
     const out = join(dir, "cut.mp4");
     await archiveIfExists(out);
     await archiveIfExists(join(dir, "transcript.cut.json"));
     const r = await renderCut({
-      src: { path: resolve(REPO_ROOT, media.source), ...media.info },
-      keeps, aspect, out, workDir: join(dir, "work"), forceCpu,
+      src: { path: srcPath, ...media.info, fps },
+      keeps, aspect, out, workDir: join(dir, "work"), forceCpu, cropY,
     });
     const run = await loadRun(job);
     run.aspect = aspect;
@@ -90,28 +105,45 @@ interface Brand {
   palette: { text: string; accent: string; ink: string };
 }
 
-function geometry(aspect: string) {
+/**
+ * Vị trí mặc định theo khung, nằm trong SAFE_ZONE (render-checks.ts), % canvas:
+ *  - 9:16 (Reels/TikTok/Shorts): x 13–87, y 12–79,7. Phụ đề ở ngực (63–78%), dưới miệng, trên vùng caption + nút của app.
+ *  - 16:9 (YouTube): lề 5%, đáy 90% (thanh tiến trình, nút điều khiển). Phụ đề sát đáy vùng an toàn.
+ *  - 4:5 và 1:1 (feed): lề 5%, đáy 92%.
+ * maxChars (ký tự MỖI DÒNG) tính từ bề rộng hộp: đo trong editor 04/11/2026, Be Vietnam Pro 800 với lời tiếng Việt thật
+ * rộng trung bình 0,505 em/ký tự. Số gõ tay cũ (9:16: 42 ký tự) tràn thành 3 dòng.
+ */
+const EM_PER_CHAR = 0.505;
+const SUB_PADDING = 24; // = style.padding của chunkToLayer (subtitles.ts), mỗi bên
+// chừa 10%: ký tự rộng (ư, ơ, ờ…) dồn một dòng, viền chữ 6 px và từ đang đọc phóng 1,06 (đo: 9:16 chỉ dư 3% là tràn 3 dòng)
+const fitChars = (wPct: number, canvasW: number, fontSize: number) => Math.floor((((wPct / 100) * canvasW - 2 * SUB_PADDING) * 0.9) / (fontSize * EM_PER_CHAR));
+
+export function geometry(aspect: string) {
   if (aspect === "16:9") {
+    const sub = { x: 15, y: 76, w: 70, h: 13, fontSize: 44 } satisfies SubGeo;
     return {
-      maxChars: 48,
-      sub: { x: 15, y: 80, w: 70, h: 14, fontSize: 44 } satisfies SubGeo,
-      lower: { x: 5, y: 8, w: 60, h: 11, fontSize: 44 },
-      callout: { x: 5, y: 22, w: 40, h: 8, fontSize: 32 },
+      maxChars: fitChars(sub.w, 1920, sub.fontSize),
+      sub,
+      lower: { x: 6, y: 8, w: 60, h: 11, fontSize: 44 },
+      callout: { x: 6, y: 22, w: 40, h: 8, fontSize: 32 },
     };
   }
-  if (aspect === "4:5") {
+  if (aspect !== "9:16") {
+    const sub = { x: 6, y: 74, w: 88, h: 14, fontSize: 50 } satisfies SubGeo;
     return {
-      maxChars: 36,
-      sub: { x: 6, y: 74, w: 88, h: 14, fontSize: 50 } satisfies SubGeo,
+      maxChars: fitChars(sub.w, 1080, sub.fontSize),
+      sub,
       lower: { x: 6, y: 7, w: 88, h: 10, fontSize: 46 },
       callout: { x: 6, y: 19, w: 70, h: 7, fontSize: 34 },
     };
   }
+  // cỡ 52 (không 58): hộp hẹp trong vùng Reels, 58 chỉ vừa 24 ký tự/dòng
+  const sub = { x: 14, y: 63, w: 72, h: 15, fontSize: 52 } satisfies SubGeo;
   return {
-    maxChars: 42,
-    sub: { x: 6, y: 66, w: 88, h: 16, fontSize: 58 } satisfies SubGeo,
-    lower: { x: 6, y: 8, w: 88, h: 9, fontSize: 54 },
-    callout: { x: 6, y: 19, w: 70, h: 6, fontSize: 38 },
+    maxChars: fitChars(sub.w, 1080, sub.fontSize),
+    sub,
+    lower: { x: 14, y: 13, w: 72, h: 9, fontSize: 50 },
+    callout: { x: 14, y: 23, w: 60, h: 6, fontSize: 38 },
   };
 }
 

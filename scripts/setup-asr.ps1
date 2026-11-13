@@ -50,6 +50,14 @@ Pip install --upgrade pip
 # Cài đúng các phiên bản đã chạy tốt; không tự giải dependency vì transformers 5.x và ctranslate2 <4.5 làm hỏng căn từ.
 Pip install -r (Join-Path $root "requirements-asr.lock.txt") --no-deps --extra-index-url "https://download.pytorch.org/whl/$cuTag"
 
+# --- YuNet (dò mặt cho th:subject, MIT, Shiqi Yu): models/ nằm ngoài git ---
+$yunetDir = Join-Path $root "models\yunet"
+$yunet = Join-Path $yunetDir "face_detection_yunet_2023mar.onnx"
+if (-not (Test-Path $yunet)) {
+    New-Item -ItemType Directory -Force $yunetDir | Out-Null
+    Invoke-WebRequest "https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx" -OutFile $yunet
+}
+
 # --- Kiểm tra ---
 $check = Join-Path $root "scripts\asr\check_env.py"
 & $venvPython $check

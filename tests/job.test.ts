@@ -25,4 +25,12 @@ describe("duyệt", () => {
   it("khoá thư mục là chữ không dấu", () => {
     expect(jobKeyOf("Hướng dẫn Đào tạo 01")).toBe("huong-dan-dao-tao-01");
   });
+  it("hai tài liệu cùng tên thư mục cuối thì khoá khác nhau, cùng thư mục thì khoá giữ nguyên", () => {
+    const a = join("D:", "labs", "output", "Human 3.0", "phan-1");
+    const b = join("D:", "labs", "output", "Tài liệu Wiki", "Facebook Ads", "phan-1");
+    expect(jobKeyOf(a)).toBe("human-3-0-phan-1");
+    expect(jobKeyOf(b)).not.toBe(jobKeyOf(a));
+    expect(jobKeyOf(a)).toBe(jobKeyOf(a));
+    expect(jobKeyOf(join("D:", "labs", "output", "Hướng dẫn"))).toBe("huong-dan");
+  });
 });

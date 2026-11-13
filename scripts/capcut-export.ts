@@ -4,6 +4,7 @@
  * Không có --drafts thì ghi vào kho CapCut thật, nên CapCut phải đang đóng.
  * shortcut: chữ và watermark vẫn nằm trong clip cảnh; muốn sửa được thì phải tách thành lớp chữ riêng.
  */
+import "./local-tmp";
 import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { basename, join, resolve } from "node:path";

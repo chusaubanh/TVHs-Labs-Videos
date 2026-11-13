@@ -18,15 +18,22 @@ export interface Job {
   approvalsPath: string;
 }
 
-/** Tên thư mục dùng được trong staticFile: chỉ chữ thường, số và gạch nối. */
-export const jobKeyOf = (outputDir: string): string =>
-  basename(outputDir)
+/**
+ * Tên thư mục dùng được trong staticFile: chỉ chữ thường, số và gạch nối.
+ * Lấy cả đường dẫn dưới `output/`, vì hai tài liệu khác nhau có thể cùng tên thư mục cuối (vd. `phan-1`).
+ */
+export const jobKeyOf = (outputDir: string): string => {
+  const parts = outputDir.split(/[\\/]/).filter(Boolean);
+  const root = parts.lastIndexOf("output");
+  const name = root >= 0 && root < parts.length - 1 ? parts.slice(root + 1).join(" ") : basename(outputDir);
+  return name
     .normalize("NFD")
     .replace(/\p{M}/gu, "")
     .replace(/đ/gi, "d")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+};
 
 export function resolveJob(input: string, cwd = process.cwd()): Job {
   const workspace = resolveDocumentWorkspace(input, cwd);

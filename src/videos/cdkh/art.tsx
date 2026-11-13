@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, EL, G, GOLD, GOLDL, HOV, INK, Lines, Person, SEC, Spark, TXT } from "../mo-dau/art";
+import { Box, EL, G, GOLD, GOLDL, HOV, INK, Lines, Person, SEC, Spark, TXT } from "../shared/art";
 
 /** Tranh riêng của bộ video Chân dung khách hàng, vẽ cho khổ 4:5. */
 export const PersonaCard: React.FC<{ w?: number; h?: number; lit?: boolean; fill?: string }> = ({ w = 320, h = 400, lit = true, fill = GOLDL }) => (

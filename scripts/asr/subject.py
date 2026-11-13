@@ -1,6 +1,7 @@
 """Tìm vùng mặt người nói trong cut.mp4 -> subject.json {face:{x,y,w,h} %canvas, jitter:{...}}.
 
-Lấy mẫu 1 khung / 2 s, dò mặt bằng OpenCV Haar cascade (cv2) hoặc mediapipe, lấy trung vị và biên dao động.
+Lấy mẫu 1 khung / 2 s, dò mặt lần lượt bằng YuNet (cv2.FaceDetectorYN, model MIT ở models/yunet/, lấy từ editonny
+engine/assets/models), Haar cascade (cv2), rồi mediapipe; lấy trung vị và biên dao động.
 Nếu .venv-asr không có cv2 lẫn mediapipe: thoát mã 2 và KHÔNG tự cài; dùng `npm run th:subject -- <job> --face x,y,w,h`.
 """
 import argparse
@@ -11,6 +12,34 @@ import sys
 sys.stderr.reconfigure(encoding="utf-8")
 sys.stdout.reconfigure(encoding="utf-8")
 from pathlib import Path
+
+
+YUNET = Path(__file__).resolve().parents[2] / "models" / "yunet" / "face_detection_yunet_2023mar.onnx"
+
+
+def detect_yunet(video: str):
+    import cv2  # noqa: PLC0415
+
+    if not YUNET.exists():
+        raise ImportError("thiếu model YuNet")
+    cap = cv2.VideoCapture(video)
+    fps = cap.get(cv2.CAP_PROP_FPS) or 30
+    n = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    W, H = cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    sc = 640 / max(W, H)  # dò trên ảnh thu nhỏ: nhanh, mặt người nói vẫn đủ lớn
+    w, h = int(W * sc), int(H * sc)
+    det = cv2.FaceDetectorYN.create(str(YUNET), "", (w, h), 0.8)
+    boxes = []
+    for f in range(0, n, int(fps * 2)):
+        cap.set(cv2.CAP_PROP_POS_FRAMES, f)
+        ok, img = cap.read()
+        if not ok:
+            continue
+        _, faces = det.detect(cv2.resize(img, (w, h)))
+        if faces is not None and len(faces):
+            x, y, bw, bh = max(faces, key=lambda r: r[2] * r[3])[:4]
+            boxes.append((x / w * 100, y / h * 100, bw / w * 100, bh / h * 100))
+    return boxes
 
 
 def detect_cv2(video: str):
@@ -62,10 +91,11 @@ def main() -> None:
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     boxes = None
-    for fn in (detect_cv2, detect_mediapipe):
+    for fn in (detect_yunet, detect_cv2, detect_mediapipe):
         try:
             boxes = fn(a.video)
             if boxes:
+                print(f"[subject] bộ dò: {fn.__name__[7:]}")
                 break
         except ImportError:
             continue
@@ -83,7 +113,11 @@ def main() -> None:
     x1 = max(b[0] + b[2] for b in boxes)
     y1 = max(b[1] + b[3] for b in boxes)
     data = {"face": {"x": round(x0, 1), "y": round(y0, 1), "w": round(x1 - x0, 1), "h": round(y1 - y0, 1)},
-            "median": {"x": med[0], "y": med[1], "w": med[2], "h": med[3]}, "samples": len(boxes), "source": "auto"}
+            "median": {"x": med[0], "y": med[1], "w": med[2], "h": med[3]},
+            # đỉnh mặt phân vị 10%: đặt khung "từ bụng trở lên" theo số này. min (face.y) dính phát hiện nhiễu (mặt khán giả…),
+            # trung vị thì hụt lúc người nói tiến lại gần (clip 0518: min 0%, p10 ≈ 12%, trung vị 17%)
+            "topP10": round(sorted(b[1] for b in boxes)[len(boxes) // 10], 1),
+            "samples": len(boxes), "source": "auto"}
     Path(a.out).write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[subject] {len(boxes)} mẫu -> {a.out}")
 

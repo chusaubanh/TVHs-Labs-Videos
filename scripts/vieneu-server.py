@@ -133,6 +133,7 @@ def main() -> None:
                         "voices": len(voices),
                         "styles": styles,
                         "sampling": "seeded-v1",
+                        "seedSalt": True,  # nhận seedSalt (npm run voice --redo)
                         "sampleRate": tts.sample_rate,
                     },
                 )
@@ -164,6 +165,11 @@ def main() -> None:
                 text = str(payload.get("text", "")).strip()
                 voice = str(payload.get("voice", "")).strip()
                 style = str(payload.get("style", "")).strip()
+                # seedSalt > 0: npm run voice --redo (thu lại câu đọc sai). Không có salt thì giữ hạt giống cũ, bản đã thu không đổi.
+                try:
+                    seed_salt = int(payload.get("seedSalt", 0) or 0)
+                except (TypeError, ValueError):
+                    seed_salt = 0
                 if not text:
                     self.send_json(400, {"error": "text is required"})
                     return
@@ -184,7 +190,7 @@ def main() -> None:
                 # one voice/style pair, preserving natural preset output while
                 # making repeated renders bit-identical.
                 seed = int.from_bytes(
-                    hashlib.sha256(f"{voice}\0{style}\0v1".encode("utf-8")).digest()[:4],
+                    hashlib.sha256((f"{voice}\0{style}\0v1" + (f"\0redo{seed_salt}" if seed_salt > 0 else "")).encode("utf-8")).digest()[:4],
                     "big",
                 )
                 with inference_lock:

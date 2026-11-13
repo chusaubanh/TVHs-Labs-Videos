@@ -7,6 +7,7 @@ import { assertNoClips, jobDir, readJson, requireFile, withStep, writeJson } fro
 import { loadProject, saveProject, TranscriptSchema, type Project, type Segment, type Transcript } from "./project-schema.js";
 import { loadSfxLibrary } from "./sfx-plan.js";
 import { splitSubtitles } from "./subtitles.js";
+import { geometry } from "./commands-media.js";
 import type { Word } from "./types.js";
 
 export const DEFAULT_INTRO_SFX = "whoosh-long-electro-01";
@@ -124,7 +125,7 @@ export function introWords(tr: Transcript, t: IntroTimes): Word[] {
 // ---------- layer cho intro ----------
 
 function maxCharsFor(aspect: string): number {
-  return aspect === "16:9" ? 44 : aspect === "4:5" ? 32 : 38; // chữ lớn hơn 10% nên ít ký tự mỗi dòng hơn
+  return Math.floor(geometry(aspect).maxChars * 0.9); // chữ lớn hơn 10% nên ít ký tự mỗi dòng hơn
 }
 
 export function buildIntroLayers(project: Raw, words: Word[], t: IntroTimes, opts: { sfxId: string; library?: ReturnType<typeof loadSfxLibrary> }) {
@@ -134,7 +135,7 @@ export function buildIntroLayers(project: Raw, words: Word[], t: IntroTimes, opt
   const subs: Raw[] = splitSubtitles(words, maxCharsFor(project.aspect)).map((c, i) => {
     const base: Raw = template
       ? structuredClone(template)
-      : { type: "subtitle", x: 6, y: 74, w: 88, h: 14, style: {}, animation: { in: { kind: "fade", dur: 0.1 }, out: { kind: "fade", dur: 0.1 }, subtitleMode: "word" } };
+      : { type: "subtitle", ...(({ fontSize: _f, ...g }) => g)(geometry(project.aspect).sub), style: {}, animation: { in: { kind: "fade", dur: 0.1 }, out: { kind: "fade", dur: 0.1 }, subtitleMode: "word" } };
     const start = c.words[0].start;
     const end = c.words[c.words.length - 1].end;
     base.id = `L-I${String(i + 1).padStart(2, "0")}`;

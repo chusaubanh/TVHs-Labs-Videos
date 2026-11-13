@@ -60,7 +60,7 @@ function anchorTime(layer: Layer, edge: "in" | "out", category: string): number 
   if (category === "scribble") return layer.start + a.in.dur * 0.5;
   if (edge === "in") {
     if (SWEEP.test(category)) return layer.start + a.in.dur * 0.75; // whoosh: đỉnh khi layer tới nơi
-    const touch = a.in.kind === "pop" ? 0.3 : ["stamp", "drop", "bounce", "zoom"].includes(a.in.kind) ? 0.6 : 0.15;
+    const touch = a.in.kind === "pop" ? 0.3 : ["stamp", "slam", "drop", "bounce", "zoom"].includes(a.in.kind) ? 0.6 : 0.15;
     return layer.start + a.in.dur * touch;
   }
   return layer.start + layer.duration - a.out.dur * 0.5;
@@ -142,7 +142,7 @@ export function planSfx(input: Project, opts: PlanOptions): Project {
   const layers = project.tracks
     .filter((t) => t.kind !== "subtitle" && t.kind !== "sfx" && t.kind !== "music" && !t.hidden)
     .flatMap((t) => t.layers)
-    .filter((l) => GRAPHIC_TYPES.has(l.type));
+    .filter((l) => GRAPHIC_TYPES.has(l.type) && l.meta?.role !== "scrim"); // lớp gradient nền: không có tiếng
   const transitions = layers.filter((l) => (l.type as string) === "transition");
   const nearTransition = (t: number) => transitions.some((x) => Math.abs(x.start - t) < 0.6 || Math.abs(x.start + x.duration - t) < 0.6);
   const softBubble = pack.id === "social" || pack.id === "tech" ? "pop" : "pop-bubble";
@@ -182,7 +182,7 @@ export function planSfx(input: Project, opts: PlanOptions): Project {
     if (type === "asset") {
       const draw = (l as Loose).draw;
       {
-        if (ik === "pop" || ik === "bounce" || ik === "zoom" || ik === "stamp") {
+        if (ik === "pop" || ik === "bounce" || ik === "zoom" || ik === "stamp" || ik === "slam") {
           const g = pack.in.pop?.gainDb ?? -14;
           push({ category: softBubble, at: anchorTime(l, "in", softBubble), linkId: l.id, edge: "in", gainDb: g - 2, prio: 2, keyBase: `${l.id}:in` });
         } else if (ik !== "none" && ik !== "fade") consider(l, "in", pack.in[ik] && { ...pack.in[ik]!, gainDb: pack.in[ik]!.gainDb - 2 }, 2, `${l.id}:in`);

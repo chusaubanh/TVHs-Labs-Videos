@@ -30,6 +30,7 @@ const ENTER = {
   tilt: [0, 0, 45, 1, 0, 0, 14, DUR.hero, "heavy"],
   soft: [0, 0, 48, 1, 0, 10, 0, DUR.hero, "heavy"],
   stamp: [0, 0, 0, 2.2, -8, 0, 0, 0.32, "slam"],
+  slam: [0, 0, 0, 2.4, 0, 0, 0, 0.45, "overshoot"], // đập xuống: 240% → ~86% → 100% trong ~11 khung
   fade: [0, 0, 0, 1, 0, 0, 0, DUR.base, "out"],
 };
 const LEAVE = {
@@ -121,6 +122,8 @@ function injectFonts(doc, assetBase) {
 }
 
 function sceneEntry(templateId, aspect) {
+  // cảnh editonny chép vào job (th:scene): output/<job>/scenes/<tên>/index.html, editor phục vụ ở /job/, render chép vào ./job/
+  if (templateId.startsWith("job:")) return { dir: `job/scenes/${templateId.slice(4)}/`, tries: ["index.html"] };
   // Cùng quy tắc với resolveTemplateEntry (src/studio/render/template-composer.ts), nhưng không kiểm tra file tồn tại:
   // thử composition theo tỷ lệ, iframe lỗi thì rơi về index.html (xem onerror bên dưới).
   const c = aspect === "9:16" ? ["compositions/portrait.html", "compositions/feed.html"]
@@ -130,10 +133,15 @@ function sceneEntry(templateId, aspect) {
   return { dir: `templates/${templateId}/`, tries: c.concat("index.html") };
 }
 
-/** pass: "under" = track belowVideo (vẽ DƯỚI video), "over" = các track còn lại, "all" = tất cả. */
+/**
+ * pass: "under" = track belowVideo (vẽ DƯỚI video), "over" = các track còn lại, "all" = tất cả.
+ * Chữ sau người nói (th:render): "behind" = chỉ track behindSubject, "front" = mọi track trừ behindSubject.
+ */
 export function trackIn(tr, pass) {
   if (tr.hidden) return false;
   if (!pass || pass === "all") return true;
+  if (pass === "behind") return !!tr.behindSubject;
+  if (pass === "front") return !tr.behindSubject;
   return (pass === "under") === !!tr.belowVideo;
 }
 
@@ -379,13 +387,20 @@ export function mountOverlay(rootEl, project, opts = {}) {
         const mkInner = (els) => {
           const inner = doc.createElement("div");
           if (asWords) {
+            // Ngắt dòng theo "\n" của l.text khi số từ khớp: dòng cố định, không để text-wrap:balance tự cân
+            // (Firefox/Zen khi cân dòng làm mất khoảng trắng giữa các span inline-block → "lànhiều").
+            const perLine = String(l.text || "").split("\n").map((s) => s.trim().split(/\s+/).filter(Boolean).length);
+            const fixed = perLine.length > 1 && perLine.reduce((a, b) => a + b, 0) === l.words.length;
+            const breaks = new Set();
+            if (fixed) perLine.reduce((acc, n) => (breaks.add(acc + n - 1), acc + n), 0);
+            if (fixed) inner.style.setProperty("text-wrap", "wrap");
             l.words.forEach((w, i) => {
               const sp = doc.createElement("span");
               sp.style.display = "inline-block"; // để phóng 1.06 từ đang nói mà không làm dòng chữ nhảy
               sp.textContent = w.text;
               els.push(sp);
               inner.appendChild(sp);
-              if (i < l.words.length - 1) inner.appendChild(doc.createTextNode(" "));
+              if (i < l.words.length - 1) inner.appendChild(fixed && breaks.has(i) ? doc.createElement("br") : doc.createTextNode(" "));
             });
           } else inner.textContent = esc(l.text);
           return inner;
@@ -562,6 +577,14 @@ export function mountOverlay(rootEl, project, opts = {}) {
       const d = f.contentDocument;
       const ms = Math.max(0, local) * 1000;
       for (const a of d.getAnimations()) { a.pause(); a.currentTime = ms; }
+      // cảnh editonny: timeline GSAP paused đăng ký ở window.__timelines, video theo data-start (giây trong cảnh)
+      const tls = f.contentWindow && f.contentWindow.__timelines;
+      if (tls) for (const k in tls) tls[k].seek(Math.max(0, local), false);
+      for (const v of d.querySelectorAll("video[data-start]")) {
+        v.pause();
+        const vt = Math.max(0, local - (+v.getAttribute("data-start") || 0));
+        if (Math.abs(v.currentTime - vt) > 0.001) v.currentTime = Number.isFinite(v.duration) && v.duration > 0 ? (v.loop ? vt % v.duration : Math.min(vt, v.duration - 0.001)) : vt;
+      }
     } catch (_) { /* iframe khác origin: bỏ qua */ }
   }
 

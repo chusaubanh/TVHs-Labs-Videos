@@ -1,7 +1,7 @@
 import React from "react";
 import { Img, staticFile } from "remotion";
 import { Label } from "../../kit/scene-context";
-import { Box, EL, G, GOLD, GOLDL, HOV, INK, Lines, SEC, Stage as BaseStage, SURF, Tag as BaseTag, TXT, useT } from "../mo-dau/art";
+import { Box, EL, G, GOLD, GOLDL, HOV, INK, Lines, SEC, Stage as BaseStage, SURF, Tag as BaseTag, TXT, useT } from "../shared/art";
 
 /** Nội dung thu vào để chừa lề 60 px kể cả khi máy quay trôi tới 1,03; nền vẫn phủ kín khung. */
 const SAFE_INSET = 0.86;

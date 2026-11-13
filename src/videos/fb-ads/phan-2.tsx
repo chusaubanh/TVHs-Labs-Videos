@@ -1,5 +1,5 @@
 import React from "react";
-import { AI, Arrow, Box, Browser, Clock, Cross, Doc, EL, G, GOLD, GOLDL, HOV, INK, Lines, Person, Question, RED, Stamp, SURF, TXT, XL, lerp, useT } from "../mo-dau/art";
+import { AI, Arrow, Box, Browser, Clock, Cross, Doc, EL, G, GOLD, GOLDL, HOV, INK, Lines, Person, Question, RED, Stamp, SURF, TXT, XL, lerp, useT } from "../shared/art";
 import { Stage, Tag, Cart, Coin, Crowd, Cursor, Eye, Net, Phone, Pin, Post, Target } from "./art";
 
 export const Hook: React.FC = () => {

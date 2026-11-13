@@ -19,11 +19,11 @@ export function probeDurationSec(path: string): number {
   return seconds;
 }
 
-async function synthesize(text: string, voice: string, style: string): Promise<Buffer> {
+async function synthesize(text: string, voice: string, style: string, seedSalt = 0): Promise<Buffer> {
   const response = await fetch(`${ENDPOINT}/synthesize`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "audio/wav" },
-    body: JSON.stringify({ text, voice, style }),
+    body: JSON.stringify(seedSalt ? { text, voice, style, seedSalt } : { text, voice, style }),
   });
   if (!response.ok) throw new Error(`VieNeu trả ${response.status}: ${await response.text()}`);
   return Buffer.from(await response.arrayBuffer());
@@ -48,9 +48,24 @@ async function main(): Promise<void> {
 
   const health = await fetch(`${ENDPOINT}/health`).catch(() => null);
   if (!health?.ok) throw new Error(`VieNeu chưa chạy ở ${ENDPOINT}. Chạy: npm run tts:server`);
-  const info = (await health.json()) as { engineVersion?: string; backend?: string };
+  const info = (await health.json()) as { engineVersion?: string; backend?: string; seedSalt?: boolean };
   if (GPU && info.backend !== "pytorch") throw new Error(`VieNeu đang chạy backend "${info.backend}", không phải GPU. Khởi động lại bằng npm run tts:server.`);
   const engine = String(info.engineVersion ?? "unknown");
+
+  // --redo <cảnh>-<câu>,… : thu lại đúng các câu đó bằng hạt giống lấy mẫu khác (voice-redo.json), script.json không đổi
+  const redoPath = join(job.outputDir, "voice-redo.json");
+  const salts: Record<string, number> = existsSync(redoPath) ? JSON.parse(readFileSync(redoPath, "utf8")) : {};
+  const ri = args.indexOf("--redo");
+  if (ri >= 0) {
+    const ids = (args[ri + 1] ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+    if (!ids.length) throw new Error("--redo cần danh sách câu, ví dụ --redo s2-0,s5-1 (mã câu trong voice-check.md)");
+    for (const id of ids) salts[id] = (salts[id] ?? 0) + 1;
+    writeFileSync(redoPath, `${JSON.stringify(salts, null, 2)}\n`);
+    console.log(`Thu lại: ${ids.map((id) => `${id} (lần ${salts[id]})`).join(", ")}`);
+  }
+
+  if (Object.values(salts).some((v) => v > 0) && !info.seedSalt)
+    throw new Error("tts:server đang chạy bản cũ, không nhận seedSalt: câu thu lại sẽ y hệt câu cũ. Tắt rồi khởi động lại npm run tts:server.");
 
   const voiceDir = join(job.publicDir, "voice");
   mkdirSync(voiceDir, { recursive: true });
@@ -59,13 +74,14 @@ async function main(): Promise<void> {
   for (const scene of script.scenes) {
     for (const [i, text] of scene.voiceSegments.entries()) {
       const path = join(voiceDir, `${scene.id}-${i}.wav`);
+      const salt = salts[`${scene.id}-${i}`] ?? 0;
       const hash = createHash("sha256")
-        .update(JSON.stringify([text, script.voice.id, script.voice.tone, script.voice.speed, engine]))
+        .update(JSON.stringify(salt ? [text, script.voice.id, script.voice.tone, script.voice.speed, engine, salt] : [text, script.voice.id, script.voice.tone, script.voice.speed, engine]))
         .digest("hex");
       const hashPath = `${path}.hash`;
       const cached = existsSync(path) && existsSync(hashPath) && readFileSync(hashPath, "utf8") === hash;
       if (!cached) {
-        writeFileSync(path, await synthesize(text, script.voice.id, script.voice.tone));
+        writeFileSync(path, await synthesize(text, script.voice.id, script.voice.tone, salt));
         applySpeed(path, script.voice.speed);
         writeFileSync(hashPath, hash);
       }

@@ -10,6 +10,7 @@ Thay `<tài liệu>` bằng tên thư mục trong `input/`. Mỗi dấu **DỪNG
 | 4 | S2, S4 | Viết lời và hành động của hình từng câu; kiểm kịch bản | `npm run script:validate -- "<tài liệu>"` | `script.json`, `script-review.md` |
 | 5 | Người dùng | **DỪNG** duyệt `script-review.md` | `npm run approve -- "<tài liệu>" script --by "<tên>"` | `approvals.json` |
 | 6 | S3 | Thu giọng từng câu, đo mốc giờ | `npm run voice -- "<tài liệu>"` | `timeline.json`, `props.json` |
+| 6b | S3 → S6 | Nghe lại giọng bằng PhoWhisper, KHÔNG kèm kịch bản (tắt `tts:server` trước để trả VRAM). Câu đọc sai đã nghe xác nhận: `npm run voice -- "<tài liệu>" --redo <cảnh>-<câu>` (đổi hạt giống lấy mẫu, lưu `voice-redo.json`, `script.json` không đổi nên phiếu duyệt vẫn giữ), rồi chạy lại 6b | `npm run voice:check -- "<tài liệu>"` | `voice-check.md`, `voice-check.json` |
 | 7 | S4, S5 | Dựng cảnh riêng trong `src/videos/<video>/`, đăng ký ở `registry.ts` | `npm run assets:optimize`, `npm run physics:bake` | Cảnh |
 | 8 | S6 | Bài thử tất định, độ phủ, ảnh duyệt | `npm run gate:determinism -- "<tài liệu>"`, `npm run stills -- "<tài liệu>"` | `stills/` |
 | 9 | S7 | Soi ảnh, gồm bản ẩn chữ | | Đạt hoặc trả lại |
@@ -17,6 +18,8 @@ Thay `<tài liệu>` bằng tên thư mục trong `input/`. Mỗi dấu **DỪNG
 | 11 | Master, S6 | Render, chuẩn hoá −14 LUFS, QC | `npm run render -- "<tài liệu>"` | `output/<tài liệu>/video.mp4` |
 
 Sửa `script.json` sau khi duyệt thì phiếu duyệt mất hiệu lực và lệnh sau sẽ dừng.
+
+File tạm của Remotion và Chrome ghi vào `.cache/tmp` trong repo, không vào ổ C. Chỉ xoá khi người dùng đã chốt video: `npm run clean:tmp`.
 
 ## Máy móc chặn những gì
 

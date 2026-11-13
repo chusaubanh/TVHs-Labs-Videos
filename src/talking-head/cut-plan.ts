@@ -58,10 +58,15 @@ export const VOICED_CUT_MIN = 0.2; // filler có thanh: đề xuất cắt nếu
  * Vùng VAD không có từ: phân loại bằng âm học (voicedRatio/f0Median). Có thanh = "filler-voiced" (ừm/à/ờ), đề xuất cắt nếu ≥ 0.2 s.
  * Không thanh = "breath" (hơi thở/ngắt nghỉ tự nhiên): KHÔNG cắt. Không có số đo âm học thì để "filler-vad", không đề xuất cắt.
  */
-export function fillerCandidates(fillers: Filler[], _segments: Segment[]): CutRange[] {
+export function fillerCandidates(fillers: Filler[], segments: Segment[]): CutRange[] {
   const out: CutRange[] = [];
+  // fillers.json tính lúc phiên âm, theo từ GỐC. Transcript đã hiệu đính (vd đoạn Whisper bịa đã phiên âm lại) có thể có lời
+  // thật trong "vùng không chữ" đó: vùng VAD đè lên từ của transcript hiện tại > 50 ms thì không còn là "ừm/à" (bài 2, clip 0518: 24 cờ cắt giữa từ).
+  const words = segments.flatMap((s) => s.words);
+  const onWord = (a: number, b: number) => words.some((w) => Math.min(b, w.end) - Math.max(a, w.start) > 0.05);
   for (const f of fillers) {
     const dur = f.end - f.start;
+    if (f.source === "vad-gap" && onWord(f.start, f.end)) continue;
     if (f.source !== "vad-gap") {
       out.push({ start: f.start, end: f.end, reason: `từ đệm "${f.text}"`, source: "auto", kind: "filler-word", confidence: 0.9, approved: true });
       continue;
@@ -90,7 +95,9 @@ export function mergeNearby(c: CutRange[]): CutRange[] {
   for (const r of sorted) {
     const last = out[out.length - 1];
     const overlap = last && r.start < last.end;
-    if (last && (overlap || (last.approved === r.approved && r.start - last.end < MERGE_GAP))) {
+    // đoạn CHƯA duyệt (vd câu lặp dài) không được nuốt đoạn ĐÃ duyệt nằm trong nó: giữ riêng, cắt đã duyệt vẫn chạy
+    const winsUnapproved = last && last.approved !== r.approved && !((r.confidence ?? 0) > (last.confidence ?? 0) ? r.approved : last.approved);
+    if (last && !winsUnapproved && (overlap || (last.approved === r.approved && r.start - last.end < MERGE_GAP))) {
       if ((r.confidence ?? 0) > (last.confidence ?? 0)) {
         last.kind = r.kind;
         last.confidence = r.confidence;
@@ -168,4 +175,43 @@ export function repeatCandidates(segments: Segment[], threshold = 0.75): CutRang
     });
   }
   return out;
+}
+
+export interface Suspect {
+  start: number;
+  end: number;
+  reason: string;
+  text: string;
+}
+
+/** Câu kết video YouTube mà Whisper hay bịa trên đoạn không phải lời giảng (gặp trên lớp học thật 04/11/2026). */
+const YT_OUTRO = /subscribe|đăng k[ýí] kênh|không bỏ lỡ (những )?video|la ?la ?school|ghiền mì gõ|cảm ơn các bạn đã (theo dõi|xem)/i;
+const normText = (t: string) => t.toLowerCase().normalize("NFC").replace(/[^\p{L}\p{N} ]/gu, "").replace(/\s+/g, " ").trim();
+
+/**
+ * Đoạn nghi Whisper bịa (hallucination): câu outro YouTube, câu trùng hệt câu kề (≥ 3 từ), hoặc ≥ 3 âm tiết dài ≥ 1,2 s.
+ * Đo trên 71 phút lớp học: bắt 9 đoạn (3 outro + 3 cặp câu lặp); phiên âm lại (th:retranscribe) cả 9 đều không phải lời đã ghi —
+ * 7 che lời giảng thật, 2 vẫn ra câu bịa (âm không phải lời giảng). Ngưỡng âm tiết lỏng hơn (≥ 1 s × 2) báo nhầm ~20 câu thật.
+ * Bịa câu có thể ĐÈ lên lời thật (1871–1885 s: "Xin chào các bạn…" che "Cái đó là một kiểu lắng nghe…"), nên không tự cắt.
+ */
+export function suspectSegments(segments: Segment[]): Suspect[] {
+  const out: Suspect[] = [];
+  segments.forEach((g, i) => {
+    const why: string[] = [];
+    if (YT_OUTRO.test(g.text)) why.push("câu kết video YouTube");
+    const n = normText(g.text);
+    if (n.split(" ").length >= 3 && [segments[i - 1], segments[i + 1]].some((x) => x && normText(x.text) === n)) why.push("trùng hệt câu kề");
+    const long = g.words.filter((w) => w.end - w.start >= 1.2).length;
+    if (long >= 3) why.push(`${long} âm tiết dài ≥ 1,2 s`);
+    if (why.length) out.push({ start: g.start, end: g.end, reason: why.join(", "), text: g.text });
+  });
+  return out;
+}
+
+/** Ứng viên auto đè lên đoạn nghi bịa: chuyển chưa duyệt (lời thật có thể nằm dưới). Đoạn AI/người dùng không đụng. */
+export function holdSuspects(ranges: CutRange[], suspects: Suspect[]): CutRange[] {
+  return ranges.map((r) => {
+    const s = r.source === "auto" ? suspects.find((x) => r.start < x.end && r.end > x.start) : undefined;
+    return s ? { ...r, approved: false, reason: `NGHI WHISPER BỊA (${s.reason}): nghe lại trước khi cắt; ${r.reason}` } : r;
+  });
 }

@@ -67,6 +67,10 @@ describe("số đọc bằng chữ", () => {
     expect(issues("Một người chịu trách nhiệm chính.")).toHaveLength(0);
     expect(issues("Hai bên cùng trao đổi với nhau.")).toHaveLength(0);
   });
+  it("đọc phần trăm không bị tính thành số trăm", () => {
+    expect(issues("Chạy chuẩn xác một trăm phần trăm.", "chạy chuẩn xác 100%")).toHaveLength(0);
+    expect(issues("Chạy chuẩn xác chín mươi phần trăm.", "chạy chuẩn xác 100%")).toHaveLength(1);
+  });
   it("bắt số đếm theo đơn vị", () => {
     expect(issues("Làm theo năm bước sau đây.", "Làm theo 3 bước")).toHaveLength(1);
     expect(issues("Làm theo ba bước sau đây.", "Làm theo 3 bước")).toHaveLength(0);

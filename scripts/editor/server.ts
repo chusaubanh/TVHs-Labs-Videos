@@ -150,7 +150,7 @@ function meta() {
     palette: g.palette ?? {},
     fonts: listFonts(),
     presets: {
-      in: ["rise", "drop", "left", "right", "pop", "bounce", "zoom", "soft", "stamp", "fade", "none"],
+      in: ["rise", "drop", "left", "right", "pop", "bounce", "zoom", "soft", "stamp", "slam", "fade", "none"],
       out: ["fade", "shrink", "up", "down", "none"],
     },
     templates,

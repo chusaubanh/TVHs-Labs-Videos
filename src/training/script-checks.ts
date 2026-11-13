@@ -72,10 +72,12 @@ export function spokenNumbers(text: string): string[] {
     if (run.length && (hasAnchor(phrase) || counted)) found.push(phrase);
     run = [];
   };
-  for (const token of tokens) {
+  tokens.forEach((token, i) => {
+    // "phần trăm" là đơn vị, không phải số "trăm".
+    if (token === "trăm" && tokens[i - 1] === "phần") return;
     if (NUMBER_WORDS.has(token)) run.push(token);
     else flush(token);
-  }
+  });
   flush();
   return found;
 }

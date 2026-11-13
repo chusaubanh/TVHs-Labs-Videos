@@ -48,6 +48,7 @@ import { jobDir } from "./jobs.js";
 import { loadProject, type Project } from "./project-schema.js";
 import { effectiveMoves, effectiveShifts, hasClipTransforms, staticCovers } from "./camera.js";
 import { INK, libplaceboMoves, scaleOverlayMoves } from "./video-moves.js";
+import { ensureCanvasMatte, hasBehind, maskedOverlayChain, requireMatte } from "./behind.js";
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const RUNTIME = join(REPO, "scripts", "editor", "public", "overlay-runtime.js");
@@ -72,11 +73,14 @@ export interface RenderOptions {
 
 type Box = [number, number, number, number]; // x0,y0,x1,y1 (px canvas)
 type Runtime = {
-  frameKey: (p: Project, t: number, fps: number) => string;
-  frameBox: (p: Project, t: number) => Box | null;
+  frameKey: (p: Project, t: number, fps: number, pass?: Pass) => string;
+  frameBox: (p: Project, t: number, pass?: Pass) => Box | null;
 };
 
-function composition(p: Project, times: number[], fps: number, box: Box): string {
+/** "all" = mọi track; khi có chữ sau người nói: "behind" (track behindSubject, bị matte che) và "front" (phần còn lại). */
+export type Pass = "all" | "behind" | "front";
+
+function composition(p: Project, times: number[], fps: number, box: Box, pass: Pass = "all"): string {
   const json = JSON.stringify(p).replace(/</g, "\\u003c");
   const { width: W, height: H } = p;
   const bw = box[2] - box[0], bh = box[3] - box[1];
@@ -94,7 +98,7 @@ var TIMES = ${JSON.stringify(times)}, FPS = ${fps}, ov = null;
 function at(sec){ var i = Math.round((Number(sec) || 0) * FPS); return TIMES[Math.max(0, Math.min(TIMES.length - 1, i))]; }
 // Timeline chỉ được đăng ký SAU khi font + iframe cảnh đã nạp xong: HyperFrames đợi timeline "main" trước khi chụp khung đầu.
 import("./overlay-runtime.js").then(function(m){
-  ov = m.mountOverlay(document.getElementById("ov"), window.__TH_PROJECT__, { assetBase: "./", canvasW: ${W}, canvasH: ${H} });
+  ov = m.mountOverlay(document.getElementById("ov"), window.__TH_PROJECT__, { assetBase: "./", canvasW: ${W}, canvasH: ${H}, pass: ${JSON.stringify(pass)} });
   return ov.ready().then(function(){
     ov.seek(TIMES[0]);
     window.__timelines = window.__timelines || {};
@@ -203,6 +207,8 @@ export interface FrameGroup {
   hashes: string[];
   /** hash -> thời điểm (s) của khung đầu tiên mang hash đó */
   firstTime: Map<string, number>;
+  /** lượt overlay của nhóm (mặc định "all"); "behind" bị matte người nói che khi ghép */
+  pass?: Pass;
 }
 export interface FramePlan {
   nFrames: number;
@@ -213,7 +219,7 @@ const area = (b: Box) => (b[2] - b[0]) * (b[3] - b[1]);
 const union = (a: Box, b: Box): Box => [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])];
 
 /** Tính chữ ký + hộp cắt từng khung (thuần, nhanh), gom khung vào ≤ MAX_GROUPS nhóm theo hộp. Xuất ra để test. */
-export function planFrames(p: Project, dur: number, rt: Runtime, salt: string): FramePlan {
+export function planFrames(p: Project, dur: number, rt: Runtime, salt: string, pass: Pass = "all"): FramePlan {
   const nFrames = Math.max(1, Math.round(dur * p.fps));
   const { width: W, height: H } = p;
   const snap = (b: Box): Box => [
@@ -224,8 +230,8 @@ export function planFrames(p: Project, dur: number, rt: Runtime, salt: string): 
   const boxes: (Box | null)[] = new Array(nFrames);
   for (let f = 0; f < nFrames; f++) {
     const t = f / p.fps;
-    keys[f] = rt.frameKey(p, t, p.fps);
-    const b = keys[f] === "" ? null : rt.frameBox(p, t);
+    keys[f] = rt.frameKey(p, t, p.fps, pass);
+    const b = keys[f] === "" ? null : rt.frameBox(p, t, pass);
     boxes[f] = b ? (process.env.TH_NO_CROP ? [0, 0, W, H] : snap(b)) : null;
   }
   // nhóm theo hộp đã làm tròn, rồi gộp dần cặp tốn thêm ít diện tích nhất cho tới khi ≤ MAX_GROUPS
@@ -242,7 +248,7 @@ export function planFrames(p: Project, dur: number, rt: Runtime, salt: string): 
     list[bi] = union(list[bi], list[bj]);
     list.splice(bj, 1);
   }
-  const groups: FrameGroup[] = list.map((box) => ({ box, hashes: new Array(nFrames).fill(""), firstTime: new Map() }));
+  const groups: FrameGroup[] = list.map((box) => ({ box, hashes: new Array(nFrames).fill(""), firstTime: new Map(), pass }));
   for (let f = 0; f < nFrames; f++) {
     const b = boxes[f];
     if (!b) continue;
@@ -303,18 +309,28 @@ export async function renderProject(job: string, opt: RenderOptions = {}): Promi
 
   const rt = (await import(pathToFileURL(RUNTIME).href)) as Runtime;
   const layers = p.tracks.filter((t) => !t.hidden).flatMap((t) => t.layers);
+  // "job:<tên>" = cảnh editonny chép trong job (th:scene), còn lại là templates/<id> kiểu cũ
+  const sceneDir = (id: string) => (id.startsWith("job:") ? join(jobDir(job), "scenes", id.slice(4)) : join(REPO, "templates", id));
   const sceneIds = [...new Set(layers.filter((l) => l.type === "scene" && l.templateId).map((l) => l.templateId as string))].sort();
   const imgs = [...new Set(layers.filter((l) => (l.type === "image" || l.type === "asset") && l.src).map((l) => l.src as string))].sort();
   const salt = sha([
     HF_VERSION, p.width, p.height, p.fps, p.aspect, sha(readFileSync(RUNTIME, "utf8")), sha(readFileSync(join(dirname(RUNTIME), "clips-core.js"), "utf8")),
-    ...sceneIds.map((id) => id + ":" + dirSig(join(REPO, "templates", id))),
+    ...sceneIds.map((id) => id + ":" + dirSig(sceneDir(id))),
     ...imgs.map((i) => i + ":" + fileSig(join(REPO, i))),
     ...readdirSync(join(REPO, "assets", "fonts")).map((f) => f + fileSig(join(REPO, "assets", "fonts", f))),
   ].join("|"));
 
   const cacheDir = join(dir, ".overlay-cache");
   mkdirSync(cacheDir, { recursive: true });
-  const plan = planFrames(p, dur, rt, salt);
+  // Chữ sau người nói: tách 2 lượt overlay; nhóm "behind" đứng trước để được ghép trước (dưới) các nhóm "front"
+  const behind = hasBehind(p);
+  const matte = behind ? await requireMatte(p, dir, job) : null;
+  const plan: FramePlan = behind
+    ? (() => {
+        const b = planFrames(p, dur, rt, salt, "behind"), f = planFrames(p, dur, rt, salt, "front");
+        return { nFrames: b.nFrames, groups: [...b.groups, ...f.groups] };
+      })()
+    : planFrames(p, dur, rt, salt);
   const cached = (h: string) => !opt.noCache && existsSync(join(cacheDir, h + ".png"));
   let total = 0, todo = 0;
   const missingOf = plan.groups.map((g) => {
@@ -337,8 +353,8 @@ export async function renderProject(job: string, opt: RenderOptions = {}): Promi
         else log.warn(`Không thấy ảnh ${src}`);
       }
       for (const id of sceneIds) {
-        const from = join(REPO, "templates", id);
-        if (existsSync(from)) cpSync(from, join(tmp, "templates", id), { recursive: true });
+        const from = sceneDir(id);
+        if (existsSync(from)) cpSync(from, id.startsWith("job:") ? join(tmp, "job", "scenes", id.slice(4)) : join(tmp, "templates", id), { recursive: true });
         else log.warn(`Không thấy template ${id}`);
       }
       const workers = opt.workers ?? (Number(process.env.TH_WORKERS) || 6);
@@ -346,7 +362,7 @@ export async function renderProject(job: string, opt: RenderOptions = {}): Promi
         const missing = missingOf[gi];
         if (!missing.length) continue;
         const g = plan.groups[gi];
-        writeFileSync(join(tmp, "index.html"), composition(p, missing.map(([, t]) => t), p.fps, g.box), "utf8");
+        writeFileSync(join(tmp, "index.html"), composition(p, missing.map(([, t]) => t), p.fps, g.box, g.pass ?? "all"), "utf8");
         const outDir = join(tmp, `frames-${gi}`);
         log.info(`Nhóm ${gi + 1}/${plan.groups.length}: render ${missing.length} khung ${g.box[2] - g.box[0]}x${g.box[3] - g.box[1]} (HyperFrames ${HF_VERSION}, ${workers} worker)`);
         await runHyperframes(tmp, outDir, p.fps, workers);
@@ -388,6 +404,18 @@ export async function renderProject(job: string, opt: RenderOptions = {}): Promi
   }
   const n = lists.length;
   const concatIn = lists.flatMap((lf) => ["-f", "concat", "-safe", "0", "-i", lf]);
+  // matte canvas là luồng cuối (sau audio, để chỉ số audio n+1 không đổi); mỗi nhóm "behind" nhận một nhánh split riêng
+  const behindIdx = plan.groups.map((g, i) => (g.pass === "behind" ? i : -1)).filter((i) => i >= 0);
+  // matte canvas phải đi qua ĐÚNG chuỗi đặt khung của nhánh ffmpeg đang chạy (đo: chuỗi khác lệch 1–2 px) → tính theo nhánh
+  const black = (f: string) => f.split(INK).join("black");
+  const matteArgs = async (filter: string) => (matte ? ["-i", await ensureCanvasMatte(p, dir, matte, info, filter)] : []);
+  const matteSplit = behindIdx.length ? [`[${n + 2}:v]split=${behindIdx.length}${behindIdx.map((i) => `[mt${i}]`).join("")}`] : [];
+  if (matte) log.info(`Chữ sau người nói: ${behindIdx.length} nhóm overlay bị che theo matte ${matte.model} (${matte.ranges.map(([a, b]) => `${a}–${b}s`).join(", ")})`);
+  /** Nhánh vào của nhóm i: PNG → (nhóm behind: alpha × (1 − matte)) → định dạng fmt → [out]. */
+  const ovIn = (i: number, fmt: string, out: string) =>
+    plan.groups[i].pass === "behind"
+      ? `${maskedOverlayChain(i + 1, `mt${i}`, plan.groups[i].box, p.fps, `ob${i + 1}`)};[ob${i + 1}]${fmt}[${out}]`
+      : `[${i + 1}:v]fps=${p.fps},${fmt}[${out}]`;
 
   const partial = join(dir, "video.partial.mp4");
   const audioIn = srcAudio ?? srcVideo;
@@ -408,40 +436,44 @@ export async function renderProject(job: string, opt: RenderOptions = {}): Promi
     // Chuỗi zoom/kenburns: MỘT lần ffmpeg cho cả video. libplacebo (Vulkan GPU, tham số theo t) → overlay_cuda → NVENC;
     // lỗi thì rơi về zoompan CPU. Biểu thức dài nên đưa vào file (-/filter_complex).
     const fcFile = join(cacheDir, "filter-moves.txt");
-    const tryRun = async (label: string, head: string, cuda: boolean) => {
-      const parts = [head];
+    const tryRun = async (label: string, head: string, cuda: boolean, matteFilter: string) => {
+      const matteIn = await matteArgs(matteFilter);
+      const parts = [head, ...matteSplit];
       if (cuda) parts.push("[b0s]hwupload_cuda[b0]"); else parts.push("[b0s]null[b0]");
       plan.groups.forEach((g, i) => {
         if (cuda) {
-          parts.push(`[${i + 1}:v]fps=${p.fps},format=yuva420p,hwupload_cuda[o${i + 1}]`);
+          parts.push(ovIn(i, "format=yuva420p,hwupload_cuda", `o${i + 1}`));
           parts.push(`[b${i}][o${i + 1}]overlay_cuda=${g.box[0]}:${g.box[1]}:eof_action=pass[b${i + 1}]`);
         } else {
-          parts.push(`[${i + 1}:v]fps=${p.fps},format=rgba[o${i + 1}]`);
+          parts.push(ovIn(i, "format=rgba", `o${i + 1}`));
           parts.push(`[b${i}][o${i + 1}]overlay=${g.box[0]}:${g.box[1]}:format=auto:shortest=1[b${i + 1}]`);
         }
       });
       const fg = parts.join(";").replace(new RegExp(`\\[b${n}\\]$`), cuda ? "[v]" : "[vv]");
       writeFileSync(fcFile, cuda ? fg : fg + ";[vv]format=yuv420p[v]", "utf8");
       const encode = cuda || gpu ? nvenc : ["-c:v", "libx264", "-preset", "medium", "-crf", "18"];
-      await runMediaCommand("ffmpeg", ["-y", "-v", "error", "-i", srcVideo, ...concatIn, "-i", audioIn, "-/filter_complex", fcFile, "-map", "[v]", ...audioMap,
+      await runMediaCommand("ffmpeg", ["-y", "-v", "error", "-i", srcVideo, ...concatIn, "-i", audioIn, ...matteIn, "-/filter_complex", fcFile, "-map", "[v]", ...audioMap,
         ...encode, ...(cuda ? [] : ["-pix_fmt", "yuv420p"]), "-r", String(p.fps), ...tail]);
       mode = label;
     };
     if (gpu && !opt.cpu) {
       // libplacebo (Vulkan) + overlay_cuda cùng lúc đôi khi lỗi ngữ cảnh CUDA → dùng libplacebo (GPU) + overlay CPU + NVENC cho ổn định
-      try { await tryRun(`GPU (libplacebo Vulkan + NVENC), ${effMoves.length} chuyển động + ${effShifts.length} dịch${hasClipTransforms(p) ? " + khung riêng theo clip" : ""}`, libplaceboMoves(p, info), false); }
+      try { await tryRun(`GPU (libplacebo Vulkan + NVENC), ${effMoves.length} chuyển động + ${effShifts.length} dịch${hasClipTransforms(p) ? " + khung riêng theo clip" : ""}`, libplaceboMoves(p, info), false, black(libplaceboMoves(p, info)) + ";[b0s]format=gray[m]"); }
       catch (e) { log.warn(`libplacebo lỗi, rơi về zoompan CPU: ${String((e as Error).message).slice(0, 300)}`); rmSync(partial, { force: true }); }
     }
-    if (mode === "CPU") await tryRun(`CPU (scale+overlay), ${effMoves.length} chuyển động + ${effShifts.length} dịch`, scaleOverlayMoves(p, info), false);
+    if (mode === "CPU") await tryRun(`CPU (scale+overlay), ${effMoves.length} chuyển động + ${effShifts.length} dịch`, scaleOverlayMoves(p, info), false, black(scaleOverlayMoves(p, info)).replace(/,format=yuv420p\[b0s\]$/, ",format=gray[m]"));
   } else if (gpuPlan) {
     try {
-      const parts = [gpuPlan.bg];
+      // cùng cửa sổ cắt của decoder (-crop T x B x L x R, điểm ảnh nguồn) rồi phóng về canvas
+      const [cT, cB, cL, cR] = gpuPlan.input[gpuPlan.input.indexOf("-crop") + 1].split("x").map(Number);
+      const matteIn = await matteArgs(`[0:v]crop=${info.w - cL - cR}:${info.h - cT - cB}:${cL}:${cT},scale=${p.width}:${p.height}:flags=lanczos,format=gray[m]`);
+      const parts = [gpuPlan.bg, ...matteSplit];
       plan.groups.forEach((g, i) => {
-        parts.push(`[${i + 1}:v]fps=${p.fps},format=yuva420p,hwupload_cuda[o${i + 1}]`);
+        parts.push(ovIn(i, "format=yuva420p,hwupload_cuda", `o${i + 1}`));
         parts.push(`[b${i}][o${i + 1}]overlay_cuda=${g.box[0]}:${g.box[1]}:eof_action=pass[b${i + 1}]`);
       });
       const filter = parts.join(";").replace(new RegExp(`\\[b${n}\\]$`), "[v]").replace(/\[b(\d+)\]$/, "[v]");
-      await runMediaCommand("ffmpeg", ["-y", "-v", "error", ...gpuPlan.input, ...concatIn, "-i", audioIn,
+      await runMediaCommand("ffmpeg", ["-y", "-v", "error", ...gpuPlan.input, ...concatIn, "-i", audioIn, ...matteIn,
         "-filter_complex", filter, "-map", "[v]", ...audioMap, ...nvenc, "-r", String(p.fps), ...tail]);
       mode = "GPU (cuvid + scale_cuda + overlay_cuda + NVENC)";
     } catch (e) {
@@ -450,16 +482,17 @@ export async function renderProject(job: string, opt: RenderOptions = {}): Promi
     }
   } else if (!opt.cpu) log.warn("Không dùng được chuỗi CUDA cho job này (codec/fps/reframe lộ viền/NVENC) → CPU");
   if (mode === "CPU") {
-    const parts = [backgroundFilter(p, info.w, info.h, dur)];
+    const matteIn = await matteArgs(black(backgroundFilter(p, info.w, info.h, dur)) + ";[bg]format=gray[m]");
+    const parts = [backgroundFilter(p, info.w, info.h, dur), ...matteSplit];
     let prev = "bg";
     plan.groups.forEach((g, i) => {
-      parts.push(`[${i + 1}:v]fps=${p.fps},format=rgba[o${i + 1}]`);
+      parts.push(ovIn(i, "format=rgba", `o${i + 1}`));
       parts.push(`[${prev}][o${i + 1}]overlay=${g.box[0]}:${g.box[1]}:format=auto:shortest=1[c${i + 1}]`);
       prev = `c${i + 1}`;
     });
     parts.push(`[${prev}]format=yuv420p[v]`);
     const encode = gpu ? nvenc : ["-c:v", "libx264", "-preset", "medium", "-crf", "18"];
-    await runMediaCommand("ffmpeg", ["-y", "-v", "error", "-i", srcVideo, ...concatIn, "-i", audioIn,
+    await runMediaCommand("ffmpeg", ["-y", "-v", "error", "-i", srcVideo, ...concatIn, "-i", audioIn, ...matteIn,
       "-filter_complex", parts.join(";"), "-map", "[v]", ...audioMap, ...encode, "-pix_fmt", "yuv420p", "-r", String(p.fps), ...tail]);
   }
   log.info(`ffmpeg [${mode}] xong sau ${((Date.now() - tFf) / 1000).toFixed(1)} s`);

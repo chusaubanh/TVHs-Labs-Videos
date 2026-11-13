@@ -22,9 +22,22 @@ export interface CutSource {
 const XFADE = 0.01; // crossfade audio 10 ms ở điểm cắt
 export const GROUP_SIZE = 40; // số đoạn giữ tối đa mỗi lần render video
 
+const STANDARD_FPS = [23.976, 24, 25, 29.97, 30, 50, 59.94, 60];
+/** fps chuẩn gần nhất: nguồn VFR (điện thoại) có avg_frame_rate lẻ như 29,87, cắt ra CFR theo số này cho sạch. */
+export const standardFps = (fps: number): number => STANDARD_FPS.reduce((b, s) => (Math.abs(s - fps) < Math.abs(b - fps) ? s : b));
+
+/** VFR khi khoảng cách giữa các khung (pts) lệch quá 1/4 khoảng trung vị. Ý tưởng đo pts thật lấy từ editonny engine/helpers/render_vfr.py. */
+export function isVfr(pts: number[]): boolean {
+  const s = [...pts].sort((a, b) => a - b);
+  const d = s.slice(1).map((t, i) => t - s[i]).filter((x) => x > 0);
+  if (d.length < 10) return false;
+  const med = [...d].sort((a, b) => a - b)[d.length >> 1];
+  return d.some((x) => Math.abs(x - med) > med / 4);
+}
+
 /**
- * Snap mọi điểm cắt về biên khung hình (theo fps nguồn) để video và audio dùng CÙNG mốc.
- * shortcut: giả định nguồn CFR gần đúng; nguồn VFR nặng thì mốc có thể lệch tới 1 khung, nâng cấp bằng cách chuẩn hoá fps trước.
+ * Snap mọi điểm cắt về biên khung hình (theo fps cắt) để video và audio dùng CÙNG mốc.
+ * Trim theo thời gian rồi `fps=` nên nguồn VFR vẫn ra CFR; th:cut dùng standardFps khi nguồn VFR.
  */
 export function snapKeeps(keeps: Range[], fps: number, duration: number): Range[] {
   const maxFrame = Math.floor(duration * fps);
@@ -45,14 +58,15 @@ export function frameCount(keeps: Range[], fps: number): number {
 }
 
 /** Bộ lọc khung hình sau khi ghép (CPU): crop giữa + scale, hoặc giữ nguyên (ép kích thước chẵn). */
-export function aspectFilter(aspect: Aspect): string {
+/** cropY: vị trí cửa sổ crop theo chiều dọc, 0 = sát trên, 0,5 = giữa, 1 = sát dưới (clip dọc quay toàn thân: đặt cao để lấy từ đầu tới bụng). */
+export function aspectFilter(aspect: Aspect, cropY = 0.5): string {
   if (aspect === "keep") return "scale=trunc(iw/2)*2:trunc(ih/2)*2";
   const [w, h] = ASPECT_SIZE[aspect];
-  return `crop=min(iw\\,ih*${w}/${h}):min(ih\\,iw*${h}/${w}),scale=${w}:${h}`;
+  return `crop=min(iw\\,ih*${w}/${h}):min(ih\\,iw*${h}/${w}):(iw-ow)/2:(ih-oh)*${cropY},scale=${w}:${h}`;
 }
 
 /** Filter video cho một nhóm đoạn: trim theo khung (lệch nửa khung cho khỏi sai số làm tròn), concat, fps. */
-export function buildVideoFilter(keeps: Range[], aspect: Aspect, fps: number, gpu: boolean): string {
+export function buildVideoFilter(keeps: Range[], aspect: Aspect, fps: number, gpu: boolean, cropY = 0.5): string {
   const f: string[] = [];
   const half = 0.5 / fps;
   keeps.forEach((k, i) => {
@@ -60,7 +74,7 @@ export function buildVideoFilter(keeps: Range[], aspect: Aspect, fps: number, gp
   });
   f.push(`${keeps.map((_, i) => `[v${i}]`).join("")}concat=n=${keeps.length}:v=1:a=0[vc]`);
   // GPU: cuvid đã crop/resize lúc giải mã; trim/concat/fps là filter chung nên chạy được trên khung CUDA
-  f.push(gpu ? `[vc]fps=${fps}[vout]` : `[vc]${aspectFilter(aspect)},fps=${fps},format=yuv420p[vout]`);
+  f.push(gpu ? `[vc]fps=${fps}[vout]` : `[vc]${aspectFilter(aspect, cropY)},fps=${fps},format=yuv420p[vout]`);
   return f.join(";\n");
 }
 
@@ -85,7 +99,7 @@ const CUVID: Record<string, string> = { h264: "h264_cuvid", hevc: "hevc_cuvid", 
 const even = (n: number) => Math.floor(n / 2) * 2;
 
 /** Tham số giải mã GPU: cuvid crop giữa + resize theo --aspect. Trả null nếu codec không có cuvid. */
-export function cuvidArgs(codec: string | undefined, w: number, h: number, aspect: Aspect): string[] | null {
+export function cuvidArgs(codec: string | undefined, w: number, h: number, aspect: Aspect, cropY = 0.5): string[] | null {
   const dec = CUVID[codec ?? ""];
   if (!dec) return null;
   const args = ["-hwaccel", "cuda", "-hwaccel_output_format", "cuda", "-c:v", dec];
@@ -95,7 +109,7 @@ export function cuvidArgs(codec: string | undefined, w: number, h: number, aspec
   const cw = even(Math.min(w, h * ratio));
   const ch = even(Math.min(h, w / ratio));
   const l = even((w - cw) / 2);
-  const t = even((h - ch) / 2);
+  const t = even((h - ch) * cropY);
   return [...args, "-crop", `${t}x${h - ch - t}x${l}x${w - cw - l}`, "-resize", `${tw}x${th}`];
 }
 
@@ -106,13 +120,27 @@ export interface RenderResult {
   groups: number;
 }
 
+/**
+ * Cửa sổ đọc nguồn cho một nhóm đoạn: tua nhanh tới trước đoạn đầu (`-ss` đặt trước `-i`, khớp khung) và dừng sau đoạn cuối (`-t`).
+ * Không có cửa sổ, ffmpeg giải mã/đọc từ giây 0 tới HẾT file cho mỗi lượt: đo trên clip 71 phút (5,2 GB), audio của
+ * một đoạn 5 phút ở phút 28 chạy > 10 phút. Mốc trong filter trừ đi `ss`.
+ */
+export function readWindow(ks: Range[], fps: number, pad = 2): { ss: number; t: number; shifted: Range[] } {
+  const ss = Math.max(0, Math.floor((ks[0].start - pad) * fps) / fps);
+  const t = ks[ks.length - 1].end - ss + pad;
+  return { ss, t, shifted: ks.map((k) => ({ start: k.start - ss, end: k.end - ss })) };
+}
+
+const seekArgs = (w: { ss: number; t: number }) => [...(w.ss > 0 ? ["-ss", w.ss.toFixed(6)] : []), "-t", w.t.toFixed(6)];
+
 /** Render cut.mp4: video theo nhóm ≤ 40 đoạn (ghép bằng concat copy), audio một lượt, rồi mux. keeps phải đã snap khung. */
-export async function renderCut(opts: { src: CutSource; keeps: Range[]; aspect: Aspect; out: string; workDir: string; forceCpu?: boolean }): Promise<RenderResult> {
+export async function renderCut(opts: { src: CutSource; keeps: Range[]; aspect: Aspect; out: string; workDir: string; forceCpu?: boolean; cropY?: number }): Promise<RenderResult> {
   const { src, keeps, aspect, out, workDir } = opts;
   const t0 = Date.now();
   await mkdir(workDir, { recursive: true });
   const nvenc = !opts.forceCpu && (await gpuEncodeAvailable());
-  const dec = nvenc ? cuvidArgs(src.videoCodec, src.width, src.height, aspect) : null;
+  const cropY = opts.cropY ?? 0.5;
+  const dec = nvenc ? cuvidArgs(src.videoCodec, src.width, src.height, aspect, cropY) : null;
   const groups: Range[][] = [];
   for (let i = 0; i < keeps.length; i += GROUP_SIZE) groups.push(keeps.slice(i, i + GROUP_SIZE));
   const frames = frameCount(keeps, src.fps);
@@ -122,8 +150,9 @@ export async function renderCut(opts: { src: CutSource; keeps: Range[]; aspect: 
   const renderVideo = async (gpu: boolean) => {
     for (let g = 0; g < groups.length; g++) {
       const script = join(workDir, `cut-video-${g}.txt`);
-      await writeFile(script, buildVideoFilter(groups[g], aspect, src.fps, gpu), "utf8");
-      const args = ["-y", ...(gpu ? dec! : []), "-i", src.path, "-/filter_complex", script, "-map", "[vout]", "-an",
+      const w = readWindow(groups[g], src.fps);
+      await writeFile(script, buildVideoFilter(w.shifted, aspect, src.fps, gpu, cropY), "utf8");
+      const args = ["-y", ...(gpu ? dec! : []), ...seekArgs(w), "-i", src.path, "-/filter_complex", script, "-map", "[vout]", "-an",
         ...videoCodecArgs(nvenc, "medium"), "-bf", "0", "-g", String(Math.round(src.fps)), "-fps_mode", "cfr"];
       if (!gpu) args.push("-pix_fmt", "yuv420p");
       args.push("-movflags", "+faststart", parts[g]);
@@ -147,8 +176,9 @@ export async function renderCut(opts: { src: CutSource; keeps: Range[]; aspect: 
   if (src.hasAudio) {
     audioWav = join(workDir, "cut-audio.wav");
     const script = join(workDir, "cut-audio.txt");
-    await writeFile(script, buildAudioFilter(keeps, src.fps, src.duration, totalSec), "utf8");
-    await runCapture("ffmpeg", ["-y", "-i", src.path, "-/filter_complex", script, "-map", "[aout]", "-c:a", "pcm_s16le", audioWav]);
+    const w = readWindow(keeps, src.fps);
+    await writeFile(script, buildAudioFilter(w.shifted, src.fps, src.duration - w.ss, totalSec), "utf8");
+    await runCapture("ffmpeg", ["-y", "-vn", ...seekArgs(w), "-i", src.path, "-/filter_complex", script, "-map", "[aout]", "-c:a", "pcm_s16le", audioWav]);
     mux.push("-i", audioWav);
   }
   mux.push("-map", "0:v", ...(audioWav ? ["-map", "1:a", "-c:a", "aac", "-b:a", "192k", "-ar", "48000"] : []), "-c:v", "copy", "-movflags", "+faststart", out);

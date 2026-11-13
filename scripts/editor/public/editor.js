@@ -15,6 +15,13 @@ const SAFE_ZONES = {
   reels: { top: 8, bottom: 22, right: 12 },
   shorts: { top: 8, bottom: 20, right: 14 },
 };
+// Vùng th:render kiểm theo khung, [x0, y0, x1, y1] % canvas. CHÉP từ SAFE_ZONE ở src/talking-head/render-checks.ts: sửa cả hai nơi.
+const PIPELINE_ZONES = {
+  "9:16": [12.96, 11.98, 87.04, 79.69],
+  "16:9": [5, 5, 95, 90],
+  "4:5": [5, 5, 95, 92],
+  "1:1": [5, 5, 95, 92],
+};
 const AUDIO_KINDS = ["sfx", "music"];
 const GAIN_MIN = -40, GAIN_MAX = 10; // dB: đường gain trên clip
 let vsel = false, vKey = false, safeOn = false, peaks = null, warnEl = null;
@@ -217,6 +224,7 @@ function selectVideo(on) {
 function isUnsafe(l) {
   if (!safeOn || !["text", "subtitle", "lowerThird", "callout"].includes(l.type)) return false;
   if ($("safePlat").value === "title") return l.x < 5 || l.y < 5 || l.x + l.w > 95 || l.y + l.h > 95; // title safe 90%
+  if ($("safePlat").value === "pipeline") { const z = PIPELINE_ZONES[project.aspect]; return !!z && (l.x < z[0] || l.y < z[1] || l.x + l.w > z[2] || l.y + l.h > z[3]); }
   if (project.aspect !== "9:16") return false;
   const z = SAFE_ZONES[$("safePlat").value];
   return l.y < z.top || l.y + l.h > 100 - z.bottom || l.x + l.w > 100 - z.right;
@@ -228,6 +236,13 @@ function renderSafe() {
   if ($("safePlat").value === "title") { // chuẩn phát sóng: action safe 93%, title safe 90%
     const box = (inset, dash, txt) => { const d = document.createElement("div"); d.className = "safe-frame"; d.style.cssText = `inset:${inset}%;border-style:${dash}`; d.textContent = txt; ui.appendChild(d); };
     box(3.5, "dashed", "action safe 93%"); box(5, "solid", "title safe 90%");
+    return;
+  }
+  if ($("safePlat").value === "pipeline") {
+    const z = PIPELINE_ZONES[project.aspect];
+    if (!z) return;
+    const d = document.createElement("div"); d.className = "safe-frame"; d.style.cssText = `left:${z[0]}%;top:${z[1]}%;right:${100 - z[2]}%;bottom:${100 - z[3]}%;border-style:solid`;
+    d.textContent = `vùng an toàn ${project.aspect} (th:render kiểm)`; ui.appendChild(d);
     return;
   }
   if (project.aspect !== "9:16") return;
@@ -1019,7 +1034,7 @@ function baseStyle() {
 function graphicsTrack() {
   const first = selLayers().find(({ l }) => !isAudio(l));
   if (first && !first.tr.locked && first.tr.kind !== "subtitle") return first.tr;
-  let tr = project.tracks.find((x) => x.kind === "graphics" && !x.locked);
+  let tr = project.tracks.find((x) => x.kind === "graphics" && !x.locked && !x.behindSubject); // layer mới không lọt vào track "Chữ sau người nói"
   if (!tr) {
     tr = { id: "t-gfx-" + Date.now().toString(36), kind: "graphics", name: "Đồ hoạ", hidden: false, locked: false, layers: [] };
     project.tracks.unshift(tr);

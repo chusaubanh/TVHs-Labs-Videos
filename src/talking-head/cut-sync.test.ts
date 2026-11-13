@@ -60,4 +60,34 @@ describe("cắt: đồng bộ tiếng-hình không cộng dồn", () => {
       await rm(dir, { recursive: true, force: true });
     }
   }, 180000);
+
+  it("tua -ss khi đoạn đầu không ở 0: hình chớp trắng và beep vẫn trùng nhau, lệch ≤ 1 khung", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "th-seek-"));
+    try {
+      const src = join(dir, "flash.mp4");
+      await runCapture("ffmpeg", ["-y", "-f", "lavfi", "-i", `color=c=black:s=320x240:r=${FPS}:d=60,geq=lum='if(lt(mod(T\\,0.5)\\,0.05)\\,235\\,16)':cb=128:cr=128`,
+        "-f", "lavfi", "-i", "aevalsrc=exprs=0.8*sin(2*PI*1000*t)*lt(mod(t\\,0.5)\\,0.05):s=48000:d=60",
+        "-c:v", "libx264", "-preset", "ultrafast", "-g", "30", "-c:a", "aac", "-b:a", "128k", src]);
+      const raw = Array.from({ length: 60 }, (_, i) => { const start = 10 + 0.5 * (i + Math.floor(i / 4)); return { start, end: start + 0.4 }; });
+      const keeps = snapKeeps(raw, FPS, 60);
+      const out = join(dir, "cut.mp4");
+      await renderCut({ src: { path: src, fps: FPS, width: 320, height: 240, videoCodec: "h264", hasAudio: true, duration: 60 }, keeps, aspect: "keep", out, workDir: join(dir, "w"), forceCpu: true });
+      const pcm = (await runCapture("ffmpeg", ["-v", "error", "-i", out, "-f", "f32le", "-ac", "1", "-ar", "48000", "-"], { binary: true })).stdoutBuf!;
+      const beeps = onsets(pcm);
+      const { stdout } = await runCapture("ffmpeg", ["-v", "error", "-i", out, "-vf", "signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=-", "-f", "null", "-"]);
+      const white: number[] = [];
+      let t = 0, prev = 0;
+      for (const l of stdout.split("\n")) {
+        const m = l.match(/pts_time:([\d.]+)/);
+        if (m) t = +m[1];
+        const y = l.match(/YAVG=([\d.]+)/);
+        if (y) { if (+y[1] > 120 && prev <= 120) white.push(t); prev = +y[1]; }
+      }
+      expect(beeps.length).toBe(60);
+      expect(white.length).toBe(60);
+      white.forEach((w, i) => expect(Math.abs(w - beeps[i])).toBeLessThanOrEqual(1 / FPS));
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  }, 180000);
 });

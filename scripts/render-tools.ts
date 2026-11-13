@@ -1,3 +1,4 @@
+import "./local-tmp";
 import { GL } from "../src/training/hardware";
 import { bundle } from "@remotion/bundler";
 import { ensureBrowser, openBrowser, renderStill, selectComposition } from "@remotion/renderer";

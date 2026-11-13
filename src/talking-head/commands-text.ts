@@ -1,18 +1,20 @@
+import type { Word } from "./types.js";
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, statSync } from "node:fs";
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { basename, isAbsolute, join, relative, resolve } from "node:path";
 import { alignEdits } from "./align-edits.js";
-import { fillerCandidates, mergeNearby, renderCutsMd, repeatCandidates, silenceCandidates, type Filler } from "./cut-plan.js";
+import { fillerCandidates, holdSuspects, mergeNearby, renderCutsMd, repeatCandidates, silenceCandidates, suspectSegments, type Filler } from "./cut-plan.js";
 import { probe, runCapture } from "./ffmpeg-util.js";
 import { analyzeSegment, readWav16 } from "./voicing.js";
+import { demoteLoudSilences, envelope, protectEdges } from "./waveform.js";
 import { ASR_PYTHON, REPO_ROOT, approvalHashes, inputDir, jobDir, loadApproval, loadRun, readJson, requireApproval, requireFile, withStep, writeJson } from "./jobs.js";
 import { CutsSchema, OutlineSchema, TranscriptSchema, type Cuts, type Transcript } from "./project-schema.js";
 
 export interface MediaJson {
   job: string;
   source: string; // đường dẫn tương đối repo tới bản sao clip nguồn
-  info: { duration: number; width: number; height: number; fps: number; hasAudio: boolean; videoCodec?: string };
+  info: { duration: number; width: number; height: number; fps: number; hasAudio: boolean; videoCodec?: string; vfr?: boolean; avgFps?: number; cropY?: number };
   ffprobe: unknown;
 }
 
@@ -129,7 +131,11 @@ export async function transcribe(job: string, model = "large-v3"): Promise<void>
     const seconds = +((Date.now() - t0) / 1000).toFixed(1);
     await writeJson(join(dir, `transcribe.meta${suffix}.json`), { model, seconds, peakVramMiB, audioSeconds: media.info.duration });
     console.log(`Phiên âm xong: ${seconds}s, VRAM đỉnh ${peakVramMiB} MiB`);
-    return { result: null, outputs: [`transcript.raw${suffix}.json`, `vad${suffix}.json`, `fillers${suffix}.json`] };
+    // dò Whisper bịa ngay sau phiên âm, để bước 3 (hiệu đính) nhận lời phiên âm lại trước khi duyệt dàn ý
+    const suspects = suspectSegments((await readJson(join(dir, `transcript.raw${suffix}.json`), TranscriptSchema)).segments);
+    await writeJson(join(dir, `suspects${suffix}.json`), suspects);
+    if (suspects.length) console.warn(`${suspects.length} đoạn nghi Whisper bịa (suspects${suffix}.json). Chạy npm run th:retranscribe -- "${job}" trước bước 3.`);
+    return { result: null, outputs: [`transcript.raw${suffix}.json`, `vad${suffix}.json`, `fillers${suffix}.json`, `suspects${suffix}.json`] };
   });
 }
 
@@ -141,8 +147,15 @@ export async function alignEditsCmd(job: string): Promise<void> {
   const txt = requireFile(join(dir, "transcript.edited.txt"), "AI viết transcript.edited.txt (một đoạn/dòng) trước.");
   const lines = (await readFile(txt, "utf8")).replace(/^﻿/, "").split(/\r?\n/);
   while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+  // đoạn Whisper bịa đã phiên âm lại (th:retranscribe): căn chữ sửa vào MỐC TỪ của lần phiên âm lại, không vào mốc của câu bịa
+  const rtFile = join(dir, "suspects.retranscribed.json");
+  const rt = existsSync(rtFile) ? await readJson<Array<{ start: number; end: number; words: Word[] }>>(rtFile) : [];
+  const base = raw.segments.map((s) => {
+    const r = rt.find((x) => Math.abs(x.start - s.start) < 0.05 && Math.abs(x.end - s.end) < 0.05);
+    return r ? { ...s, words: r.words.filter((w) => w.end > s.start - 0.5 && w.start < s.end + 0.5) } : s;
+  });
   await withStep(job, "align-edits", async () => {
-    const out: Transcript = { ...raw, segments: alignEdits(raw.segments, lines) };
+    const out: Transcript = { ...raw, segments: alignEdits(base, lines) };
     await writeJson(join(dir, "transcript.edited.json"), out);
     return { result: null, outputs: ["transcript.edited.json"] };
   });
@@ -176,15 +189,20 @@ export async function cutPlan(job: string): Promise<void> {
   const fillers: Filler[] = existsSync(fillersFile) ? await readJson<Filler[]>(fillersFile) : [];
   await withStep(job, "cut-plan", async () => {
     const wavFile = join(dir, "work", "audio16k.wav");
+    let silences = silenceCandidates(tr.segments, media.info.duration);
     if (existsSync(wavFile)) {
       const { samples, sampleRate } = await readWav16(wavFile);
       for (const f of fillers) if (f.source === "vad-gap") Object.assign(f, analyzeSegment(samples, sampleRate, f.start, f.end));
+      const env = envelope(samples, sampleRate);
+      if (env.usable) silences = demoteLoudSilences(protectEdges(silences, env), env); // mốc từ WhisperX lệch 0,1–0,3 s: nới biên theo âm thật; khoảng "lặng" mà to thì chưa duyệt
+      else console.warn("Dạng sóng quá đều (ồn/nhạc nền): không nới biên cắt theo âm, nghe lại các chỗ nối.");
     }
-    const auto = mergeNearby([
-      ...fillerCandidates(fillers, tr.segments),
-      ...silenceCandidates(tr.segments, media.info.duration),
-      ...repeatCandidates(tr.segments),
-    ]);
+    // Whisper bịa câu (outro YouTube, câu lặp hệt) có thể đè lên lời thật: không tự cắt trong đó, không coi là "câu lặp" để giữ lại
+    const suspects = suspectSegments(tr.segments);
+    const repeats = repeatCandidates(tr.segments).filter((r) => !suspects.some((x) => r.start < x.end && r.end > x.start));
+    const auto = mergeNearby(holdSuspects([...fillerCandidates(fillers, tr.segments), ...silences, ...repeats], suspects));
+    await writeJson(join(dir, "suspects.json"), suspects);
+    if (suspects.length) console.warn(`${suspects.length} đoạn nghi Whisper bịa (suspects.json), cắt tự động trong đó đã chuyển chưa duyệt. Đưa vào questions.md ở bước 3:\n  ${suspects.map((x) => `${x.start.toFixed(1)}–${x.end.toFixed(1)}s ${x.reason}: "${x.text.slice(0, 60)}"`).join("\n  ")}`);
     const cutsFile = join(dir, "cuts.json");
     let keepOthers: Cuts["ranges"] = [];
     if (existsSync(cutsFile)) {

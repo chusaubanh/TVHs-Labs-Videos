@@ -237,10 +237,14 @@ export function buildMixGraph(project: Project, jobDir: string, ctx: MixContext 
   if (music.length) {
     mixTree(music, "musicraw", "m", lines);
     const { threshold, ratio } = duckParams(a.music.duckDb, ctx.voiceLevelDb);
+    // duckDb >= 0: không hạ nhạc theo giọng (nhạc giữ mức cố định theo gainDb của layer)
+    const noDuck = a.music.duckDb >= 0;
     lines.push(
       `[musicraw]apad=whole_dur=${f(D)},atrim=0:${f(D)}[mpad]`,
       `[mpad]${ctx.stems ? "asplit=2[mpad2][mraw]" : "anull[mpad2]"}`,
-      `[mpad2][vsc]sidechaincompress=threshold=${f(threshold)}:ratio=${f(ratio)}:attack=${f(a.music.attack * 1000)}:release=${f(a.music.release * 1000)}:makeup=1[musicduck]`,
+      ...(noDuck
+        ? [`[vsc]anullsink`, `[mpad2]anull[musicduck]`]
+        : [`[mpad2][vsc]sidechaincompress=threshold=${f(threshold)}:ratio=${f(ratio)}:attack=${f(a.music.attack * 1000)}:release=${f(a.music.release * 1000)}:makeup=1[musicduck]`]),
       ctx.stems ? `[musicduck]asplit=2[musicbus][mduck]` : `[musicduck]anull[musicbus]`,
     );
     if (ctx.stems) stems.push("mraw", "mduck");

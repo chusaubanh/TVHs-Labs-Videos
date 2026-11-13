@@ -48,7 +48,10 @@ const CameraSchema = z.object({
 });
 // shifts: khoảng dịch người nói không gắn với beat (tiêu đề, lower third...): minh hoạ chiếm phía `side`
 const ExtraShiftSchema = z.object({ id: z.string().default("shift"), start: z.number().min(0), end: z.number().positive(), side: z.enum(["left", "right"]) });
-export const BrollPlanSchema = z.object({ version: z.literal(1), beats: z.array(BeatSchema), camera: CameraSchema.optional(), introOffset: z.number().min(0).optional(), shifts: z.array(ExtraShiftSchema).default([]) }); // introOffset: th:intro đã chèn intro dài ngần này giây vào đầu
+// Lớp gradient che bớt video nền dưới minh hoạ (overlay có side). side: tối phía minh hoạ, nhạt dần về phía người nói;
+// bottom: tối từ đáy lên (đặc tả cũ); even: phủ tối đều cả khung. false = tắt. Anh Phương chọn kiểu khi duyệt hình.
+export const ScrimSchema = z.union([z.literal(false), z.object({ mode: z.enum(["side", "bottom", "even"]).default("side"), strength: z.number().min(0).max(1).default(0.78) })]);
+export const BrollPlanSchema = z.object({ version: z.literal(1), beats: z.array(BeatSchema), camera: CameraSchema.optional(), introOffset: z.number().min(0).optional(), shifts: z.array(ExtraShiftSchema).default([]), scrim: ScrimSchema.default({ mode: "side", strength: 0.78 }) }); // introOffset: th:intro đã chèn intro dài ngần này giây vào đầu
 export type Beat = z.infer<typeof BeatSchema>;
 export type BrollPlan = z.infer<typeof BrollPlanSchema>;
 
@@ -69,6 +72,7 @@ export interface BrollContext {
   segments?: Array<{ start: number; end: number }>; // transcript.cut, để tìm ranh giới câu cho camera auto
   introOffset?: number; // giây: vùng [0, introOffset) là intro, anchor/cues không giải vào đó, camera auto né
   face?: Rectangle; // % canvas, từ subject.json
+  faceCx?: number; // % canvas: tâm ngang THƯỜNG GẶP của mặt (subject.json median). Người nói đi lại thì tâm hộp hợp `face` lệch xa chỗ họ đứng
   assets?: Map<string, AssetInfo>;
   accent?: string;
 }
@@ -81,7 +85,7 @@ export interface BrollResult {
 const SAFE = { x0: 6, x1: 94, y0: 5, y1: 95 }; // title-safe (% canvas)
 const FACE_MARGIN = 2;
 const DEFAULT_FACE_ZONE: Rectangle = { x: 25, y: 8, w: 50, h: 45 }; // không có subject.json: tránh vùng giữa-trên
-const OWN_TRACKS = ["t-trans", "t-broll", "t-overlay", "t-scene", "t-scene-below"];
+const OWN_TRACKS = ["t-trans", "t-broll", "t-overlay", "t-scrim", "t-scene", "t-scene-below"];
 
 const overlapT = (a0: number, a1: number, b0: number, b1: number) => a0 < b1 && b0 < a1;
 const hit = (a: Rectangle, b: Rectangle, m = 0) => a.x < b.x + b.w + m && b.x < a.x + a.w + m && a.y < b.y + b.h + m && b.y < a.y + a.h + m;
@@ -91,9 +95,18 @@ const inside = (r: Rectangle) => r.x >= SAFE.x0 && r.y >= SAFE.y0 && r.x + r.w <
 export function sceneInputs(b: Beat, t: { start: number; end: number }, words: Word[]): Record<string, unknown> {
   const inputs: Record<string, unknown> = { sceneDuration: +(t.end - t.start).toFixed(3), ...(b.inputs ?? {}) };
   if (b.cues?.length && inputs.delays === undefined) {
+    // cụm từ chỉ tìm TRONG khoảng của cảnh, cue sau tìm sau cue trước ("giao tiếp" có ở khắp bài: tìm cả bài thì khớp đầu bài, mốc kẹp về 0)
+    let from = t.start - 0.05;
     inputs.delays = b.cues.map((c) => {
-      const w = resolveBeatTime({ id: "cue", kind: "keyword", anchor: { phrase: c.phrase, wordIndex: c.wordIndex, offset: 0, dur: 1 } }, words);
-      return w ? +Math.max(0, w.start - t.start).toFixed(3) : 0;
+      if (c.wordIndex !== undefined) {
+        const w = words[c.wordIndex];
+        return w ? +Math.max(0, w.start - t.start).toFixed(3) : 0;
+      }
+      const win = words.filter((w) => w.start >= from && w.start <= t.end);
+      const w = resolveBeatTime({ id: "cue", kind: "keyword", anchor: { phrase: c.phrase, offset: 0, dur: 1 } }, win);
+      if (!w) return +Math.max(0, from - t.start).toFixed(3);
+      from = w.start + 0.01;
+      return +Math.max(0, w.start - t.start).toFixed(3);
     });
   }
   return inputs;
@@ -158,13 +171,43 @@ const SHIFT_EASE = 0.5;
  * khác phía thì chéo nhau mượt; bắt đầu trước minh hoạ 0.3 s, hoặc ẩn dưới cutaway vừa kết thúc.
  * Khoảng dịch kẹp theo room của crop (không lộ viền): |vt.x + d| ≤ (vt.scale − 1)·50.
  */
-export function buildShifts(items: SideItem[], cutaways: Array<{ start: number; end: number }>, faceCx: number, vt: { scale: number; x: number }, duration: number, warnings: string[]): Array<Record<string, unknown>> {
+/** Gộp các mục liền nhau cùng phía (cách < 1 s, không có cutaway xen giữa). Dùng chung cho dịch người nói và lớp gradient. */
+export function groupSides(items: SideItem[], cutaways: Array<{ start: number; end: number }>): Array<SideItem & { ids: string[] }> {
   const groups: Array<SideItem & { ids: string[] }> = [];
   for (const it of [...items].sort((a, b) => a.start - b.start)) {
     const g = groups[groups.length - 1];
     if (g && g.side === it.side && it.start - g.end < 1 && !cutaways.some((c) => c.start < it.start && c.end > g.end)) { g.end = Math.max(g.end, it.end); g.ids.push(it.beatId); }
     else groups.push({ ...it, ids: [it.beatId] });
   }
+  return groups;
+}
+
+const INK_RGB = "12,12,12";
+/** CSS nền của lớp gradient. side = phía minh hoạ: tối đặc tới 35% rồi nhạt hết ở 65% (người nói đã dịch về ~70% phía kia). */
+export function scrimBackground(mode: "side" | "bottom" | "even", side: "left" | "right", a: number): string {
+  const c = (k: number) => `rgba(${INK_RGB},${+(a * k).toFixed(3)})`;
+  if (mode === "even") return c(0.6);
+  if (mode === "bottom") return `linear-gradient(to top, ${c(1)} 0%, ${c(0.55)} 35%, ${c(0)} 70%)`;
+  return `linear-gradient(to ${side === "left" ? "right" : "left"}, ${c(1)} 0%, ${c(0.9)} 35%, ${c(0)} 65%)`;
+}
+
+/** Một lớp gradient (layer shape toàn khung) cho mỗi nhóm minh hoạ cùng phía: không nhấp nháy giữa các beat liền nhau. */
+export function buildScrims(items: SideItem[], cutaways: Array<{ start: number; end: number }>, scrim: z.infer<typeof ScrimSchema>, duration: number): AnyLayer[] {
+  if (!scrim) return [];
+  return groupSides(items, cutaways).map((g, i) => {
+    const start = Math.max(0, g.start - 0.3), end = Math.min(duration, g.end + 0.3);
+    return {
+      id: `G-${String(i + 1).padStart(3, "0")}`, type: "shape", start: +start.toFixed(3), duration: +(end - start).toFixed(3),
+      x: 0, y: 0, w: 100, h: 100, rotation: 0, opacity: 1,
+      style: { background: scrimBackground(scrim.mode, g.side, scrim.strength), radius: 0 },
+      animation: { in: { kind: "fade", dur: 0.5 }, out: { kind: "fade", dur: 0.5 } },
+      meta: { source: "ai", role: "scrim", beatId: g.ids.join("+") },
+    };
+  });
+}
+
+export function buildShifts(items: SideItem[], cutaways: Array<{ start: number; end: number }>, faceCx: number, vt: { scale: number; x: number }, duration: number, warnings: string[]): Array<Record<string, unknown>> {
+  const groups = groupSides(items, cutaways);
   const room = Math.max(0, ((vt.scale || 1) - 1) * 50);
   const out: Array<Record<string, unknown>> = [];
   groups.forEach((g, i) => {
@@ -331,7 +374,7 @@ export function buildBroll(input: Project, plan: BrollPlan, ctx: BrollContext): 
   const faceBox = ctx.face ?? DEFAULT_FACE_ZONE;
   ps.videoShifts = [
     ...(ps.videoShifts ?? []).filter((s) => s.source !== "ai"),
-    ...buildShifts(sideItems, scene.map((l) => ({ start: l.start, end: l.start + l.duration })), faceBox.x + faceBox.w / 2, project.videoTransform, project.duration, warnings),
+    ...buildShifts(sideItems, scene.map((l) => ({ start: l.start, end: l.start + l.duration })), ctx.faceCx ?? faceBox.x + faceBox.w / 2, project.videoTransform, project.duration, warnings),
   ];
 
   const mkTrack = (tid: string, kind: Track["kind"], name: string, mine: AnyLayer[], extra: Record<string, unknown> = {}): Track | null => {
@@ -342,11 +385,13 @@ export function buildBroll(input: Project, plan: BrollPlan, ctx: BrollContext): 
   const tTrans = mkTrack("t-trans", "graphics", "Chuyển cảnh", trans);
   const tBroll = mkTrack("t-broll", "graphics", "B-roll", broll);
   const tOverlay = mkTrack("t-overlay", "scene", "Minh hoạ", overlay);
+  // lớp gradient nằm ngay DƯỚI minh hoạ, trên video
+  const tScrim = mkTrack("t-scrim", "graphics", "Lớp tối nền", buildScrims(sideItems, scene.map((l) => ({ start: l.start, end: l.start + l.duration })), plan.scrim, project.duration));
   const tScene = mkTrack("t-scene", "scene", "Cảnh", scene);
   const tBelow = mkTrack("t-scene-below", "scene", "Cảnh nền", below, { belowVideo: true });
   // phụ đề luôn trên cùng (vẽ sau cùng) để hiện trên cutaway/overlay/chuyển cảnh
   const subs = others.filter((t) => t.kind === "subtitle"), rest = others.filter((t) => t.kind !== "subtitle");
-  project.tracks = [...subs, tTrans, tBroll, ...rest, tOverlay, tScene, tBelow].filter((t): t is Track => !!t);
+  project.tracks = [...subs, tTrans, tBroll, ...rest, tOverlay, tScrim, tScene, tBelow].filter((t): t is Track => !!t);
   summary.sort((a, c) => a.start - c.start);
   return { project, warnings, summary };
 }

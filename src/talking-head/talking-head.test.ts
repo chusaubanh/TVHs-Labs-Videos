@@ -171,7 +171,7 @@ describe("cut-plan: độ tin cậy", () => {
         { start: 3.7, end: 3.8, text: "(tiếng đệm)", source: "vad-gap", voicedRatio: 0.9, f0Median: 140 }, // < 0.15 s, bỏ
         { start: 3.9, end: 4.3, text: "(tiếng đệm)", source: "vad-gap" }, // chưa có số đo
       ],
-      segs,
+      [], // chỉ kiểm phân loại âm học; vùng VAD thật không đè lên từ (đè thì bị bỏ, xem waveform.test.ts)
     );
     expect(c.map((x) => [x.kind, x.approved])).toEqual([
       ["filler-word", true],

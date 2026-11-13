@@ -37,8 +37,9 @@ export async function broll(job: string, opts: { dry?: boolean; pack?: string; d
   const projectFile = requireFile(join(dir, "project.json"), "Chạy th:project trước.");
   const tr = await readJson(requireFile(join(dir, "transcript.cut.json"), "Chạy th:cut trước."), TranscriptSchema);
   const subjFile = join(dir, "subject.json");
-  const subj = existsSync(subjFile) ? await readJson<{ face?: Face; transform?: VideoTransform }>(subjFile) : undefined;
+  const subj = existsSync(subjFile) ? await readJson<{ face?: Face; median?: Face; transform?: VideoTransform }>(subjFile) : undefined;
   let face = subj?.face;
+  let median = subj?.median;
   const brand = await readJson<{ palette: { accent: string } }>(join(REPO_ROOT, "assets", "brand", "tvhs-guideline.json"));
   const project = await loadProject(projectFile);
   // Người dùng tự reframe trong editor sau khi đo subject.json → quy đổi vùng mặt theo khung hiện tại (subject.json ghi khung lúc đo trong "transform")
@@ -46,12 +47,13 @@ export async function broll(job: string, opts: { dry?: boolean; pack?: string; d
     const f2 = convertFace(face, subj.transform, project.videoTransform);
     console.log(`subject.json đo ở khung scale ${subj.transform.scale} (${subj.transform.x},${subj.transform.y}); khung hiện tại scale ${project.videoTransform.scale} (${project.videoTransform.x},${project.videoTransform.y}) → quy đổi mặt ${JSON.stringify(face)} → ${JSON.stringify(f2)}`);
     face = f2;
+    if (median) median = convertFace(median, subj.transform, project.videoTransform);
   }
   const nOwn = project.videoClips?.filter((c) => c.transform).length ?? 0;
   if (nOwn) console.warn(`CẢNH BÁO: ${nOwn} clip có khung riêng (videoClips[].transform) — vị trí mặt/zoom/dịch do AI tính theo khung CHUNG; kiểm tra tay các beat nằm trong những clip đó (hoặc tắt máy quay tự động).`);
 
   const run = async () => {
-    const res = buildBroll(project, plan, { words: tr.segments.flatMap((s) => s.words), segments: tr.segments.map((s) => ({ start: s.start, end: s.end })), face, assets: loadAssetManifest(), accent: brand.palette.accent, introOffset: plan.introOffset });
+    const res = buildBroll(project, plan, { words: tr.segments.flatMap((s) => s.words), segments: tr.segments.map((s) => ({ start: s.start, end: s.end })), face, faceCx: median ? median.x + median.w / 2 : undefined, assets: loadAssetManifest(), accent: brand.palette.accent, introOffset: plan.introOffset });
     let out = res.project;
     if (!opts.dry) {
       const pack = opts.pack ?? (project as unknown as { sfxPack?: string }).sfxPack ?? "corporate";

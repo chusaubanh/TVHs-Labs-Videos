@@ -170,7 +170,8 @@ export async function ensureCutFromClips(project: Project, dir: string, opts: { 
   const aspect = (["9:16", "16:9", "4:5"].includes(project.aspect) ? project.aspect : "keep") as Aspect;
   const nvenc = !opts.cpu && (await gpuEncodeAvailable());
   // giải mã + crop + resize bằng cuvid (GPU) nhưng khung ra bộ nhớ thường: tpad/format/setpts là filter CPU, NVENC vẫn mã hoá bằng GPU
-  const cv = nvenc ? cuvidArgs(src.videoCodec, src.width, src.height, aspect) : null;
+  const cropY = (media.info as { cropY?: number }).cropY ?? 0.5; // cùng khung với th:cut (lưu trong media.json)
+  const cv = nvenc ? cuvidArgs(src.videoCodec, src.width, src.height, aspect, cropY) : null;
   const dec = cv ? cv.slice(4) : null;
   const work = join(dir, "work", "clips");
   const cache = join(work, CLIP_GROUP_CACHE);
@@ -178,7 +179,7 @@ export async function ensureCutFromClips(project: Project, dir: string, opts: { 
   const rawStamp = stamp(raw);
 
   const renderClip = async (c: ClipFrames, gpu: boolean): Promise<string> => {
-    const key = createHash("sha1").update(JSON.stringify({ k: c.clip.kind, inF: c.inF, n: c.n, aspect, w: src.width, h: src.height, fps, gpu, nvenc, rawStamp, v: 1 })).digest("hex").slice(0, 20);
+    const key = createHash("sha1").update(JSON.stringify({ k: c.clip.kind, inF: c.inF, n: c.n, aspect, cropY, w: src.width, h: src.height, fps, gpu, nvenc, rawStamp, v: 1 })).digest("hex").slice(0, 20);
     const file = join(cache, `${key}.mp4`);
     const tmp = join(cache, `${key}.tmp.mp4`); // ghi file tạm rồi đổi tên: ffmpeg lỗi không để lại file hỏng trong cache
     if (existsSync(file)) return file;
@@ -186,7 +187,7 @@ export async function ensureCutFromClips(project: Project, dir: string, opts: { 
     const ss = ((c.inF - 0.25) / fps).toFixed(6);
     const vf = ["setpts=PTS-STARTPTS"];
     if (c.clip.kind === "hold") vf.push(`tpad=stop_mode=clone:stop=${c.n - 1}`);
-    if (!gpu) vf.push(aspectFilter(aspect));
+    if (!gpu) vf.push(aspectFilter(aspect, cropY));
     vf.push("format=yuv420p");
     // hold: chỉ đọc đúng 1 khung đầu vào (-t 0.75 khung) rồi tpad nhân bản; source: đọc đủ rồi chặn bằng -frames:v
     const inputOpts = c.clip.kind === "hold" ? ["-t", (0.75 / fps).toFixed(6)] : [];

@@ -1,27 +1,43 @@
 import type React from "react";
 import { SmokeScene } from "../fixtures/SmokeScene";
 import { CacBuoc } from "./mau/cac-buoc";
-import * as B1 from "./bai-1/part1";
-import * as B2 from "./bai-1/part2";
-import * as B3 from "./bai-1/part3";
-import * as C1 from "./bai-2/part1";
-import * as C2 from "./bai-2/part2";
 import * as K1 from "./cdkh/phan-1";
 import * as K2 from "./cdkh/phan-2";
 import * as K3 from "./cdkh/phan-3";
 import * as F1 from "./fb-ads/phan-1";
 import * as F2 from "./fb-ads/phan-2";
 import * as F3 from "./fb-ads/phan-3";
-import { BucTranhDoi, DaoNguoc, Hook, LoiHua, VongLapCu } from "./mo-dau/part1";
-import { Cach1, Cach2, ThanhPham } from "./mo-dau/part2";
-import { ChanChamDat, ChotVongLap, Ket, Viec1, Viec2, Viec3 } from "./mo-dau/part3";
+import * as A1 from "./bai-1/scenes-1";
+import * as A2 from "./bai-1/scenes-2";
+import * as A3 from "./bai-1/scenes-3";
+import * as C1 from "./bai-2/scenes-1";
+import * as C2 from "./bai-2/scenes-2";
+import * as C3 from "./bai-2/scenes-3";
+import * as B1 from "./bai-3/scenes-1";
+import * as B2 from "./bai-3/scenes-2";
+import * as B3 from "./bai-3/scenes-3";
+import * as D1 from "./bai-4/scenes-1";
+import * as D2 from "./bai-4/scenes-2";
+import * as D3 from "./bai-4/scenes-3";
+import * as E1 from "./bai-5/scenes-1";
+import * as E2 from "./bai-5/scenes-2";
+import * as E3 from "./bai-5/scenes-3";
+import * as F61 from "./bai-6/scenes-1";
+import * as F62 from "./bai-6/scenes-2";
+import * as M1 from "./mo-dau/scenes-1";
+import * as M2 from "./mo-dau/scenes-2";
+import * as M3 from "./mo-dau/scenes-3";
 import * as HB from "./huong-dan-tro-ly/broll-scenes";
 import * as HC from "./huong-dan-tro-ly/clip-scenes";
 import * as HO from "./huong-dan-tro-ly/opening";
 import * as HR from "./huong-dan-tro-ly/reuse";
+import * as BC from "./huong-dan-tro-ly-bao-cao/scenes-v2";
 import * as PC1 from "./tro-ly-phap-che/scenes-part1";
 import * as PC2 from "./tro-ly-phap-che/scenes-part2";
 import * as PC3 from "./tro-ly-phap-che/scenes-part3";
+import * as HU1 from "./human3/scenes-1";
+import * as HU2 from "./human3/scenes-2";
+import * as HU3 from "./human3/scenes-3";
 
 /**
  * Cảnh riêng của từng video, khoá theo `component` trong kịch bản, dạng "<video>/<cảnh>".
@@ -30,48 +46,99 @@ import * as PC3 from "./tro-ly-phap-che/scenes-part3";
 export const SCENES: Record<string, React.FC> = {
   "fixture/smoke": SmokeScene,
   "mau/cac-buoc": CacBuoc,
-  "mo-dau/hook": Hook,
-  "mo-dau/vong-lap-cu": VongLapCu,
-  "mo-dau/dao-nguoc": DaoNguoc,
-  "mo-dau/loi-hua": LoiHua,
-  "mo-dau/buc-tranh-doi": BucTranhDoi,
-  "mo-dau/cach-1": Cach1,
-  "mo-dau/cach-2": Cach2,
-  "mo-dau/thanh-pham": ThanhPham,
-  "mo-dau/viec-1": Viec1,
-  "mo-dau/viec-2": Viec2,
-  "mo-dau/viec-3": Viec3,
-  "mo-dau/chan-cham-dat": ChanChamDat,
-  "mo-dau/chot-vong-lap": ChotVongLap,
-  "mo-dau/ket": Ket,
-  "bai-1/hook": B1.Hook,
-  "bai-1/nguoc-doi": B1.NguocDoi,
-  "bai-1/phan-xa": B1.PhanXa,
-  "bai-1/thuc-tap-sinh": B1.ThucTapSinh,
-  "bai-1/ai-la-ban-ay": B1.AiLaBanAy,
-  "bai-1/vi-sao-bia": B2.ViSaoBia,
-  "bai-1/to-noi-quy": B2.ToNoiQuy,
-  "bai-1/file-quy-tac": B2.FileQuyTac,
-  "bai-1/cang-cu-the": B2.CangCuThe,
-  "bai-1/khong-co-nut": B2.KhongCoNut,
-  "bai-1/mo-thu-muc": B2.MoThuMuc,
-  "bai-1/viec-hom-nay": B3.ViecHomNay,
-  "bai-1/go-thu": B3.GoThu,
-  "bai-1/ket": B3.Ket,
-  "bai-2/hook": C1.Hook,
-  "bai-2/tinh-huong": C1.TinhHuong,
-  "bai-2/tin-nhan": C1.TinNhan,
-  "bai-2/thu-pham": C1.ThuPham,
-  "bai-2/ban-do": C1.BanDo,
-  "bai-2/hai-vung": C1.HaiVung,
-  "bai-2/ba-moc": C1.BaMoc,
-  "bai-2/ky-thuat-1": C2.KyThuat1,
-  "bai-2/danh-sach-mu": C2.DanhSachMu,
-  "bai-2/ky-thuat-2": C2.KyThuat2,
-  "bai-2/ky-thuat-3": C2.KyThuat3,
-  "bai-2/viec-hom-nay": C2.ViecHomNay,
-  "bai-2/huong-dan": C2.HuongDan,
-  "bai-2/ket": C2.Ket,
+  "mo-dau/hook-copy-excel": M1.HookCopyExcel,
+  "mo-dau/tin-nhan-lark": M1.TinNhanLark,
+  "mo-dau/ai-hom-qua": M1.AiHomQua,
+  "mo-dau/giao-viec-cho-ai": M1.GiaoViecChoAi,
+  "mo-dau/cach-1-web-chat": M2.Cach1WebChat,
+  "mo-dau/cach-2-tro-ly-may-tinh": M2.Cach2TroLyMayTinh,
+  "mo-dau/doi-cach-giao-viec": M2.DoiCachGiaoViec,
+  "mo-dau/viec-1-ke-hoach": M2.Viec1KeHoach,
+  "mo-dau/viec-2-sop": M3.Viec2Sop,
+  "mo-dau/viec-3-phan-bien": M3.Viec3PhanBien,
+  "mo-dau/chan-cham-dat": M3.ChanChamDat,
+  "mo-dau/hen-bai-1": M3.HenBai1,
+  "bai-1/prompt-dai-bia-so": A1.PromptDaiBiaSo,
+  "bai-1/dan-ky-van-bia": A1.DanKyVanBia,
+  "bai-1/thuc-tap-sinh-quen-sach": A1.ThucTapSinhQuenSach,
+  "bai-1/ai-khung-chat": A1.AiKhungChat,
+  "bai-1/lap-cho-trong": A1.LapChoTrong,
+  "bai-1/dan-to-noi-quy": A2.DanToNoiQuy,
+  "bai-1/claude-md-agents-md": A2.ClaudeMdAgentsMd,
+  "bai-1/hai-dong-quy-tac": A2.HaiDongQuyTac,
+  "bai-1/dan-cu-the": A2.DanCuThe,
+  "bai-1/tai-len-dau": A2.TaiLenDau,
+  "bai-1/cai-app-mo-thu-muc": A3.CaiAppMoThuMuc,
+  "bai-1/mot-cau-giao-viec": A3.MotCauGiaoViec,
+  "bai-1/muoi-lam-phut": A3.MuoiLamPhut,
+  "bai-1/hen-bai-sau": A3.HenBaiSau,
+  "bai-2/loi-trong-dau": C1.LoiTrongDau,
+  "bai-2/to-trinh-ai-viet": C1.ToTrinhAiViet,
+  "bai-2/sep-hoi-ba-cau": C1.SepHoiBaCau,
+  "bai-2/dung-hinh-thu-pham": C1.DungHinhThuPham,
+  "bai-2/ban-do-lanh-tho": C1.BanDoLanhTho,
+  "bai-2/chuyen-vien-phan-bien": C2.ChuyenVienPhanBien,
+  "bai-2/do-diem-mu": C2.DoDiemMu,
+  "bai-2/khoan-viet": C2.KhoanViet,
+  "bai-2/phong-van-nguoc": C2.PhongVanNguoc,
+  "bai-2/hoi-trung-chi-tiet": C2.HoiTrungChiTiet,
+  "bai-2/thanh-tra-doc-lap": C3.ThanhTraDocLap,
+  "bai-2/soi-loi-ban-nhap": C3.SoiLoiBanNhap,
+  "bai-2/muoi-lam-phut": C3.MuoiLamPhut,
+  "bai-2/hen-bai-sau": C3.HenBaiSau,
+  "bai-3/lam-ky-ca-buoi-chieu": B1.LamKyCaBuoiChieu,
+  "bai-3/sep-hoa-mat": B1.SepHoaMat,
+  "bai-3/dinh-dang-tinh": B1.DinhDangTinh,
+  "bai-3/khong-biet-lap-trinh": B1.KhongBietLapTrinh,
+  "bai-3/muc-luc-to-mau": B1.MucLucToMau,
+  "bai-3/o-ket-luan": B2.OKetLuan,
+  "bai-3/so-sanh-bao-gia": B2.SoSanhBaoGia,
+  "bai-3/theo-doi-tien-do": B2.TheoDoiTienDo,
+  "bai-3/cum-tu-song-con": B3.CumTuSongCon,
+  "bai-3/vi-sao-mot-file": B3.ViSaoMotFile,
+  "bai-3/chat-tiep-de-sua": B3.ChatTiepDeSua,
+  "bai-3/muoi-lam-phut": B3.MuoiLamPhut,
+  "bai-3/hen-bai-sau": B3.HenBaiSau,
+  "bai-4/vuot-tran": D1.VuotTran,
+  "bai-4/giao-viet-bai": D1.GiaoVietBai,
+  "bai-4/dem-tu-thuc-te": D1.DemTuThucTe,
+  "bai-4/tu-cham-bai": D1.TuChamBai,
+  "bai-4/cai-ban": D1.CaiBan,
+  "bai-4/don-ban": D2.DonBan,
+  "bai-4/ba-can-benh": D2.BaCanBenh,
+  "bai-4/chia-nho": D2.ChiaNho,
+  "bai-4/luot-mot-luot-hai": D2.LuotMotLuotHai,
+  "bai-4/thuoc-do": D2.ThuocDo,
+  "bai-4/chat-moi": D3.ChatMoi,
+  "bai-4/thanh-tra-kho-tinh": D3.ThanhTraKhoTinh,
+  "bai-4/muoi-lam-phut": D3.MuoiLamPhut,
+  "bai-4/hen-bai-sau": D3.HenBaiSau,
+  "bai-5/moi-sang": E1.MoiSang,
+  "bai-5/dat-ten": E1.DatTen,
+  "bai-5/noi-quy-tuong": E1.NoiQuyTuong,
+  "bai-5/so-sop": E1.SoSop,
+  "bai-5/ca-hai": E1.CaHai,
+  "bai-5/buoc-mot": E2.BuocMot,
+  "bai-5/buoc-hai": E2.BuocHai,
+  "bai-5/dieu-cam": E2.DieuCam,
+  "bai-5/buoc-ba": E2.BuocBa,
+  "bai-5/viec-nham-chan": E2.ViecNhamChan,
+  "bai-5/ba-phong-ban": E3.BaPhongBan,
+  "bai-5/chay-tay": E3.ChayTay,
+  "bai-5/hom-nay": E3.HomNay,
+  "bai-5/hen-bai-sau": E3.HenBaiSau,
+  "bai-6/cat-vun": F61.CatVun,
+  "bai-6/mot-trang": F61.MotTrang,
+  "bai-6/phap-che": F61.PhapChe,
+  "bai-6/tham-chieu": F61.ThamChieu,
+  "bai-6/hieu-nguoc": F61.HieuNguoc,
+  "bai-6/tu-tin-sai": F61.TuTinSai,
+  "bai-6/buoc-mot": F62.BuocMot,
+  "bai-6/buoc-hai": F62.BuocHai,
+  "bai-6/buoc-ba": F62.BuocBa,
+  "bai-6/mo-neo": F62.MoNeo,
+  "bai-6/hom-nay": F62.HomNay,
+  "bai-6/hen-bai-sau": F62.HenBaiSau,
   "fb-1/hook": F1.Hook,
   "fb-1/ba-tang": F1.BaTang,
   "fb-1/vi-sao": F1.ViSao,
@@ -139,6 +206,23 @@ export const SCENES: Record<string, React.FC> = {
   "tro-ly-phap-che/nguyen-tac-3d": PC3.NguyenTac3D,
   "tro-ly-phap-che/dong-bo-va-tra-kho": PC3.DongBoVaTraKho,
   "tro-ly-phap-che/xu-ly-su-co-va-ket": PC3.XuLySuCoVaKet,
+  "huong-dan-tro-ly-bao-cao/mo-dau": BC.MoDau,
+  "huong-dan-tro-ly-bao-cao/can-chuan-bi": BC.CanChuanBi2,
+  "huong-dan-tro-ly-bao-cao/tai-file-zip": BC.TaiFileZip,
+  "huong-dan-tro-ly-bao-cao/tao-project": BC.TaoProject,
+  "huong-dan-tro-ly-bao-cao/cai-dat-lan-dau": BC.CaiDatLanDau,
+  "huong-dan-tro-ly-bao-cao/doc-hieu-du-an": BC.DocHieuDuAn,
+  "huong-dan-tro-ly-bao-cao/hai-luot": BC.HaiLuot,
+  "huong-dan-tro-ly-bao-cao/gui-thong-tin-ve": BC.GuiThongTinVe,
+  "huong-dan-tro-ly-bao-cao/claude-hoi-gop": BC.ClaudeHoiGop,
+  "huong-dan-tro-ly-bao-cao/tra-loi-theo-so": BC.TraLoiTheoSo,
+  "huong-dan-tro-ly-bao-cao/may-bat-lech": BC.MayBatLech,
+  "huong-dan-tro-ly-bao-cao/xac-nhan-chay": BC.XacNhanChay,
+  "huong-dan-tro-ly-bao-cao/ket-qua-file-word": BC.KetQuaFileWord,
+  "huong-dan-tro-ly-bao-cao/mo-xem-bao-cao": BC.MoXemBaoCao,
+  "huong-dan-tro-ly-bao-cao/ban-nhap-3d": BC.BanNhap3D,
+  "huong-dan-tro-ly-bao-cao/khi-gap-loi": BC.KhiGapLoi,
+  "huong-dan-tro-ly-bao-cao/ket": BC.Ket,
   "huong-dan-tro-ly/mo-dau": HO.MoDau,
   "huong-dan-tro-ly/can-chuan-bi": HO.CanChuanBi,
   "huong-dan-tro-ly/truoc-khi-bat-dau": HB.TruocKhiBatDau,
@@ -162,4 +246,41 @@ export const SCENES: Record<string, React.FC> = {
   "huong-dan-tro-ly/kiem-hieu-luc": HB.KiemHieuLuc,
   "huong-dan-tro-ly/khi-gap-su-co": HB.KhiGapSuCo,
   "huong-dan-tro-ly/xu-ly-su-co-va-ket": HR.XuLySuCoVaKet,
+  "human3/mo-dau": HU1.MoDau,
+  "human3/ban-do": HU1.BanDo,
+  "human3/la-gi": HU1.LaGi,
+  "human3/may-tinh": HU1.MayTinh,
+  "human3/khoa-hoc": HU1.KhoaHoc,
+  "human3/bon-goc": HU1.BonGoc,
+  "human3/bang-level": HU1.BangLevel,
+  "human3/tich-hop": HU1.TichHop,
+  "human3/level-1": HU1.Level1,
+  "human3/level-2-3": HU1.Level23,
+  "human3/giai-doan-1": HU1.GiaiDoan1,
+  "human3/giai-doan-2-3": HU1.GiaiDoan23,
+  "human3/chung-lai": HU1.ChungLai,
+  "human3/tu-cham": HU2.TuCham,
+  "human3/cham-1": HU2.Cham1,
+  "human3/cham-2": HU2.Cham2,
+  "human3/tinh-diem": HU2.TinhDiem,
+  "human3/chon-ai": HU2.ChonAi,
+  "human3/rieng-tu": HU2.RiengTu,
+  "human3/luu-bao-cao": HU2.LuuBaoCao,
+  "human3/meo-tra-loi": HU2.MeoTraLoi,
+  "human3/can-nho": HU2.CanNho,
+  "human3/buoc-1-2": HU2.Buoc12,
+  "human3/buoc-3": HU2.Buoc3,
+  "human3/buoc-4-6": HU2.Buoc46,
+  "human3/bao-cao-7-phan": HU3.BaoCao7,
+  "human3/bao-cao-cuoi": HU3.BaoCaoCuoi,
+  "human3/anh-minh": HU3.AnhMinh,
+  "human3/minh-cot-loi": HU3.MinhCotLoi,
+  "human3/nguyen-tac": HU3.NguyenTac,
+  "human3/bo-prompt": HU3.BoPrompt,
+  "human3/prompt-2": HU3.Prompt2,
+  "human3/prompt-3": HU3.Prompt3,
+  "human3/luu-prompt": HU3.LuuPrompt,
+  "human3/loi-1": HU3.Loi1,
+  "human3/loi-2": HU3.Loi2,
+  "human3/ket": HU3.Ket,
 };

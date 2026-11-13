@@ -1,5 +1,5 @@
 import React from "react";
-import { Arrow, Box, Bubble, Doc, EL, G, GOLD, GOLDL, HOV, INK, Lines, Mag, Person, Question, SEC, Stamp, SURF, TXT, lerp, useT } from "../mo-dau/art";
+import { Arrow, Box, Bubble, Doc, EL, G, GOLD, GOLDL, HOV, INK, Lines, Mag, Person, Question, SEC, Stamp, SURF, TXT, lerp, useT } from "../shared/art";
 import { Stage, Tag, Coin, Crowd, Cursor, Eye, Target } from "../fb-ads/art";
 import { Bottle, Calendar, Gauge, Heart, LongPost, PersonaCard, SearchBar, ShortVideo, Sparkle, Stars } from "./art";
 
