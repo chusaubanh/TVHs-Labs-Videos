@@ -108,9 +108,6 @@ Thư mục gốc được thiết kế tối giản, tách biệt hoàn toàn kh
 📁 assets/                 Thương hiệu, nhạc nền, SFX, font chữ
 📁 docs/                   Toàn bộ tài liệu quy chuẩn, kịch bản mẫu, lưu trữ
 📁 engine/                 Động cơ kỹ thuật & mã nguồn (Remotion, Scripts, AI models, node_modules)
-🚀 1-Mo-Ung-Dung.bat       Khởi động Web Studio 1-click
-🚀 2-Kiem-Tra-He-Thong.bat Kiểm tra môi trường & sức khỏe hệ thống (Doctor)
-🚀 3-Xuat-Video.bat        Xuất video thành phẩm nhanh
 ```
 
 ## Kiểm tra hệ thống
