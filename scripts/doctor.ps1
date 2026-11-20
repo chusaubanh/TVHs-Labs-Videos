@@ -1,11 +1,13 @@
 ﻿# Kiểm tra máy: npm run doctor. Thêm -RunTests để chạy cả test.
 [CmdletBinding()]
-param([switch]$RunTests)
+param([switch]$RunTests, [switch]$MediaOnly)
 
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 $ErrorActionPreference = "Continue"
 $root = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
 Set-Location -LiteralPath $root
+$ffmpegDirectory = Join-Path $root ".cache/tools/ffmpeg/bin"
+if (Test-Path -LiteralPath $ffmpegDirectory) { $env:Path = $ffmpegDirectory + ";" + $env:Path }
 $failures = 0
 function Pass([string]$m) { Write-Host "[ĐẠT] $m" -ForegroundColor Green }
 function Warn([string]$m) { Write-Host "[LƯU Ý] $m" -ForegroundColor Yellow }
@@ -20,7 +22,7 @@ $vieneu = Join-Path $root ".venv-vieneu\Scripts\python.exe"
 if (Test-Path -LiteralPath $vieneu) {
     & $vieneu -c "import vieneu" 2>$null
     if ($LASTEXITCODE -eq 0) { Pass "VieNeu" } else { Fail "VieNeu không chạy được" }
-} else { Fail "Thiếu .venv-vieneu: npm run setup" }
+} elseif ($MediaOnly) { Warn "Giọng đọc chưa cài; các công cụ media vẫn dùng được." } else { Fail "Thiếu .venv-vieneu: npm run setup" }
 
 $gpu = $false
 if (Get-Command nvidia-smi.exe -ErrorAction SilentlyContinue) {

@@ -1,9 +1,10 @@
 import {
   existsSync,
   readdirSync,
+  readFileSync,
   statSync,
 } from "node:fs";
-import { basename, extname, join, relative, resolve } from "node:path";
+import { basename, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 
 const SUPPORTED_EXTENSIONS = new Set([".md", ".txt"]);
 
@@ -12,6 +13,7 @@ export interface DocumentWorkspace {
   inputPath: string;
   outputDir: string;
   scriptPath: string;
+  legacyOutputDir?: string;
 }
 
 function isSupportedFile(path: string): boolean {
@@ -39,7 +41,7 @@ function findDocumentInDirectory(directory: string): string | null {
   if (files.length > 1) {
     throw new Error(
       `Document folder "${directory}" contains multiple .md/.txt files. ` +
-        `Name the primary file after the folder or pass its exact path.`,
+      `Name the primary file after the folder or pass its exact path.`,
     );
   }
   return null;
@@ -56,10 +58,42 @@ export function safeDocumentFolderName(value: string): string {
   return safe || "Tài liệu";
 }
 
+/** Chỉ dẫn local cho dự án đã chuyển thư mục. Giữ kho media của ID cũ. */
+function routedWorkspace(cwd: string, input: string, source?: string): DocumentWorkspace | undefined {
+  const root = resolve(cwd, "output");
+  const config = join(root, ".document-routes.json");
+  if (!existsSync(config)) return;
+  const key = (value: string) => process.platform === "win32" ? value.toLowerCase() : value;
+  const routes = JSON.parse(readFileSync(config, "utf8")) as Record<string, string>;
+  for (const [legacy, target] of Object.entries(routes)) {
+    const outputDir = resolve(root, target);
+    const legacyOutputDir = resolve(root, legacy);
+    if (![outputDir, legacyOutputDir].every((path) => key(path).startsWith(key(root + sep)))) {
+      throw new Error("Đường dẫn dự án đã chuyển phải nằm trong output.");
+    }
+    const alias = !isAbsolute(input) && [legacyOutputDir, outputDir].some((path) => key(resolve(root, input)) === key(path));
+    if (!alias && !source) continue;
+    const refPath = join(outputDir, "source-reference.json");
+    if (!existsSync(refPath)) continue;
+    const reference = JSON.parse(readFileSync(refPath, "utf8")) as { path: string };
+    const inputPath = resolve(cwd, reference.path);
+    if (!alias && key(source!) !== key(inputPath)) continue;
+    if (!isSupportedFile(inputPath)) throw new Error(`Không tìm thấy tài liệu nguồn: ${inputPath}`);
+    return {
+      documentName: basename(inputPath, extname(inputPath)),
+      inputPath,
+      outputDir,
+      scriptPath: join(outputDir, "script.json"),
+      legacyOutputDir,
+    };
+  }
+}
 export function resolveDocumentWorkspace(
   input: string,
   cwd = process.cwd(),
 ): DocumentWorkspace {
+  const routedAlias = routedWorkspace(cwd, input);
+  if (routedAlias) return routedAlias;
   const inputRoot = resolve(cwd, "input");
   const directPath = resolve(cwd, input);
   const inputFolderPath = resolve(inputRoot, input);
@@ -90,10 +124,12 @@ export function resolveDocumentWorkspace(
   if (!inputPath) {
     throw new Error(
       `Could not find document "${input}". Expected input/<document>/<document>.md ` +
-        `or input/<document>/<document>.txt.`,
+      `or input/<document>/<document>.txt.`,
     );
   }
 
+  const routedSource = routedWorkspace(cwd, input, inputPath);
+  if (routedSource) return routedSource;
   const relativeToInput = relative(inputRoot, inputPath);
   const pathParts = relativeToInput.split(/[\\/]/).filter(Boolean);
   const isUnderInput = !relativeToInput.startsWith("..") && pathParts.length >= 2;

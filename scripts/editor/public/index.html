@@ -84,7 +84,7 @@ try {
   <header class="t-titlebar" id="top">
     <div class="t-lights" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="t-titlebar__title"><span class="t-titlebar__app">TVHS Editor</span><span class="t-titlebar__doc" id="jobName"></span></div>
-    <div class="t-titlebar__actions">
+    <div class="t-titlebar__actions"><button class="t-btn t-btn--ghost" id="btnInspectMedia">Kiểm tra media</button>
       <div class="t-toolbar" role="toolbar" aria-label="Chỉnh sửa">
         <button class="t-btn t-btn--ghost t-btn--icon" id="btnUndo" data-tip="Hoàn tác  Ctrl+Z" data-tip-pos="bottom" aria-label="Hoàn tác"><svg class="t-ico"><use href="#i-undo"/></svg></button>
         <button class="t-btn t-btn--ghost t-btn--icon" id="btnRedo" data-tip="Làm lại  Ctrl+Shift+Z" data-tip-pos="bottom" aria-label="Làm lại"><svg class="t-ico"><use href="#i-redo"/></svg></button>
@@ -250,5 +250,6 @@ try {
 </dialog>
 <div class="t-toast-host" style="bottom:340px"><div class="t-toast" id="toast"><span class="t-toast__ico"><svg class="t-ico"><use href="#i-check"/></svg></span><span id="toastTxt"></span></div></div>
 <script type="module" src="editor.js"></script>
+<script type="module">import { mountMediaInspector } from "/public/vendor/integrations/media-tools.js"; mountMediaInspector(document.getElementById("btnInspectMedia"));</script>
 </body>
 </html>

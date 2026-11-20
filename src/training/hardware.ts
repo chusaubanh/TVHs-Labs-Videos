@@ -1,3 +1,4 @@
+import "../integrations/runtime-environment.js";
 /** Chọn GPU hay CPU một lần cho cả pipeline. TVHS_REQUIRE_GPU=1 trong .env.local: thiếu GPU thì dừng, không lùi về CPU. */
 import { spawnSync } from "node:child_process";
 import { config } from "dotenv";

@@ -19,7 +19,10 @@ import torch  # noqa: F401,E402  nạp DLL CUDA trước ctranslate2
 import numpy as np  # noqa: E402
 from faster_whisper import WhisperModel  # noqa: E402
 
-MODELS = Path(__file__).resolve().parents[2] / "models" / "whisper"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _common import MODELS as _MODELS  # noqa: E402  đường dẫn ngắn, ctranslate2 không mở được đường dẫn có dấu
+
+MODELS = _MODELS / "whisper"
 PAD = 0.4  # giây hai bên: bắt đủ từ đầu/cuối
 
 

@@ -20,6 +20,8 @@ import { buildClipsFromCutMap } from "./clips.js";
 import { clipDuration, loadProject, saveProject, type Layer, type Project, type Track, type VideoClip } from "./project-schema.js";
 import { INK, scaleOverlayMoves, type SrcInfo } from "./video-moves.js";
 
+import { researchRepo } from "../integrations/research-paths.js";
+
 export const MATTE_VERSION = "matte-v2"; // v2: khoá matte gồm cả điểm cắt
 export const BEHIND_TRACK_ID = "t-behind";
 /** Người chiếm quá tỉ lệ này của hộp chữ thì chữ gần như bị che hết (koubo đo: cận mặt 89 % che chữ, trung cảnh 57 % đọc được). */
@@ -77,7 +79,7 @@ export function matteKey(cutSig: string, ranges: [number, number][], model: Matt
  * bản công khai không có scripts/asr/matte_rvm.py (GPL-3.0) nên tự về BiRefNet (MIT).
  */
 export function defaultMatteModel(root = REPO_ROOT): MatteModel {
-  const rvm = existsSync(join(root, "scripts", "asr", "matte_rvm.py")) && existsSync(join(root, ".research", "repos", "RobustVideoMatting", "hubconf.py"));
+  const rvm = existsSync(join(root, "scripts", "asr", "matte_rvm.py")) && existsSync(join(researchRepo("RobustVideoMatting", root), "hubconf.py"));
   return rvm ? "rvm" : "birefnet";
 }
 

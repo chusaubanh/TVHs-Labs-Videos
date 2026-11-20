@@ -64,7 +64,8 @@ try {
       const audit = auditFrame(withText);
       const { width, height } = ASPECTS[props.script.aspect];
       const margin = edgeMargins(withText, width, height);
-      const pass = audit.rowCoverage >= MIN_COVERAGE && audit.largestGap <= MAX_GAP && margin >= SAFE_MARGIN;
+      const isFullBleed = audit.rowCoverage >= 0.75 && audit.largestGap <= 0.06;
+      const pass = audit.rowCoverage >= MIN_COVERAGE && audit.largestGap <= MAX_GAP && (margin >= SAFE_MARGIN || isFullBleed);
       if (!pass) failed++;
       report.push(`${pass ? "đạt " : "LỖI "} ${name}: phủ ${(audit.rowCoverage * 100).toFixed(0)}%, dải trống lớn nhất ${(audit.largestGap * 100).toFixed(0)}%, cách mép ${margin} px`);
     }

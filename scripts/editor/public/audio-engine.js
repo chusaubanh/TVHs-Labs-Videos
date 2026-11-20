@@ -1,3 +1,4 @@
+import { createSoundPreview } from "/public/vendor/integrations/media-tools.js";
 // Nghe thử âm thanh trong editor bằng WebAudio, đồng bộ với video.
 //  - Giọng: phần tử <audio>/<video> đang phát, đi qua GainNode (gainDb, mute).
 //  - SFX + nhạc: AudioBuffer, lên lịch theo playhead (gain, fade vào/ra, offset, mute/solo theo track).
@@ -228,14 +229,12 @@ export function createAudioEngine(host) {
 
   // nghe thử trong thư viện (độc lập với timeline)
   let pv = null, pvUrl = null;
+  const soundPreview = createSoundPreview();
   function preview(url, onEnd) {
-    stopPreview();
-    pv = new Audio(url); pvUrl = url;
-    pv.addEventListener("ended", () => { const u = pvUrl; stopPreview(); onEnd && onEnd(u); });
-    pv.play().catch(() => {});
-    return pv;
+    pvUrl = url;
+    return soundPreview.play(url, (u) => { pvUrl = null; onEnd?.(u); }, (error) => { pvUrl = null; log("không nghe thử được", error); });
   }
-  function stopPreview() { if (pv) { pv.pause(); pv = null; pvUrl = null; } }
+  function stopPreview() { soundPreview.stop(); pv = null; pvUrl = null; }
   const previewing = () => pvUrl;
 
   return { ensure, setVoiceEl, ctxTime, voiceGains, preload, load, loaded, bufferPeaks, duration, setVoicePeaks, voiceIntervals, applyVoice, schedule, stop, clock, preview, stopPreview, previewing, urlFor, isPlaying: () => playing };

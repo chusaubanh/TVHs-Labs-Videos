@@ -7,13 +7,14 @@
  * Luật 1: chữ mẫu (texts trong catalog: R$, +218%, lời chứng…) phải được AI sửa trong khối `var P` hoặc chữ HTML của
  * bản chép; th:render từ chối khi còn chữ mẫu (sceneSampleTexts).
  */
+import { researchRoots } from "../integrations/research-paths.js";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { REPO_ROOT, jobDir, readJson } from "./jobs.js";
 import { LayerSchema, TranscriptSchema, loadProject, saveProject, type Layer, type Project } from "./project-schema.js";
 
 // Bản clone editonny của người dùng: EDITONNY_DIR, rồi .research/repos/editonny, rồi thư mục anh em ../editonny (máy anh Phương)
-const EDITONNY_ROOTS = [process.env.EDITONNY_DIR, join(REPO_ROOT, ".research", "repos", "editonny"), join(REPO_ROOT, "..", "editonny")].filter((d): d is string => !!d);
+const EDITONNY_ROOTS = [process.env.EDITONNY_DIR, ...researchRoots(REPO_ROOT).map((p) => join(p, "editonny")), join(REPO_ROOT, "..", "editonny")].filter((d): d is string => !!d);
 export const EDITONNY_VISUALS = join(EDITONNY_ROOTS.find((d) => existsSync(join(d, "skills", "editonny", "visuals", "catalog.json"))) ?? EDITONNY_ROOTS[0], "skills", "editonny", "visuals");
 export const SCENE_TRACK = "t-editonny";
 

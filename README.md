@@ -56,6 +56,12 @@ npm run doctor
 
 Chế độ C cài thêm bằng `npm run th:setup`. Tài liệu đào tạo, clip và video đã làm không nằm trong git; chép riêng vào `input/` khi cần.
 
+### Bản đồ mã nguồn Graphify
+
+Trên máy mới, cài Graphify bằng `uv tool install graphifyy`. Tại thư mục dự án, chạy `npm run graph` để cập nhật bản đồ mã và tạo lại [bản xem tổng quan](graphify-out/graph-overview.html), [đồ thị đầy đủ](graphify-out/graph.html) và [báo cáo](graphify-out/GRAPH_REPORT.md).
+
+Chạy `graphify query "Remotion render từ kịch bản như thế nào?"` để tra một luồng cụ thể. Trong Codex, dùng `$graphify` sau khi mở lại dự án để nạp skill. [Hướng dẫn Graphify](https://graphiffy.com/docs/install)
+
 ### Làm thử video mẫu
 
 Mở một cửa sổ PowerShell và bật máy chủ giọng đọc:
@@ -83,6 +89,7 @@ Video nằm ở `output/Pha-tra/video.mp4`.
 
 | Cần | Tài liệu |
 | :--- | :--- |
+| Kết nối kho repo và thiết kế khai thác 20 công cụ | [docs/THIET-KE-TICH-HOP-REPO.md](docs/THIET-KE-TICH-HOP-REPO.md) |
 | Các bước và lệnh làm một video | [docs/QUY-TRINH.md](docs/QUY-TRINH.md) |
 | 18 nhân sự theo tổ Specialist, ai giữ file nào | [docs/18-NHAN-SU.md](docs/18-NHAN-SU.md) |
 | Dựng từ clip quay thật, Editor, Premiere | [docs/CHE-DO-C.md](docs/CHE-DO-C.md) |

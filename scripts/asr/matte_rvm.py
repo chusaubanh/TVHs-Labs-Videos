@@ -3,12 +3,12 @@
 Code model không nằm trong repo: nạp từ .research/repos/RobustVideoMatting (người dùng clone, tag v1.0.0).
 File này bị loại khỏi bản công khai (scripts/package-public.mjs) cho tới khi anh Phương chốt giấy phép.
 """
-from pathlib import Path
+from research_paths import research_repo
 
 import torch
 
 # Code nạp từ bản clone CỤC BỘ (AGENTS.md luật 6); hubconf chỉ tải trọng số rvm_mobilenetv3.pth về models/torch lần đầu.
-RVM_DIR = Path(__file__).resolve().parents[2] / ".research" / "repos" / "RobustVideoMatting"
+RVM_DIR = research_repo("RobustVideoMatting")
 RVM_CLONE = "git clone --branch v1.0.0 --depth 1 https://github.com/PeterL1n/RobustVideoMatting .research/repos/RobustVideoMatting"
 
 

@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync } from "node:fs";
 import { basename, dirname, isAbsolute, join, resolve } from "node:path";
@@ -8,6 +9,8 @@ export function resolveMediaBinary(name: "ffmpeg" | "ffprobe"): string {
   if (configured) return configured;
 
   if (process.platform === "win32") {
+    const local = join(process.cwd(), ".cache", "tools", "ffmpeg", "bin", `${name}.exe`);
+    if (existsSync(local)) return local;
     const bundled =
       name === "ffmpeg"
         ? join(process.cwd(), "node_modules", "ffmpeg-static", "ffmpeg.exe")
@@ -34,6 +37,15 @@ export function resolveMediaBinary(name: "ffmpeg" | "ffprobe"): string {
   } catch {
     // not on PATH: fall through to the bare name
   }
+  // Remotion phân phối binary theo nền tảng cùng phiên bản; không cần PATH toàn máy.
+  const platformPackage = process.platform === "win32" ? "@remotion/compositor-win32-x64-msvc"
+    : process.platform === "darwin" ? `@remotion/compositor-darwin-${process.arch}`
+    : `@remotion/compositor-linux-${process.arch}-gnu`;
+  try {
+    const req = createRequire(import.meta.url);
+    const executable = join(dirname(req.resolve(`${platformPackage}/package.json`)), name + (process.platform === "win32" ? ".exe" : ""));
+    if (existsSync(executable)) return executable;
+  } catch { /* Không có gói đúng nền tảng: tìm công cụ của máy. */ }
   return name;
 }
 

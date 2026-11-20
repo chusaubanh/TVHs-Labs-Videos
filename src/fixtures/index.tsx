@@ -1,8 +1,10 @@
+import { BakedImageSequence } from "../kit/BakedImageSequence";
+import { RoundedProp, BakedRigidBodies } from "../kit/frame-3d";
 import { useGsapTimeline } from "@remotion/gsap";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { ThreeCanvas } from "@remotion/three";
 import React from "react";
-import { AbsoluteFill, Freeze, OffthreadVideo, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Freeze, OffthreadVideo, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { bakedPose, type BakedPhysics } from "../kit/baked-physics";
 import { DotLottieFrame } from "../kit/DotLottieFrame";
 import { useAnimeTimeline } from "../kit/use-anime-timeline";
@@ -117,7 +119,39 @@ const BadClockFixture: React.FC = () => (
   </Stage>
 );
 
+const DreiFixture: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { width, height } = useVideoConfig();
+  return <ThreeCanvas width={width} height={height} camera={{ position: [0, 1, 6] }}>
+    <color attach="background" args={["#0C0C0C"]} /><ambientLight intensity={0.8} /><directionalLight position={[3, 5, 5]} intensity={2} />
+    <RoundedProp rotation={[frame * 0.01, frame * 0.025, 0]} />
+  </ThreeCanvas>;
+};
+const ReactRapierFixture: React.FC = () => {
+  const { width, height } = useVideoConfig();
+  return <ThreeCanvas width={width} height={height} camera={{ position: [0, 3, 12] }}>
+    <color attach="background" args={["#0C0C0C"]} /><ambientLight intensity={0.8} /><directionalLight position={[3, 5, 5]} intensity={2} />
+    <BakedRigidBodies baked={bakedStack as BakedPhysics} />
+  </ThreeCanvas>;
+};
+/** Chỉ kiểm đường xuất hình + tiếng, không dùng nội dung đào tạo. */
+const AvFixture: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { width, height } = useVideoConfig();
+  return <Stage><Audio src={staticFile("fixtures/smoke-tone.wav")} />
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+      <path d={`M${width * 0.15} ${height * 0.65} L${width * 0.85} ${height * 0.35}`} stroke="#474D53" strokeWidth={6} />
+      <circle cx={width * (0.15 + 0.7 * frame / 89)} cy={height * (0.65 - 0.3 * frame / 89)} r={width * 0.09} fill="#C5A059" />
+    </svg>
+  </Stage>;
+};
+const MotionCanvasSequenceFixture: React.FC = () => <Stage><BakedImageSequence base="fixtures/motion-canvas" frames={90} fps={30} /></Stage>;
+
 export const FIXTURES = [
+  { id: "fixture-motion-canvas", component: MotionCanvasSequenceFixture },
+  { id: "fixture-av", component: AvFixture },
+  { id: "fixture-drei", component: DreiFixture },
+  { id: "fixture-react-rapier", component: ReactRapierFixture },
   { id: "fixture-bad-clock", component: BadClockFixture },
   { id: "fixture-gsap", component: GsapFixture },
   { id: "fixture-anime", component: AnimeFixture },

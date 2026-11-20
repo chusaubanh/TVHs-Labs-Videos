@@ -250,6 +250,8 @@ function startClipsBuild(): [number, unknown] {
 }
 
 async function handle(req: IncomingMessage, res: ServerResponse) {
+  if (!/^(localhost|127\.0\.0\.1)(:\d+)?$/i.test(String(req.headers.host ?? ""))) return sendJson(res, 403, { error: "Editor chỉ phục vụ localhost." });
+  if (!["GET", "HEAD"].includes(req.method ?? "GET") && req.headers.origin && req.headers.origin !== `http://${req.headers.host}`) return sendJson(res, 403, { error: "Yêu cầu phải xuất phát từ Editor." });
   const url = new URL(req.url ?? "/", "http://localhost");
   const p = url.pathname;
 
@@ -306,7 +308,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
 
   const maps: [string, string][] = [
     ["/job/", JOB_DIR], ["/assets/", join(REPO, "assets")], ["/templates/", join(REPO, "templates")],
-    ["/fonts/", join(REPO, "assets", "fonts")],
+    ["/fonts/", join(REPO, "assets", "fonts")], ["/public/", join(REPO, "public")], ["/audio/", join(REPO, "public", "audio")],
   ];
   for (const [prefix, base] of maps) {
     if (p.startsWith(prefix)) {

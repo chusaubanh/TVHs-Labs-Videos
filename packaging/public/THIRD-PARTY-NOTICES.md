@@ -13,3 +13,7 @@ Giấy phép MIT trong `LICENSE` chỉ áp cho mã của dự án này. Các th�
 | Be Vietnam Pro, Lexend, Nunito | SIL Open Font License | Nằm trong repo |
 
 SFX trong `assets/sfx-th/` do dự án tự sinh bằng code, phát hành cùng giấy phép MIT. Dự án không kèm nhạc nền. Tự thêm nhạc bạn có quyền dùng vào `public/audio/music/` và `assets/music-th/`.
+
+Các bộ tích hợp bổ sung: Motion, Howler.js, Mediabunny, Motion Canvas, Drei và react-three-rapier. Danh sách phiên bản/giấy phép lấy trực tiếp từ dependency lúc đóng gói nằm trong RUNTIME-DEPENDENCIES.json. Bản gốc của các thông báo giấy phép trực tiếp nằm trong THIRD-PARTY-LICENSES; font đi cùng giấy phép OFL trong assets/fonts/licenses.
+
+ffmpeg-skill 3.10.1 của kajisho5 được cài qua npm, giấy phép MIT. Nguồn: https://github.com/kajisho5/ffmpeg-skill . Bộ tải FFmpeg lấy bản Windows từ nhà cung cấp được https://ffmpeg.org/download.html giới thiệu, kiểm SHA-256 và giữ các tệp LICENSE/README của gói tải trong cache. Model và binary tải riêng không được gộp giấy phép vào LICENSE của ứng dụng.

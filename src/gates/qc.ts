@@ -1,3 +1,4 @@
+import "../integrations/runtime-environment.js";
 import { spawnSync } from "node:child_process";
 import { ASPECTS, FPS, type Aspect } from "../training/training-contract";
 

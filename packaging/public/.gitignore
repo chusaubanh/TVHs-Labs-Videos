@@ -11,3 +11,9 @@ __pycache__/
 input/**/*.mp4
 input/**/*.mov
 input/**/*.wav
+
+.cache/
+workspace/
+.research/
+research-repos.local.json
+public/vendor/integrations/

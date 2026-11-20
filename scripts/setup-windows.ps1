@@ -1,7 +1,7 @@
 ﻿# Cài pipeline lên máy Windows mới: npm run setup
 # Chế độ C cài riêng bằng npm run th:setup vì cần NVIDIA.
 [CmdletBinding()]
-param([switch]$SkipValidation)
+param([switch]$SkipValidation, [switch]$BaseOnly)
 
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 $ErrorActionPreference = "Stop"
@@ -20,14 +20,27 @@ function Require-Tool([string]$Name, [string]$WingetId) {
 }
 
 Write-Host "[1/4] Công cụ hệ thống"
-Require-Tool "ffmpeg.exe" "Gyan.FFmpeg"
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "install-ffmpeg.ps1")
+if ($LASTEXITCODE -ne 0) { throw "Không cài được FFmpeg đầy đủ." }
 Require-Tool "uv.exe" "astral-sh.uv"
 
 Write-Host "[2/4] Thư viện Node"
 & npm.cmd ci
 if ($LASTEXITCODE -ne 0) { throw "npm ci thất bại." }
 
-Write-Host "[3/4] Môi trường giọng đọc VieNeu"
+$env:UV_CACHE_DIR = Join-Path $root '.cache/uv'
+Write-Host "[3/4] Python cho công cụ media"
+& uv.exe venv .venv-media --python 3.12 --allow-existing
+if ($LASTEXITCODE -ne 0) { throw "Không tạo được Python cho công cụ media." }
+& npm.cmd run integrations:build
+if ($LASTEXITCODE -ne 0) { throw "Không dựng được bộ tích hợp trình duyệt." }
+& npm.cmd exec -- remotion browser ensure
+if ($LASTEXITCODE -ne 0) { throw "Chưa tải được trình duyệt cho bộ dựng. Kiểm tra kết nối rồi chạy lại setup." }
+if ($BaseOnly) {
+    Write-Host "Đã cài ứng dụng và các công cụ media. Chạy npm run app. Giọng đọc: cài thêm bằng npm run setup."
+    exit 0
+}
+Write-Host "Môi trường giọng đọc VieNeu"
 & uv.exe venv .venv-vieneu --python 3.12 --allow-existing
 if ($LASTEXITCODE -ne 0) { throw "Không tạo được .venv-vieneu." }
 & uv.exe pip install --python .venv-vieneu/Scripts/python.exe -r requirements-vieneu.lock.txt --index-strategy unsafe-best-match --extra-index-url https://download.pytorch.org/whl/cu128

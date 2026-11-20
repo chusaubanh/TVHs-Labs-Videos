@@ -3,7 +3,18 @@ import os
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+
+def _short(p: Path) -> Path:
+    """ctranslate2 trên Windows sập im lặng (mã -1) khi đường dẫn model có dấu, vd. "Làm video": dùng tên 8.3."""
+    if os.name != "nt" or str(p).isascii():
+        return p
+    import ctypes
+    buf = ctypes.create_unicode_buffer(1024)
+    n = ctypes.windll.kernel32.GetShortPathNameW(str(p), buf, len(buf))
+    return Path(buf.value) if 0 < n < len(buf) and buf.value.isascii() else p
+
+
+ROOT = _short(Path(__file__).resolve().parents[2])
 MODELS = ROOT / "models"
 
 

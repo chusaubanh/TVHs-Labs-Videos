@@ -37,7 +37,7 @@ export const jobKeyOf = (outputDir: string): string => {
 
 export function resolveJob(input: string, cwd = process.cwd()): Job {
   const workspace = resolveDocumentWorkspace(input, cwd);
-  const key = jobKeyOf(workspace.outputDir);
+  const key = jobKeyOf(workspace.legacyOutputDir ?? workspace.outputDir);
   const publicDir = resolve(cwd, "public", "jobs", key);
   return {
     key,

@@ -56,7 +56,7 @@ Cập nhật 31/10/2026 theo quyết định của anh Phương. Bằng chứng 
 | **05** | **GSAP Timeline** | Nhạc trưởng | `useGsapTimeline()` | Sẵn sàng |
 | **06** | **Anime.js v4** | Cây bút | `useAnimeTimeline()`, `createDrawable` | Sẵn sàng |
 | **07** | **Remotion Spring** *(thay Motion)* | Diễn viên giao diện | `spring()`, `interpolate()` | Sẵn sàng |
-| **10** | **Motion Canvas** | Thầy giáo | `yield* triangle.draw()` | Hoãn |
+| **10** | **Motion Canvas** | Thầy giáo | `npm run motion:bake`, `<BakedImageSequence />` | Sẵn sàng (chuỗi PNG đã kiểm hash) |
 
 ## S5B · Tổ phim trường 3D
 
@@ -64,7 +64,7 @@ Cập nhật 31/10/2026 theo quyết định của anh Phương. Bằng chứng 
 | :---: | :--- | :--- | :--- | :--- |
 | **11** | **Three.js** | Phim trường | `THREE.Scene` | Sẵn sàng |
 | **12** | **R3F** | Thợ bày cảnh | `<ThreeCanvas><mesh /></ThreeCanvas>` | Sẵn sàng |
-| **13** | **Drei** | Kho đạo cụ | `<SpotLight />`, `<Text3D />` | Chưa dùng |
+| **13** | **Drei** | Kho đạo cụ | `<RoundedProp />` | Sẵn sàng (RoundedBox); component khác cần thử |
 | **14** | **Rapier** | Tổ trọng lực | `npm run physics:bake`, `bakedPose()` | Sẵn sàng |
 | **15** | **Postprocessing** | Ống kính điện ảnh | `<EffectComposer><Bloom /></EffectComposer>` | Sẵn sàng (Bloom) |
 
@@ -75,3 +75,7 @@ Cập nhật 31/10/2026 theo quyết định của anh Phương. Bằng chứng 
 | **18** | **FFmpeg** *(S6 · QA)* | Người duyệt cuối | `npm run qc:check`, `ebur128`, `freezedetect` | Sẵn sàng |
 
 **S7 · Visual Critic** không giữ công cụ riêng: soi ảnh từ `npm run stills`, có quyền trả lại mọi cảnh.
+
+## Bổ sung ứng dụng local — 18/11/2026
+
+Master phụ trách scripts/app/, src/integrations/ và đóng gói. S5A phụ trách worker Motion Canvas và chuỗi ảnh. S5B phụ trách src/kit/frame-3d.tsx; React Three Rapier chỉ phát pose đã tính trước, Physics tạm dừng. Motion, Howler và Mediabunny dùng cho xem thử trong Editor; không thay Spring/Audio/VieNeu trong bản render. ffmpeg-skill là cầu nối công cụ xử lý media. Xem [bảng tích hợp và bằng chứng](THIET-KE-TICH-HOP-REPO.md).

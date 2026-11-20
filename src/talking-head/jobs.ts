@@ -1,3 +1,4 @@
+import "../integrations/runtime-environment.js";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";

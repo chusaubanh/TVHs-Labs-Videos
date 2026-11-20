@@ -3,11 +3,11 @@
  * tsx scripts/gate-determinism.ts --fixtures
  * tsx scripts/gate-determinism.ts "<tài liệu>"
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolveJob } from "../src/training/job";
 import { openStillSession, testDeterminism } from "./render-tools";
 
-const FIXTURE_IDS = ["fixture-gsap", "fixture-anime", "fixture-spring", "fixture-dotlottie", "fixture-bloom", "fixture-rapier", "fixture-offthread-clip"];
+const FIXTURE_IDS = ["fixture-motion-canvas", "fixture-av", "fixture-drei", "fixture-react-rapier", "fixture-gsap", "fixture-anime", "fixture-spring", "fixture-dotlottie", "fixture-bloom", "fixture-rapier", "fixture-offthread-clip"];
 const FIXTURE_FRAMES = [0, 10, 25, 45, 70, 89];
 
 const input = process.argv[2];
@@ -18,12 +18,15 @@ if (!input) {
 
 const session = await openStillSession();
 let failedAny = false;
+const results: { id: string; passed: boolean; failedFrames?: number[]; error?: string }[] = [];
 const report = async (id: string, frames: number[], props: Record<string, unknown>) => {
   try {
     const failed = await testDeterminism(session, id, frames, props);
     console.log(`${failed.length ? "KHÔNG ĐẠT" : "ĐẠT"} ${id}${failed.length ? `: khung ${failed.join(", ")}` : ""}`);
+    results.push({ id, passed: failed.length === 0, failedFrames: failed });
     if (failed.length) failedAny = true;
   } catch (error) {
+    results.push({ id, passed: false, error: String((error as Error).message) });
     console.log(`LỖI ${id}: ${(error as Error).message.split("\n")[0]}`);
     failedAny = true;
   }
@@ -35,6 +38,7 @@ try {
     // Cổng phải biết bắt lỗi: cảnh chạy theo đồng hồ thật mà đạt thì chính cổng hỏng.
     const caught = (await testDeterminism(session, "fixture-bad-clock", FIXTURE_FRAMES)).length > 0;
     console.log(`${caught ? "ĐẠT" : "KHÔNG ĐẠT"} cổng bắt được cảnh cố ý sai`);
+    results.push({ id: "negative-control-clock", passed: caught });
     if (!caught) failedAny = true;
     // Lưu ảnh để soi bằng mắt.
     for (const id of FIXTURE_IDS) await session.shoot(id, 45, {}, `output/_fixtures/${id}.png`);
@@ -46,5 +50,7 @@ try {
   }
 } finally {
   await session.close();
+  mkdirSync("output/_fixtures", { recursive: true });
+  writeFileSync("output/_fixtures/determinism.json", JSON.stringify({ generatedAt: new Date().toISOString(), passed: !failedAny, results }, null, 2));
 }
 process.exit(failedAny ? 1 : 0);

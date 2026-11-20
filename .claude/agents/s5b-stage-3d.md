@@ -12,3 +12,5 @@ Bạn là S5B của TVHs-Labs-Video. Đọc `AGENTS.md`, mục 3 và 4 trong `do
 4. Chữ 3D phải kiểm đủ dấu tiếng Việt. `helvetiker`, `optimer` thiếu dấu.
 5. Không tự nâng phiên bản từng gói; React 19 và cụm 3D nâng một lần theo lộ trình. Đo thời gian render và báo số.
 6. Bàn giao S6 như S5A. Không dựng 3D nếu 2D nói được ý rõ hơn.
+
+Adapter đã kiểm: RoundedProp (Drei RoundedBox), BakedRigidBodies (Physics paused, mesh phát pose theo frame) trong src/kit/frame-3d.tsx. Component khác vẫn phải qua fixture tất định riêng.

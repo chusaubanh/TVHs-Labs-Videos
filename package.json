@@ -1,11 +1,23 @@
 {
   "name": "tvhs-labs-video",
-  "version": "1.0.0",
+  "version": "1.1.0-preview.3",
   "description": "TVHs-Labs-Video: xưởng video đào tạo kể bằng hình, dựng bằng Remotion, xuất thẳng MP4",
   "private": true,
   "main": "src/remotion/index.ts",
   "type": "module",
   "scripts": {
+    "models:setup": "tsx scripts/setup-models.ts",
+    "preapp": "npm run integrations:build",
+    "app": "tsx scripts/app/server.ts",
+    "media": "tsx scripts/media-cli.ts",
+    "media:setup": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-ffmpeg.ps1",
+    "release:prepare": "node scripts/package-public.mjs",
+    "integrations:build": "tsx scripts/build-integrations.ts",
+    "preeditor": "npm run integrations:build",
+    "premotion:bake": "npm run integrations:build",
+    "motion:bake": "tsx scripts/bake-motion-canvas.ts",
+    "research:connect": "tsx scripts/research-repos.ts connect",
+    "research:inventory": "tsx scripts/research-repos.ts inventory",
     "start": "remotion studio src/remotion/index.ts",
     "doc:outline": "tsx src/training/outline-cli.ts",
     "script:validate": "tsx src/training/script-validate-cli.ts",
@@ -51,7 +63,10 @@
     "th:matte": "tsx src/talking-head/cli.ts matte",
     "setup": "powershell -ExecutionPolicy Bypass -File scripts/setup-windows.ps1",
     "doctor": "powershell -ExecutionPolicy Bypass -File scripts/doctor.ps1",
-    "graph": "graphify update . && uv tool run --from graphifyy python scripts/graph-overview.py"
+    "graph": "node scripts/graph.mjs",
+    "release:verify": "node scripts/verify-release.mjs",
+    "app:verify": "node scripts/verify-app.mjs",
+    "media:verify": "tsx scripts/verify-media.ts"
   },
   "keywords": [
     "remotion",
@@ -65,26 +80,33 @@
   "author": "ThanhVinhStudio",
   "license": "MIT",
   "dependencies": {
+    "@dimforge/rapier3d-compat": "0.14.0",
     "@lottiefiles/dotlottie-web": "^0.32.0",
+    "@motion-canvas/2d": "3.17.2",
+    "@motion-canvas/core": "3.17.2",
     "@react-three/drei": "^9.120.0",
     "@react-three/fiber": "^8.17.0",
     "@react-three/postprocessing": "^2.16.0",
     "@react-three/rapier": "^1.5.0",
-    "@remotion/bundler": "4.0.539",
-    "@remotion/cli": "4.0.539",
-    "@remotion/gsap": "4.0.539",
-    "@remotion/renderer": "4.0.539",
-    "@remotion/three": "4.0.539",
+    "@remotion/bundler": "4.0.544",
+    "@remotion/cli": "4.0.544",
+    "@remotion/gsap": "4.0.544",
+    "@remotion/renderer": "4.0.544",
+    "@remotion/three": "4.0.544",
     "animejs": "^4.5.0",
     "axios": "^1.21.0",
     "dotenv": "^17.4.2",
+    "ffmpeg-skill": "3.10.1",
     "gsap": "^3.12.5",
+    "howler": "2.2.4",
+    "mediabunny": "1.65.0",
+    "motion": "14.14.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "remotion": "4.0.539",
-    "satori": "^0.12.0",
+    "remotion": "4.0.544",
+    "satori": "0.63.2",
     "three": "^0.170.0",
-    "zod": "4.5.4"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
@@ -92,9 +114,16 @@
     "@types/react-dom": "^18.3.1",
     "@types/three": "^0.170.0",
     "capcut-cli": "0.32.0",
+    "esbuild": "0.28.1",
     "svgo": "^4.1.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",
-    "vitest": "^2.1.0"
+    "vitest": "4.1.12"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "overrides": {
+    "fflate": "0.8.3"
   }
 }

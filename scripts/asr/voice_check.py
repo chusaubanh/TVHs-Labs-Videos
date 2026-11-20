@@ -13,13 +13,11 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _common import setup_env  # noqa: E402
+from _common import MODELS, setup_env  # noqa: E402
 
 setup_env()  # cache HF (tokenizer của PhoWhisper) vào models/hf, stdout UTF-8, DLL CUDA
 import torch  # noqa: F401,E402  nạp DLL CUDA trước ctranslate2
 from faster_whisper import WhisperModel  # noqa: E402
-
-MODELS = Path(__file__).resolve().parents[2] / "models"
 
 
 def main() -> None:

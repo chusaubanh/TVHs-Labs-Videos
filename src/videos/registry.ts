@@ -1,3 +1,8 @@
+import * as V5 from "./bai-5-voice/scenes";
+import * as V4 from "./bai-4-voice/scenes";
+import * as H41 from "./bai-4-harness/scenes-1";
+import * as H42 from "./bai-4-harness/scenes-2";
+import * as H43 from "./bai-4-harness/scenes-3";
 import type React from "react";
 import { SmokeScene } from "../fixtures/SmokeScene";
 import { CacBuoc } from "./mau/cac-buoc";
@@ -24,40 +29,84 @@ import * as E2 from "./bai-5/scenes-2";
 import * as E3 from "./bai-5/scenes-3";
 import * as F61 from "./bai-6/scenes-1";
 import * as F62 from "./bai-6/scenes-2";
-import * as M1 from "./mo-dau/scenes-1";
-import * as M2 from "./mo-dau/scenes-2";
-import * as M3 from "./mo-dau/scenes-3";
 import * as HB from "./huong-dan-tro-ly/broll-scenes";
 import * as HC from "./huong-dan-tro-ly/clip-scenes";
 import * as HO from "./huong-dan-tro-ly/opening";
 import * as HR from "./huong-dan-tro-ly/reuse";
-import * as BC from "./huong-dan-tro-ly-bao-cao/scenes-v2";
 import * as PC1 from "./tro-ly-phap-che/scenes-part1";
 import * as PC2 from "./tro-ly-phap-che/scenes-part2";
 import * as PC3 from "./tro-ly-phap-che/scenes-part3";
 import * as HU1 from "./human3/scenes-1";
 import * as HU2 from "./human3/scenes-2";
 import * as HU3 from "./human3/scenes-3";
+import * as M1 from "./mo-dau/scenes-1";
+import * as M2 from "./mo-dau/scenes-2";
+import * as M3 from "./mo-dau/scenes-3";
+import * as N1 from "./bai-1-moi/scenes-1";
+import * as N2 from "./bai-1-moi/scenes-2";
+import * as N3 from "./bai-1-moi/scenes-3";
+import * as Q1 from "./bai-2-moi/scenes-1";
+import * as Q2 from "./bai-2-moi/scenes-2";
+import * as Q3 from "./bai-2-moi/scenes-3";
+import * as R1 from "./bai-3-moi/scenes-1";
+import * as R2 from "./bai-3-moi/scenes-2";
+import * as R3 from "./bai-3-moi/scenes-3";
+import * as CDV from "./cai-dat-video/scenes";
+import * as TLKT from "./tro-ly-ke-toan/scenes";
+import * as UYEN from "./ke-toan-to-uyen/scenes";
 
 /**
  * Cảnh riêng của từng video, khoá theo `component` trong kịch bản, dạng "<video>/<cảnh>".
  * Không tạo cảnh dùng chung cho nhiều video: mỗi video đặt cảnh trong `src/videos/<video>/`.
  */
 export const SCENES: Record<string, React.FC> = {
+  "bai-5-voice/moi-sang": V5.MoiSang,
+  "bai-5-voice/dat-ten": V5.DatTen,
+  "bai-5-voice/noi-quy": V5.NoiQuy,
+  "bai-5-voice/ngan-keo": V5.NganKeo,
+  "bai-5-voice/ca-hai": V5.CaHai,
+  "bai-5-voice/lam-cung": V5.LamCung,
+  "bai-5-voice/dong-goi": V5.DongGoi,
+  "bai-5-voice/dieu-cam": V5.DieuCam,
+  "bai-5-voice/goi-ten": V5.GoiTen,
+  "bai-5-voice/ba-viec": V5.BaViec,
+  "bai-5-voice/chay-tay": V5.ChayTay,
+  "bai-5-voice/hom-nay": V5.HomNay,
+  "bai-5-voice/bai-sau": V5.BaiSau,
+
+  "bai-4-voice/vuot-vach": V4.VuotVach,
+  "bai-4-voice/dem-ban-thao": V4.DemBanThao,
+  "bai-4-voice/tu-cham": V4.TuCham,
+  "bai-4-voice/mat-ban": V4.MatBan,
+  "bai-4-voice/don-ban": V4.DonBan,
+  "bai-4-voice/ba-loi": V4.BaLoi,
+  "bai-4-voice/chia-luot": V4.ChiaLuot,
+  "bai-4-voice/thuoc-do": V4.ThuocDo,
+  "bai-4-voice/tach-chat": V4.TachChat,
+  "bai-4-voice/cau-lenh-kiem": V4.CauLenhKiem,
+  "bai-4-voice/viec-hom-nay": V4.ViecHomNay,
+  "bai-4-voice/hen-bai-sau": V4.HenBaiSau,
+
+  "bai-4-harness/bao-xong-van-vuot-tran": H41.BaoXong,
+  "bai-4-harness/chon-chang-va-tieu-chi": H41.ChonChang,
+  "bai-4-harness/ket-qua-co-nguon": H41.KetQuaNguon,
+  "bai-4-harness/ban-giao-co-diem-dung": H42.BanGiao,
+  "bai-4-harness/chat-moi-du-dau-vao": H42.ChatDuNguon,
+  "bai-4-harness/chi-nhan-loi-co-can-cu": H42.LoiCoCanCu,
+  "bai-4-harness/sua-roi-kiem-lai": H43.SuaKiemLai,
+  "bai-4-harness/chat-moi-khong-bao-dam": H43.ChatKhongBaoDam,
+  "bai-4-harness/bai-tap-truoc-sau": H43.BaiTap,
+  "ke-toan-to-uyen/opening": UYEN.AccountingOpening,
+  "ke-toan-to-uyen/identity": UYEN.AccountingIdentity,
+  "ke-toan-to-uyen/workflow": UYEN.AccountingWorkflow,
+  "ke-toan-to-uyen/compare": UYEN.AccountingCompare,
+  "ke-toan-to-uyen/update": UYEN.AccountingUpdate,
+  "ke-toan-to-uyen/unzip": UYEN.AccountingUnzip,
+  "ke-toan-to-uyen/handoff": UYEN.AccountingHandoff,
+  "ke-toan-to-uyen/three-checks": UYEN.AccountingThreeChecks,
+  "ke-toan-to-uyen/finish": UYEN.AccountingFinish,
   "fixture/smoke": SmokeScene,
   "mau/cac-buoc": CacBuoc,
-  "mo-dau/hook-copy-excel": M1.HookCopyExcel,
-  "mo-dau/tin-nhan-lark": M1.TinNhanLark,
-  "mo-dau/ai-hom-qua": M1.AiHomQua,
-  "mo-dau/giao-viec-cho-ai": M1.GiaoViecChoAi,
-  "mo-dau/cach-1-web-chat": M2.Cach1WebChat,
-  "mo-dau/cach-2-tro-ly-may-tinh": M2.Cach2TroLyMayTinh,
-  "mo-dau/doi-cach-giao-viec": M2.DoiCachGiaoViec,
-  "mo-dau/viec-1-ke-hoach": M2.Viec1KeHoach,
-  "mo-dau/viec-2-sop": M3.Viec2Sop,
-  "mo-dau/viec-3-phan-bien": M3.Viec3PhanBien,
-  "mo-dau/chan-cham-dat": M3.ChanChamDat,
-  "mo-dau/hen-bai-1": M3.HenBai1,
   "bai-1/prompt-dai-bia-so": A1.PromptDaiBiaSo,
   "bai-1/dan-ky-van-bia": A1.DanKyVanBia,
   "bai-1/thuc-tap-sinh-quen-sach": A1.ThucTapSinhQuenSach,
@@ -206,23 +255,6 @@ export const SCENES: Record<string, React.FC> = {
   "tro-ly-phap-che/nguyen-tac-3d": PC3.NguyenTac3D,
   "tro-ly-phap-che/dong-bo-va-tra-kho": PC3.DongBoVaTraKho,
   "tro-ly-phap-che/xu-ly-su-co-va-ket": PC3.XuLySuCoVaKet,
-  "huong-dan-tro-ly-bao-cao/mo-dau": BC.MoDau,
-  "huong-dan-tro-ly-bao-cao/can-chuan-bi": BC.CanChuanBi2,
-  "huong-dan-tro-ly-bao-cao/tai-file-zip": BC.TaiFileZip,
-  "huong-dan-tro-ly-bao-cao/tao-project": BC.TaoProject,
-  "huong-dan-tro-ly-bao-cao/cai-dat-lan-dau": BC.CaiDatLanDau,
-  "huong-dan-tro-ly-bao-cao/doc-hieu-du-an": BC.DocHieuDuAn,
-  "huong-dan-tro-ly-bao-cao/hai-luot": BC.HaiLuot,
-  "huong-dan-tro-ly-bao-cao/gui-thong-tin-ve": BC.GuiThongTinVe,
-  "huong-dan-tro-ly-bao-cao/claude-hoi-gop": BC.ClaudeHoiGop,
-  "huong-dan-tro-ly-bao-cao/tra-loi-theo-so": BC.TraLoiTheoSo,
-  "huong-dan-tro-ly-bao-cao/may-bat-lech": BC.MayBatLech,
-  "huong-dan-tro-ly-bao-cao/xac-nhan-chay": BC.XacNhanChay,
-  "huong-dan-tro-ly-bao-cao/ket-qua-file-word": BC.KetQuaFileWord,
-  "huong-dan-tro-ly-bao-cao/mo-xem-bao-cao": BC.MoXemBaoCao,
-  "huong-dan-tro-ly-bao-cao/ban-nhap-3d": BC.BanNhap3D,
-  "huong-dan-tro-ly-bao-cao/khi-gap-loi": BC.KhiGapLoi,
-  "huong-dan-tro-ly-bao-cao/ket": BC.Ket,
   "huong-dan-tro-ly/mo-dau": HO.MoDau,
   "huong-dan-tro-ly/can-chuan-bi": HO.CanChuanBi,
   "huong-dan-tro-ly/truoc-khi-bat-dau": HB.TruocKhiBatDau,
@@ -283,4 +315,90 @@ export const SCENES: Record<string, React.FC> = {
   "human3/loi-1": HU3.Loi1,
   "human3/loi-2": HU3.Loi2,
   "human3/ket": HU3.Ket,
+  "mo-dau/hook-excel-dan-vao": M1.HookExcelDanVao,
+  "mo-dau/lark-tin-nhan": M1.LarkTinNhan,
+  "mo-dau/tom-tat-chung-chung": M1.TomTatChungChung,
+  "mo-dau/tu-hoi-sang-giao": M1.TuHoiSangGiao,
+  "mo-dau/hoi-sang-giao-viec": M1.HoiSangGiaoViec,
+  "mo-dau/cach-1-khung-chat-web": M2.Cach1KhungChatWeb,
+  "mo-dau/cach-2-tren-may": M2.Cach2TrenMay,
+  "mo-dau/go-mot-cau": M2.GoMotCau,
+  "mo-dau/khac-nhau-duy-nhat": M2.KhacNhauDuyNhat,
+  "mo-dau/ba-viec-lap-ke-hoach": M3.BaViecLapKeHoach,
+  "mo-dau/viec-thu-hai-sop": M3.ViecThuHaiSop,
+  "mo-dau/tu-viet-cua-minh": M3.TuVietCuaMinh,
+  "mo-dau/chan-cham-dat": M3.ChanChamDat,
+  "mo-dau/khoa-chan-ai-va-hen": M3.KhoaChanAiVaHen,
+  "bai-1-moi/hook-prompt-dai-bia-so": N1.HookPromptDaiBiaSo,
+  "bai-1-moi/phan-xa-dan-ky-hon": N1.PhanXaDanKyHon,
+  "bai-1-moi/so-sai-mat-buoi-chieu": N1.SoSaiMatBuoiChieu,
+  "bai-1-moi/tuyen-thuc-tap-sinh": N1.TuyenThucTapSinh,
+  "bai-1-moi/ai-la-thuc-tap-sinh": N1.AiLaThucTapSinh,
+  "bai-1-moi/luon-co-tra-loi": N1.LuonCoTraLoi,
+  "bai-1-moi/to-noi-quy-tren-ban": N2.ToNoiQuyTrenBan,
+  "bai-1-moi/thieu-boi-canh-noi-quy": N2.ThieuBoiCanhNoiQuy,
+  "bai-1-moi/hai-ten-file-quy-tac": N2.HaiTenFileQuyTac,
+  "bai-1-moi/khoa-chan-va-trich-nguon": N2.KhoaChanVaTrichNguon,
+  "bai-1-moi/dan-cu-the-phong-van-nguoc": N2.DanCuThePhongVanNguoc,
+  "bai-1-moi/khong-co-nut-tai-len": N2.KhongCoNutTaiLen,
+  "bai-1-moi/ban-web-va-ung-dung": N3.BanWebVaUngDung,
+  "bai-1-moi/tai-app-mo-thu-muc": N3.TaiAppMoThuMuc,
+  "bai-1-moi/giao-viec-mot-cau": N3.GiaoViecMotCau,
+  "bai-1-moi/muoi-lam-phut-bai-huong-dan": N3.MuoiLamPhutBaiHuongDan,
+  "bai-1-moi/thu-tom-tat-quy-tac": N3.ThuTomTatQuyTac,
+  "bai-1-moi/ket-quay-lai-hook": N3.KetQuayLaiHook,
+  "bai-2-moi/hook-loi-trong-dau-ban": Q1.HookLoiTrongDauBan,
+  "bai-2-moi/tinh-huong-van-phong": Q1.TinhHuongVanPhong,
+  "bai-2-moi/nho-ai-soan-roi-gui": Q1.NhoAiSoanRoiGui,
+  "bai-2-moi/sep-hoi-nguon-ngan-sach": Q1.SepHoiNguonNganSach,
+  "bai-2-moi/sep-hoi-bao-gia-hop-dong": Q1.SepHoiBaoGiaHopDong,
+  "bai-2-moi/dung-hinh-ai-khong-sai": Q1.DungHinhAiKhongSai,
+  "bai-2-moi/quy-dinh-ngam-ban-do": Q2.QuyDinhNgamBanDo,
+  "bai-2-moi/lanh-tho-cho-lech": Q2.LanhThoChoLech,
+  "bai-2-moi/chuyen-vien-phan-bien": Q2.ChuyenVienPhanBien,
+  "bai-2-moi/do-diem-mu": Q2.DoDiemMu,
+  "bai-2-moi/khoan-viet-liet-ke": Q2.KhoanVietLietKe,
+  "bai-2-moi/phong-van-nguoc-doi-vai": Q2.PhongVanNguocDoiVai,
+  "bai-2-moi/phong-van-nguoc-cau-lenh": Q3.PhongVanNguocCauLenh,
+  "bai-2-moi/hoi-trung-chi-tiet-hay-quen": Q3.HoiTrungChiTietHayQuen,
+  "bai-2-moi/thanh-tra-doc-lap": Q3.ThanhTraDocLap,
+  "bai-2-moi/cau-lenh-thanh-tra": Q3.CauLenhThanhTra,
+  "bai-2-moi/muoi-lam-phut-bai-huong-dan": Q3.MuoiLamPhutBaiHuongDan,
+  "bai-2-moi/ket-quay-lai-to-trinh": Q1.KetQuayLaiToTrinh,
+  "bai-3-moi/hook-sep-nhin-excel": R1.HookSepNhinExcel,
+  "bai-3-moi/muoi-lam-cot-muoi-trang": R1.MuoiLamCotMuoiTrang,
+  "bai-3-moi/dinh-ninh-gui-sep": R1.DinhNinhGuiSep,
+  "bai-3-moi/sep-mo-excel-hoi-ben-b": R1.SepMoExcelHoiBenB,
+  "bai-3-moi/word-khong-ai-doc-dinh-dang-tinh": R1.WordKhongAiDocDinhDangTinh,
+  "bai-3-moi/hom-nay-mot-file-html": R1.HomNayMotFileHtml,
+  "bai-3-moi/yen-tam-khong-can-code": R2.YenTamKhongCanCode,
+  "bai-3-moi/ba-uu-diem-trang-html": R2.BaUuDiemTrangHtml,
+  "bai-3-moi/hai-viec-ap-dung-bao-gia": R2.HaiViecApDungBaoGia,
+  "bai-3-moi/lenh-so-sanh-nam-tieu-chi": R2.LenhSoSanhNamTieuChi,
+  "bai-3-moi/o-ket-luan-sep-gat-dau": R2.OKetLuanSepGatDau,
+  "bai-3-moi/thu-hai-tien-do-ba-cot": R2.ThuHaiTienDoBaCot,
+  "bai-3-moi/the-o-tich-ung-dung-mini": R3.TheOTichUngDungMini,
+  "bai-3-moi/cum-tu-song-con": R3.CumTuSongCon,
+  "bai-3-moi/tai-sao-single-file": R3.TaiSaoSingleFile,
+  "bai-3-moi/doi-mau-chat-tiep": R3.DoiMauChatTiep,
+  "bai-3-moi/muoi-lam-phut-thu-ngay": R3.MuoiLamPhutThuNgay,
+  "bai-3-moi/ket-quay-lai-sep-nhin-html": R1.KetQuayLaiSepNhinHtml,
+  "cai-dat-video/hook-gioi-thieu": CDV.HookGioiThieu,
+  "cai-dat-video/dieu-kien-moi-truong": CDV.DieuKienMoiTruong,
+  "cai-dat-video/giai-nen-ma-nguon": CDV.GiaiNenMaNguon,
+  "cai-dat-video/cai-dat-tu-dong": CDV.CaiDatTuDong,
+  "cai-dat-video/kiem-tra-doctor": CDV.KiemTraDoctor,
+  "cai-dat-video/ai-agent-quy-trinh": CDV.AiAgentQuyTrinh,
+  "cai-dat-video/chay-demo-kich-ban": CDV.ChayDemoKichBan,
+  "cai-dat-video/thu-am-va-render": CDV.ThuAmVaRender,
+  "cai-dat-video/che-do-c-talking-head": CDV.CheDoCTalkingHead,
+  "cai-dat-video/tong-ket-cheat-sheet": CDV.TongKetCheatSheet,
+  "tro-ly-ke-toan/noi-dau-thu-cong": TLKT.NoiDauThuCong,
+  "tro-ly-ke-toan/nguyen-tac-phan-vai": TLKT.NguyenTacPhanVai,
+  "tro-ly-ke-toan/thiet-lap-project": TLKT.ThietLapProject,
+  "tro-ly-ke-toan/khoi-dong-kiem-tra": TLKT.KhoiDongKiemTra,
+  "tro-ly-ke-toan/nhap-chi-phi-so-tam": TLKT.NhapChiPhiSoTam,
+  "tro-ly-ke-toan/chot-chan-lech-tien": TLKT.ChotChanLechTien,
+  "tro-ly-ke-toan/xac-nhan-xuat-word": TLKT.XacNhanXuatWord,
+  "tro-ly-ke-toan/kiem-tra-nghi-thuc-3d": TLKT.KiemTraNghiThuc3D,
 };

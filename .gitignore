@@ -27,3 +27,6 @@ input/*
 __pycache__/
 public/raw-recordings/
 !input/Pha-tra/
+research-repos.local.json
+public/vendor/integrations/
+workspace/

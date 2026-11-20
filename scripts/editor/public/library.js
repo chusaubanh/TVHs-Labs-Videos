@@ -1,3 +1,4 @@
+import { reveal } from "/public/vendor/integrations/media-tools.js";
 // Sidebar thư viện: Preset / SFX / Nhạc / Cảnh + tab Dàn ý. Dữ liệu từ /api/library, /api/outline, /api/run.
 import { mountOverlay } from "./overlay-runtime.js";
 
@@ -14,6 +15,7 @@ export function initLibrary(host) {
   // ---------- tabs ----------
   for (const b of document.querySelectorAll("#sideTabs [role=tab]")) b.onclick = () => {
     document.querySelectorAll("#sideTabs [role=tab]").forEach((x) => x.setAttribute("aria-selected", x === b));
+    reveal(document.getElementById("pane-" + b.dataset.pane));
     document.querySelectorAll(".t-panel--side > .t-pane").forEach((p) => p.classList.toggle("is-active", p.id === "pane-" + b.dataset.pane));
   };
   for (const b of document.querySelectorAll("#libTabs [role=tab]")) b.onclick = () => {

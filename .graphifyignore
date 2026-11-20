@@ -5,6 +5,7 @@ public/
 assets/
 .venv-vieneu/
 .claude/skills/
+.agents/skills/
 *.lock
 package-lock.json
 requirements-vieneu.lock.txt
@@ -17,3 +18,10 @@ docs/tham-khao-repo-cu/Netflix engineers*
 docs/tham-khao-repo-cu/brief-3-bai-hoc.html
 docs/tham-khao-repo-cu/BRIEF-DOC-3-BAI-HOC.md
 docs/tham-khao-repo-cu/QUY-TRINH-VIDEO-HUONG-DAN-QUAY-MAN-HINH.md
+_archive/
+
+.cache/
+workspace/
+models/
+.venv-asr/
+.venv-media/

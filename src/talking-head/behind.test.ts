@@ -96,5 +96,14 @@ describe("chữ sau người nói — điểm cắt và model mặc định", ()
     mkdirSync(join(root, ".research", "repos", "RobustVideoMatting"), { recursive: true });
     writeFileSync(join(root, ".research", "repos", "RobustVideoMatting", "hubconf.py"), "");
     expect(defaultMatteModel(root)).toBe("rvm");
+    const external = mkdtempSync(join(tmpdir(), "matte-external-"));
+    mkdirSync(join(external, "RobustVideoMatting"));
+    writeFileSync(join(external, "RobustVideoMatting", "hubconf.py"), "");
+    const connected = mkdtempSync(join(tmpdir(), "matte-connected-"));
+    writeFileSync(join(connected, "research-repos.local.json"), JSON.stringify({ root: external }));
+    expect(defaultMatteModel(connected)).toBe("birefnet"); // bản public thiếu bộ nạp RVM
+    mkdirSync(join(connected, "scripts", "asr"), { recursive: true });
+    writeFileSync(join(connected, "scripts", "asr", "matte_rvm.py"), "");
+    expect(defaultMatteModel(connected)).toBe("rvm");
   });
 });

@@ -19,10 +19,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _common import setup_env, free_vram  # noqa: E402
+from research_paths import research_repo
 
 # Code model nạp từ bản clone CỤC BỘ do người dùng clone (AGENTS.md luật 6), ghim revision; không tải code lúc chạy.
-REPOS = Path(__file__).resolve().parents[2] / ".research" / "repos"
-BIREFNET_DIR = REPOS / "BiRefNet-matting"
+
+MODEL_CACHE = Path(__file__).resolve().parents[2] / "models" / "BiRefNet-matting"
+BIREFNET_DIR = MODEL_CACHE if (MODEL_CACHE / "birefnet.py").exists() else research_repo("BiRefNet-matting")
 BIREFNET_REV = "eccde0a8cbdce7ac5fecfeb06340fe7b949e85d9"  # HF ZhengPeng7/BiRefNet-matting, 29/08/2026
 BIREFNET_CLONE = ("git clone https://huggingface.co/ZhengPeng7/BiRefNet-matting .research/repos/BiRefNet-matting"
                   " && git -C .research/repos/BiRefNet-matting checkout eccde0a  (cần git lfs)")
