@@ -12,9 +12,11 @@ import { runSkill } from "../../src/integrations/ffmpeg-skill.js";
 import { safeDocumentFolderName, resolveDocumentWorkspace } from "../../src/training/document-workspace.js";
 import { normalizeJobId } from "../../src/talking-head/jobs.js";
 
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const OUTPUT = join(ROOT, "output");
-const PUBLIC = join(ROOT, "scripts/app/public");
+const ENGINE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const ROOT = ENGINE_ROOT;
+const WORKSPACE_ROOT = existsSync(join(ENGINE_ROOT, "..", "output")) ? resolve(ENGINE_ROOT, "..") : ENGINE_ROOT;
+const OUTPUT = join(WORKSPACE_ROOT, "output");
+const PUBLIC = join(ENGINE_ROOT, "scripts/app/public");
 const node = process.execPath;
 const noOpen = process.argv.includes("--no-open");
 const tasks = new Map<string, any>();
@@ -103,7 +105,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
     if (req.headers["x-app-request"] !== "1" || (req.headers.origin && req.headers.origin !== `http://${req.headers.host}`)) return json(res, 403, { error: "Yêu cầu phải xuất phát từ ứng dụng trên máy này." });
   }
   if (path === "/api/status" && req.method === "GET") return json(res, 200, cachedStatus ??= runtimeStatus(ROOT));
-  if (path === "/api/jobs" && req.method === "GET") return json(res, 200, listJobs(ROOT));
+  if (path === "/api/jobs" && req.method === "GET") return json(res, 200, listJobs(WORKSPACE_ROOT));
   if (path === "/api/tasks" && req.method === "GET") return json(res, 200, [...tasks.values()].reverse());
   if (path === "/api/contract" && req.method === "GET") return json(res, 200, await skill("contract", ["--static"], () => {}));
   if (path === "/api/check" && req.method === "POST") {
@@ -177,7 +179,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   }
   if (path === "/api/job-source" && req.method === "POST") {
     const { id: rawId, source } = await body(req); const id = normalizeJobId(rawId);
-    if (!listJobs(ROOT).some((job) => job.id === id && job.kind === "training") || typeof source !== "string") throw new Error("Chọn dự án và tài liệu nguồn hợp lệ.");
+    if (!listJobs(WORKSPACE_ROOT).some((job) => job.id === id && job.kind === "training") || typeof source !== "string") throw new Error("Chọn dự án và tài liệu nguồn hợp lệ.");
     const workspace = resolveDocumentWorkspace(source, ROOT);
     if (resolve(workspace.outputDir).toLowerCase() !== resolve(OUTPUT,id).toLowerCase()) throw new Error("Tài liệu này ánh xạ sang dự án khác. Chọn đúng tài liệu nguồn ban đầu của dự án.");
     writeFileSync(join(OUTPUT,id,"source-reference.json"),JSON.stringify({path:workspace.inputPath}));
@@ -193,7 +195,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   if (path === "/api/job-action" && req.method === "POST") {
     const { id: rawId, action, confirmed, by } = await body(req);
     const id = normalizeJobId(rawId);
-    if (!listJobs(ROOT).some((job) => job.id === id && job.kind === "training")) throw new Error("Chọn job tài liệu có kịch bản.");
+    if (!listJobs(WORKSPACE_ROOT).some((job) => job.id === id && job.kind === "training")) throw new Error("Chọn job tài liệu có kịch bản.");
     const reference = join(OUTPUT, id, "source-reference.json");
     const input = existsSync(reference) ? JSON.parse(readFileSync(reference, "utf8")).path : id;
     const commands: Record<string, [string, string[]]> = { validate: ["src/training/script-validate-cli.ts", [input]], voice: ["src/audio/voice-cli.ts", [input]], stills: ["scripts/stills.ts", [input]], render: ["scripts/pipeline-runner.ts", [input]] };
@@ -207,7 +209,7 @@ async function handle(req: IncomingMessage, res: ServerResponse) {
   }
   if (path === "/api/open-editor" && req.method === "POST") {
     const { id: rawId } = await body(req); const id = normalizeJobId(rawId);
-    if (!listJobs(ROOT).some((job) => job.id === id && job.editor)) throw new Error("Job này chưa có project để mở Editor.");
+    if (!listJobs(WORKSPACE_ROOT).some((job) => job.id === id && job.editor)) throw new Error("Job này chưa có project để mở Editor.");
     if (editors.has(id)) return json(res, 200, { url: editors.get(id)!.url });
     const child = spawn(node, ["--import", "tsx", join(ROOT, "scripts/editor/server.ts"), id, "--no-open"], { cwd: ROOT, windowsHide: true });
     const editorUrl = await new Promise<string>((done, reject) => {

@@ -1,32 +1,57 @@
+# Dependencies & Virtual Envs
 node_modules/
-.research/
-output/*.mp4
-output/*.mp3
+**/node_modules/
+.venv*/
+**/.venv*/
+.venv-install.log
+
+# Caches & Temp files
 .cache/
+**/.cache/
 .remotion/
-dist/
-tmp/
+**/dist/
+**/tmp/
+__pycache__/
+**/*.pyc
+
+# Environment & Local configs
 .env
 .env.local
-.venv*/
-.venv-install.log
-public/jobs/
+**/.env
+**/.env.local
+research-repos.local.json
+**/research-repos.local.json
+
+# Media, Models & Outputs
+models/
+engine/models/
 output/
+output/*.mp4
+output/*.mp3
+public/jobs/
+engine/public/jobs/
+public/raw-recordings/
+engine/public/raw-recordings/
+public/vendor/integrations/
+engine/public/vendor/integrations/
+
+# Graphify
 graphify-out/cache/
 graphify-out/.graphify_python
 graphify-out/20*/
-models/
+engine/graphify-out/cache/
+engine/graphify-out/.graphify_python
+engine/graphify-out/20*/
+
+# Input constraints (ignore heavy video input by default, keep sample docs)
 input/**/*.mp4
 input/**/*.mov
 input/**/*.mkv
 input/**/*.wav
-/*.mp3
 input/*
 !input/Quy-trinh-Lark-Suite/
-.venv-asr/
-__pycache__/
-public/raw-recordings/
 !input/Pha-tra/
-research-repos.local.json
-public/vendor/integrations/
+!input/Bài Viết AI/
+
+.research/
 workspace/

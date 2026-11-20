@@ -88,14 +88,26 @@ function routedWorkspace(cwd: string, input: string, source?: string): DocumentW
     };
   }
 }
+function findWorkspaceRoot(cwd: string): string {
+  if (existsSync(join(cwd, "input")) || existsSync(join(cwd, "output"))) {
+    return cwd;
+  }
+  const parent = resolve(cwd, "..");
+  if (existsSync(join(parent, "input")) || existsSync(join(parent, "output"))) {
+    return parent;
+  }
+  return cwd;
+}
+
 export function resolveDocumentWorkspace(
   input: string,
   cwd = process.cwd(),
 ): DocumentWorkspace {
-  const routedAlias = routedWorkspace(cwd, input);
+  const rootDir = findWorkspaceRoot(cwd);
+  const routedAlias = routedWorkspace(rootDir, input);
   if (routedAlias) return routedAlias;
-  const inputRoot = resolve(cwd, "input");
-  const directPath = resolve(cwd, input);
+  const inputRoot = resolve(rootDir, "input");
+  const directPath = resolve(rootDir, input);
   const inputFolderPath = resolve(inputRoot, input);
   const candidates: string[] = [];
 
@@ -128,7 +140,7 @@ export function resolveDocumentWorkspace(
     );
   }
 
-  const routedSource = routedWorkspace(cwd, input, inputPath);
+  const routedSource = routedWorkspace(rootDir, input, inputPath);
   if (routedSource) return routedSource;
   const relativeToInput = relative(inputRoot, inputPath);
   const pathParts = relativeToInput.split(/[\\/]/).filter(Boolean);
@@ -139,7 +151,7 @@ export function resolveDocumentWorkspace(
   const documentName = isUnderInput
     ? folderSegments.join(" / ")
     : basename(inputPath, extname(inputPath));
-  const outputDir = resolve(cwd, "output", ...folderSegments.map(safeDocumentFolderName));
+  const outputDir = resolve(rootDir, "output", ...folderSegments.map(safeDocumentFolderName));
 
   return {
     documentName,

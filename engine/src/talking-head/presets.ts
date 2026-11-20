@@ -1,9 +1,18 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { LayerSchema, LayerStyleSchema, type Layer, type LayerStyle } from "./project-schema.js";
 
-export const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+function detectRepoRoot(): string {
+  const dir = dirname(fileURLToPath(import.meta.url));
+  const candidate1 = resolve(dir, "../..");
+  if (existsSync(join(candidate1, "assets"))) return candidate1;
+  const candidate2 = resolve(dir, "../../..");
+  if (existsSync(join(candidate2, "assets"))) return candidate2;
+  return candidate1;
+}
+
+export const REPO_ROOT = detectRepoRoot();
 
 export type PresetType = "subtitle" | "lowerThird" | "callout" | "text";
 export type AspectKey = "16:9" | "4:5";

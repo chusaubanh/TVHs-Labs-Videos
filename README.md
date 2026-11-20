@@ -15,7 +15,7 @@
 
 ---
 
-Repo này chạy cùng Claude Code: 18 nhân sự theo tổ Specialist viết kịch bản, dựng cảnh và kiểm tra, còn người phụ trách duyệt ở những điểm quan trọng. Bản công khai không có thương hiệu và nhạc là [S6xEditer](https://github.com/chusaubanh/S6xEditer), được sinh từ repo này bằng `scripts/package-public.mjs`.
+Repo này chạy cùng các công cụ AI (Claude Code, Antigravity): 18 nhân sự theo tổ Specialist viết kịch bản, dựng cảnh và kiểm tra, còn người phụ trách duyệt ở những điểm quan trọng.
 
 ## Hai luồng làm video
 
@@ -98,23 +98,19 @@ Video nằm ở `output/Pha-tra/video.mp4`.
 | Nghiên cứu, bằng chứng, quyết định | [docs/NANG-CAP-NHAN-SU.md](docs/NANG-CAP-NHAN-SU.md) |
 | Hợp nhất repo cũ và đóng gói | [docs/KE-HOACH-HOP-NHAT-VA-DONG-GOI.md](docs/KE-HOACH-HOP-NHAT-VA-DONG-GOI.md) |
 
-## Cấu trúc thư mục
+## Cấu trúc thư mục (Phân cấp gọn gàng)
+
+Thư mục gốc được thiết kế tối giản, tách biệt hoàn toàn khu vực làm việc của người dùng và động cơ kỹ thuật:
 
 ```text
-assets/            Thương hiệu, nhạc, SFX, preset
-public/            Tệp phục vụ render: font, wasm, giọng đã thu
-input/             Tài liệu nguồn và clip quay
-output/            Kịch bản, ảnh duyệt, video của từng tài liệu
-packaging/public/  Phần riêng của bản công khai
-src/training/      Hợp đồng kịch bản, kiểm kịch bản, phiếu duyệt
-src/audio/         Thu giọng và đo mốc giờ
-src/remotion/      Bàn dựng chính
-src/kit/           Bộ dựng: nhịp câu, nhãn, Anime.js, dotLottie, vật lý
-src/videos/        Cảnh riêng của từng video
-src/gates/         Các phép đo QC
-src/talking-head/  Chế độ C
-scripts/           Render, QC, Editor, bài thử tất định, ảnh duyệt
-.claude/           Các tổ Specialist và skill
+📁 input/                  Tài liệu nguồn bạn đưa vào để làm video
+📁 output/                 Video thành phẩm, kịch bản, timeline, ảnh duyệt
+📁 assets/                 Thương hiệu, nhạc nền, SFX, font chữ
+📁 docs/                   Toàn bộ tài liệu quy chuẩn, kịch bản mẫu, lưu trữ
+📁 engine/                 Động cơ kỹ thuật & mã nguồn (Remotion, Scripts, AI models, node_modules)
+🚀 1-Mo-Ung-Dung.bat       Khởi động Web Studio 1-click
+🚀 2-Kiem-Tra-He-Thong.bat Kiểm tra môi trường & sức khỏe hệ thống (Doctor)
+🚀 3-Xuat-Video.bat        Xuất video thành phẩm nhanh
 ```
 
 ## Kiểm tra hệ thống
@@ -130,4 +126,3 @@ npm run gate:determinism -- --fixtures
 - **Không công khai repo này.** Repo có logo, tên công ty, tài liệu và nhạc nội bộ.
 - **Nhạc nền chỉ dùng nội bộ.** Xem `public/audio/NGUON.md`.
 - **Giấy phép Remotion:** đơn vị vì lợi nhuận có trên 3 nhân viên phải mua Company License. Xem [remotion.dev/license](https://www.remotion.dev/license).
-- **Phát hành bản công khai:** chạy `node scripts/package-public.mjs <thư mục tạm>`, rồi `robocopy <thư mục tạm> <bản clone S6xEditer> /MIR /XD .git`, xem `git status`, commit và push. Bộ quét chỉ đọc được chữ, nên phải tự xem mọi ảnh và video mới trước khi thêm vào danh sách cho phép.
